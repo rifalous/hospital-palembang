@@ -1,2 +1,3 @@
 # hospital-palembang
-Web App Hospital Information System Made Using PHP Framework Laravel
+
+Web Based App Hospital Information System Made Using PHP Framework Laravel
