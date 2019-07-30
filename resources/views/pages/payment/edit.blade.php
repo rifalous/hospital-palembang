@@ -39,7 +39,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <div class="form-group">
-                                  <label for="field-1" class="control-label">No Registrasi <span class="text-danger">*</span></label>
+                                  <label for="field-1" class="control-label">No Registrasi<span class="text-danger">*</span></label>
                                   <select name="outpatient_id"  class="form-control select2 outpatient-id" data-placeholder="Pilih No Registrasi" readonly="readonly" required="required">
                                     <option></option>
                                     @foreach ($outpatients as $outpatient)
@@ -58,7 +58,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label class="control-label">Sisa Pembayaran</label>
+                                <label class="control-label">Sisa Pembayaran<span class="text-danger">*</span></label>
                                 <input type="text" name="sisa_pembayaran" id="sisa_pembayaran" class="form-control number" value="{{ $payment->sisa_pembayaran }}" placeholder="eg: Rp. 1.000.000" rows="4" required="required" readonly="readonly"></input>
                                 <span class="help-block"></span>
                             </div>
@@ -73,7 +73,7 @@
 
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label class="control-label">Nama Pasien <span class="text-danger">*</span></label>
+                                <label class="control-label">Nama Pasien<span class="text-danger">*</span></label>
                                 <input type="text" name="pasien_id" readonly="readonly"  class="form-control" placeholder="Nama Pasien" rows="4" value="{{ $payment->pasien_id }}" required="required" readonly="readonly"></input>
                             </div>
                             <div class="form-group">
@@ -82,7 +82,7 @@
                                 <span class="help-block"></span>
                             </div>
                             <div class="form-group">
-                                <label class="control-label">Sisa Tagihan</label>
+                                <label class="control-label">Sisa Tagihan<span class="text-danger">*</span></label>
                                 <input type="text" name="sisa_tagihan" id="sisa_tagihan" onChange="updatePrice()" class="form-control" placeholder="0" rows="4" value="{{ $payment->sisa_tagihan }}" required="required" readonly="readonly"></input>
                                 <span class="help-block"></span>
                             </div>
