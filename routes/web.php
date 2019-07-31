@@ -148,23 +148,31 @@ Route::middleware('auth')->group(function(){
 	Route::get('payment/get-outpatient-id/{outpatient_id}', 'PaymentController@getOutpatientId');
 	Route::resource('payment', 'PaymentController');
 	
-	// Hospitalitasion Day
+	// Report Per Day
 	Route::get('hospitalisation_day/get_data', 'HospitalisationDayController@getData');
 	Route::post('hospitalisation_day/download', 'HospitalisationDayController@download');
 	Route::resource('hospitalisation_day', 'HospitalisationDayController');
+	
+	Route::get('inpatient_day/get_data', 'InpatientDayController@getData');
+	Route::post('inpatient_day/download', 'InpatientDayController@download');
+	Route::resource('inpatient_day', 'InpatientDayController');
+	
+	Route::get('pasien_exit_day/get_data', 'PatientExitDayController@getData');
+	Route::post('pasien_exit_day/download', 'PatientExitDayController@download');
+	Route::resource('pasien_exit_day', 'PatientExitDayController');
 
-	// Hospitalitasion Periode
+	// Report Per Periode
 	Route::get('hospitalisation_periode/get_data', 'HospitalisationPeriodController@getData');
 	Route::post('hospitalisation_periode/download', 'HospitalisationPeriodController@download');
 	Route::resource('hospitalisation_periode', 'HospitalisationPeriodController');
 
+	Route::get('inpatient_periode/get_data', 'InpatientPeriodController@getData');
+	Route::post('inpatient_periode/download', 'InpatientPeriodController@download');
+	Route::resource('inpatient_periode', 'InpatientPeriodController');
+
 	Route::get('pasien_exit_list/get_data', 'PatientExitListController@getData');
 	Route::post('pasien_exit_list/download', 'PatientExitListController@download');
 	Route::resource('pasien_exit_list', 'PatientExitListController');
-
-	Route::get('pasien_exit_day/get_data', 'PatientExitDayController@getData');
-	Route::post('pasien_exit_day/download', 'PatientExitDayController@download');
-	Route::resource('pasien_exit_day', 'PatientExitDayController');
 
 	// Master Inpatient Payment 
 	Route::get('inpatient_payment/get_data', 'InpatientPaymentController@getData');
