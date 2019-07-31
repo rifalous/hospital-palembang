@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Laporan Pembayaran Rawan Jalan Periode</title>
+	<title>Laporan Pembayaran Rawat Jalan Periode</title>
 </head>
 <body>
 <style type="text/css">
@@ -42,7 +42,7 @@
 	}
 
 </style>
-<center><p><strong>Laporan Pembayaran Rawan Jalan</strong></p></center>
+<center><p><strong>Laporan Pembayaran Rawat Jalan</strong></p></center>
 
 <br>
 

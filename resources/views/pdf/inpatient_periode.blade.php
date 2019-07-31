@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Laporan Pembayaran Rawat Jalan</title>
+	<title>Laporan Pembayaran Rawat Inap Periode</title>
 </head>
 <body>
 <style type="text/css">
@@ -42,7 +42,7 @@
 	}
 
 </style>
-<center><p><strong>Laporan Pembayaran Rawat Jalan</strong></p></center>
+<center><p><strong>Laporan Pembayaran Rawat Inap</strong></p></center>
 
 <br>
 
@@ -59,9 +59,9 @@
         </tr>
 	</thead>
 	<tbody>
-		@foreach($hospitalisationday as $data)
+		@foreach($inpatient_periode as $data)
 		<tr>
-			<td><center>{{ $data->outpatient->no_registrasi }}</td></center>
+			<td><center>{{ $data->inpatient->no_registrasi }}</td></center>
 			<center></center><td>{{ $data->tgl_bayar }}</td>
 			<td>Rp {{ number_format($data->total_biaya) }}</td>
 			<td>Rp {{ number_format($data->sisa_tagihan) }}</td>
