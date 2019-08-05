@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 12, 2019 at 07:03 AM
+-- Generation Time: Aug 05, 2019 at 07:59 AM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.1.26
 
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `rs_palembang`
+-- Database: `db_hospital`
 --
 
 -- --------------------------------------------------------
@@ -47,10 +47,13 @@ CREATE TABLE `actions` (
 --
 
 INSERT INTO `actions` (`id`, `action`, `level_id`, `material`, `service_rs`, `service_medis`, `service_anestesi`, `service_dll`, `total`, `created_at`, `updated_at`) VALUES
-(1, 'Suntik', 2, 12, 12, 12, 12, 12, 60, '2019-05-07 00:33:12', '2019-05-07 00:33:12'),
-(2, 'Infus', 2, 12, 12, 12, 12, 12, 60, '2019-05-20 23:07:28', '2019-05-20 23:07:28');
+(1, 'Cabut Gigi', 1, 10000, 0, 0, 0, 0, 10000, '2019-07-21 23:23:13', '2019-07-21 23:23:13');
 
 -- --------------------------------------------------------
+
+--
+-- Table structure for table `cities`
+--
 
 CREATE TABLE `cities` (
   `id` char(4) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -581,21 +584,6 @@ INSERT INTO `cities` (`id`, `province_id`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `classes`
---
-
-CREATE TABLE `classes` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `code` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `class` int(11) NOT NULL,
-  `tarif` double(25,2) NOT NULL DEFAULT '0.00',
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `companies`
 --
 
@@ -615,9 +603,8 @@ CREATE TABLE `companies` (
 --
 
 INSERT INTO `companies` (`id`, `code`, `name`, `address`, `city`, `division_id`, `created_at`, `updated_at`) VALUES
-(1, 'ID001', 'Anton1', 'Jl.Padang no1', 'Kota Bandung', 3, '2019-04-09 21:25:23', '2019-04-09 21:56:30'),
-(2, 'ID002', 'Yuli', 'Jln. Sukahaji No.59', 'Kota Bandung', 2, '2019-04-09 21:26:37', '2019-04-09 21:26:37'),
-(3, 'ID003', 'Rommy', 'Jln, Suci No 159', 'Kota Jakarta Selatan', 1, '2019-04-09 21:27:54', '2019-04-09 21:27:54');
+(1, '0001', 'PT. Perusahaan A', 'Jl. Test ABC No. 01', 'Kabupaten Bandung', 1, '2019-07-21 22:11:25', '2019-07-21 22:11:25'),
+(2, '0002', 'PT. Perusahaan B', 'Jl. Test ABC No. 02', 'Kota Bandung', 2, '2019-07-21 22:12:06', '2019-07-21 22:12:06');
 
 -- --------------------------------------------------------
 
@@ -637,14 +624,6 @@ CREATE TABLE `currencies` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `currencies`
---
-
-INSERT INTO `currencies` (`id`, `name`, `alias`, `code`, `symbol`, `convertion`, `thousand_separator`, `decimal_separator`, `created_at`, `updated_at`) VALUES
-(1, 'USD', 'usd', '840', '$', 1, ',', '.', NULL, NULL),
-(2, 'IDR', 'idr', '360', 'Rp. ', 14000, '.', ',', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -682,6 +661,14 @@ CREATE TABLE `departments` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `departments`
+--
+
+INSERT INTO `departments` (`id`, `department_code`, `division_id`, `sap_key`, `department_name`, `created_at`, `updated_at`) VALUES
+(1, '00001', '1', 'DEPART01', 'Departemen A', '2019-07-21 22:17:14', '2019-07-21 22:17:14'),
+(2, '00002', '2', 'DEPART02', 'Departemen B', '2019-07-21 22:17:44', '2019-07-21 22:17:44');
 
 -- --------------------------------------------------------
 
@@ -7832,9 +7819,8 @@ CREATE TABLE `divisions` (
 --
 
 INSERT INTO `divisions` (`id`, `division_code`, `division_name`, `dir_key`, `created_at`, `updated_at`) VALUES
-(1, '001', 'IT', 'ADMIN', '2019-04-09 21:05:39', '2019-04-09 21:05:39'),
-(2, '002', 'Produksi', 'ADMIN', '2019-04-09 21:06:02', '2019-04-09 21:06:33'),
-(3, '003', 'Accounting', 'ADMIN', '2019-04-09 21:07:08', '2019-04-09 21:07:08');
+(1, '001', 'Divisi A', 'ADMIN', '2019-07-21 22:08:51', '2019-07-21 22:08:51'),
+(2, '002', 'Divisi B', 'PLANT', '2019-07-21 22:10:03', '2019-07-21 22:10:03');
 
 -- --------------------------------------------------------
 
@@ -7858,9 +7844,8 @@ CREATE TABLE `doctors` (
 --
 
 INSERT INTO `doctors` (`id`, `code`, `nip`, `name`, `address`, `phone`, `created_at`, `updated_at`) VALUES
-(13, 'DK001', '432424', '4234', '424', '4234', '2019-05-03 18:15:59', '2019-05-03 18:15:59'),
-(14, '001', '4242', '5252', '525', '525', '2019-05-03 18:17:44', '2019-05-03 18:17:44'),
-(15, '002', '52525', '525', '5252', '2525', '2019-05-03 18:17:59', '2019-05-03 18:17:59');
+(1, '001', '11135264801', 'David Foster', 'Jl. Test ABC No. 01', '081222123321', '2019-07-21 22:30:44', '2019-07-21 22:30:44'),
+(2, '002', '11135254658', 'John Doe', 'Jl. Test ABC No. 02', '081222123123', '2019-07-25 00:27:58', '2019-07-25 00:27:58');
 
 -- --------------------------------------------------------
 
@@ -7871,7 +7856,13 @@ INSERT INTO `doctors` (`id`, `code`, `nip`, `name`, `address`, `phone`, `created
 CREATE TABLE `examination_outpatients` (
   `id` int(10) UNSIGNED NOT NULL,
   `outpatient_id` int(11) NOT NULL,
+  `pasien_id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `doctor_name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `amount_action` double(25,2) NOT NULL,
+  `amount_material` double(25,2) NOT NULL,
+  `amount` double(25,2) NOT NULL,
   `check_date` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `registration_date` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -7880,11 +7871,8 @@ CREATE TABLE `examination_outpatients` (
 -- Dumping data for table `examination_outpatients`
 --
 
-INSERT INTO `examination_outpatients` (`id`, `outpatient_id`, `check_date`, `created_at`, `updated_at`) VALUES
-(1, 1, '2019-05-08 ', '2019-05-07 17:00:00', '2019-05-07 17:00:00'),
-(3, 1, '2019-05-07', '2019-05-14 23:30:10', '2019-05-14 23:30:10'),
-(4, 1, '2019-05-16', '2019-05-14 23:31:47', '2019-05-14 23:31:47'),
-(5, 1, 'hhj', '2019-05-29 00:21:00', '2019-05-29 00:21:00');
+INSERT INTO `examination_outpatients` (`id`, `outpatient_id`, `pasien_id`, `doctor_name`, `amount_action`, `amount_material`, `amount`, `check_date`, `registration_date`, `created_at`, `updated_at`) VALUES
+(1, 1, 'Dadang Sukiman', 'David Foster', 0.00, 20000.00, 20000.00, '2019-07-22', '2019-07-22', '2019-07-21 23:37:30', '2019-07-29 01:17:07');
 
 -- --------------------------------------------------------
 
@@ -7899,7 +7887,20 @@ CREATE TABLE `examination_outpatient_datas` (
   `cost_outpatient` double(25,2) NOT NULL,
   `many_action` int(11) NOT NULL,
   `total_action` double(25,2) NOT NULL,
-  `price_doctor` double(25,2) NOT NULL,
+  `doctor_id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `examination_outpatient_details`
+--
+
+CREATE TABLE `examination_outpatient_details` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `examination_outpatient_id` int(11) NOT NULL,
   `material_id` int(11) NOT NULL,
   `price_material` double(25,2) NOT NULL,
   `many_material` int(11) NOT NULL,
@@ -7909,79 +7910,11 @@ CREATE TABLE `examination_outpatient_datas` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `examination_outpatient_datas`
+-- Dumping data for table `examination_outpatient_details`
 --
 
-INSERT INTO `examination_outpatient_datas` (`id`, `examination_outpatient_id`, `action_id`, `cost_outpatient`, `many_action`, `total_action`, `price_doctor`, `material_id`, `price_material`, `many_material`, `total_material`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, 100.00, 100, 1000.00, 1000.00, 1, 1000.00, 10, 10000.00, '2019-05-14 17:00:00', '2019-05-15 17:00:00'),
-(2, 3, 1, 12.00, 12, 0.00, 20.00, 1, 12.00, 12, 0.00, '2019-05-14 23:30:10', '2019-05-14 23:30:10'),
-(3, 4, 1, 12.00, 312, 3744.00, 312.00, 1, 312.00, 31, 9672.00, '2019-05-14 23:31:47', '2019-05-14 23:31:47'),
-(4, 4, 1, 1.00, 2, 2.00, 1.00, 1, 1.00, 1, 1.00, '2019-05-14 23:31:47', '2019-05-14 23:31:47');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `expenses`
---
-
-CREATE TABLE `expenses` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `budget_no` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `sap_cc_code` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `dir` varchar(4) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `division_id` varchar(4) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `department_id` varchar(4) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `qty_plan` decimal(17,2) NOT NULL DEFAULT '0.00',
-  `qty_used` decimal(17,2) NOT NULL DEFAULT '0.00',
-  `qty_remaining` decimal(17,2) NOT NULL DEFAULT '0.00',
-  `budget_plan` decimal(17,2) NOT NULL DEFAULT '0.00',
-  `budget_reserved` decimal(17,2) NOT NULL DEFAULT '0.00',
-  `budget_used` decimal(17,2) NOT NULL DEFAULT '0.00',
-  `budget_remaining` decimal(17,2) NOT NULL DEFAULT '0.00',
-  `plan_gr` date NOT NULL,
-  `is_closed` tinyint(1) NOT NULL DEFAULT '0',
-  `is_revised` tinyint(1) NOT NULL DEFAULT '0',
-  `revised_by` int(11) DEFAULT NULL,
-  `revised_at` datetime DEFAULT NULL,
-  `status` int(11) NOT NULL DEFAULT '0',
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `gr_confirms`
---
-
-CREATE TABLE `gr_confirms` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `po_number` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `approval_id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `gr_confirm_details`
---
-
-CREATE TABLE `gr_confirm_details` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `gr_confirm_id` int(11) NOT NULL,
-  `approval_detail_id` int(11) NOT NULL,
-  `gr_no` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `qty_order` decimal(8,2) NOT NULL DEFAULT '0.00',
-  `qty_receive` decimal(8,2) NOT NULL DEFAULT '0.00',
-  `qty_outstanding` decimal(8,2) NOT NULL DEFAULT '0.00',
-  `notes` text COLLATE utf8mb4_unicode_ci,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+INSERT INTO `examination_outpatient_details` (`id`, `examination_outpatient_id`, `material_id`, `price_material`, `many_material`, `total_material`, `created_at`, `updated_at`) VALUES
+(3, 1, 2, 10000.00, 2, 20000.00, '2019-07-29 01:17:07', '2019-07-29 01:17:07');
 
 -- --------------------------------------------------------
 
@@ -8012,7 +7945,7 @@ CREATE TABLE `inpatients` (
 --
 
 INSERT INTO `inpatients` (`id`, `no_registrasi`, `pasien_id`, `tgl_masuk`, `time`, `entry_procedure`, `room_id`, `doctor_id`, `disease`, `person_in_charge`, `name`, `address`, `phone`, `created_at`, `updated_at`) VALUES
-(1, '001', 6, '2019-05-07', 'dads', 'Rumah', 2, 14, '4324234', 'Orang Tua', 'dada', 'dasd', '342432342342', '2019-05-03 19:13:49', '2019-05-03 19:13:49');
+(1, '001', 1, '2019-07-22', '14:00', 'Puskesmas', 1, 1, 'Cancer', 'Orang Tua', 'Dadang', 'Jl. Test ABC No.01', '081222333444', '2019-07-22 00:27:34', '2019-07-22 00:27:34');
 
 -- --------------------------------------------------------
 
@@ -8022,7 +7955,7 @@ INSERT INTO `inpatients` (`id`, `no_registrasi`, `pasien_id`, `tgl_masuk`, `time
 
 CREATE TABLE `inpatient_payments` (
   `id` int(10) UNSIGNED NOT NULL,
-  `no_registrasi` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `examination_inpatient_id` int(11) NOT NULL,
   `pasien_id` int(11) NOT NULL,
   `room_id` int(11) NOT NULL,
   `total_biaya` int(11) NOT NULL,
@@ -8035,59 +7968,6 @@ CREATE TABLE `inpatient_payments` (
   `payment` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `address` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `ket` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `items`
---
-
-CREATE TABLE `items` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `item_category_id` int(11) NOT NULL,
-  `item_code` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `item_description` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `item_specification` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `item_brand` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `item_price` double(8,2) NOT NULL,
-  `uom_id` int(11) NOT NULL,
-  `supplier_id` int(11) NOT NULL,
-  `lead_times` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `remarks` text COLLATE utf8mb4_unicode_ci,
-  `feature_image` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `feature_file` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `item_categories`
---
-
-CREATE TABLE `item_categories` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `category_code` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `category_name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `feature_image` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `item_tags`
---
-
-CREATE TABLE `item_tags` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `tag_id` int(11) NOT NULL,
-  `item_id` int(11) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -8112,7 +7992,9 @@ CREATE TABLE `levels` (
 --
 
 INSERT INTO `levels` (`id`, `code`, `class`, `tarif`, `created_at`, `updated_at`) VALUES
-(2, '001', 1, 120000.00, '2019-05-03 18:45:56', '2019-05-03 18:49:13');
+(1, '001', 3, 300000.00, '2019-07-21 22:38:29', '2019-07-21 22:39:12'),
+(2, '002', 2, 600000.00, '2019-07-21 22:39:33', '2019-07-21 22:39:33'),
+(3, '003', 1, 1000000.00, '2019-07-21 22:40:32', '2019-07-21 22:40:32');
 
 -- --------------------------------------------------------
 
@@ -8164,24 +8046,8 @@ CREATE TABLE `materials` (
 --
 
 INSERT INTO `materials` (`id`, `code`, `name`, `packaging`, `fill_in`, `unit`, `minimum_stock`, `group`, `type`, `supplier_id`, `purchase_price`, `selling_price`, `recipe_prices`, `profit`, `profit_persen`, `expire_date`, `last_update`, `update_by`, `created_at`, `updated_at`) VALUES
-(1, '001', 'Paracetamol', 'Botol', 100, 'cc', 20, 'GEN', 'INF', '1', 1200000.00, 12000000.00, 12000000, 900, 900, '2019-05-22', '', '', '2019-05-19 22:16:53', '2019-05-19 22:16:53');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `medias`
---
-
-CREATE TABLE `medias` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `size` bigint(20) NOT NULL,
-  `caption` text COLLATE utf8mb4_unicode_ci,
-  `alt` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `description` text COLLATE utf8mb4_unicode_ci,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+(1, '001', 'Paracetamol', 'Botol', 100, 'cc', 20, '0', '2', '1', 10000.00, 10000.00, 10000, 0, 0, '2020-12-01', '', '', '2019-07-21 23:33:42', '2019-07-21 23:33:42'),
+(2, '002', 'Bodrex', 'Tablet', 12, 'butir', 10, '0', '0', '1', 10000.00, 10000.00, 10000, 0, 0, '2025-01-01', '', '', '2019-07-24 02:10:09', '2019-07-24 02:10:09');
 
 -- --------------------------------------------------------
 
@@ -8208,47 +8074,73 @@ CREATE TABLE `menus` (
 --
 
 INSERT INTO `menus` (`id`, `parent_id`, `name`, `url`, `icon`, `order_number`, `is_showed`, `method`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(8, 14, 'Menu', 'menu', 'mdi mdi-menu', 55, 1, 'menu', '2018-08-15 18:34:18', '2019-06-11 01:17:45', NULL),
-(14, 0, 'Setting', 'settings', 'mdi mdi-settings', 48, 1, 'pengaturan', '2018-08-15 18:59:05', '2019-06-11 01:17:45', NULL),
-(15, 14, 'Roles', 'settings/role', NULL, 49, 1, 'peran', '2018-08-15 18:59:36', '2019-06-11 01:17:45', NULL),
-(16, 14, 'User Role', 'settings/permission', NULL, 51, 1, 'izin-hak', '2018-08-15 18:59:59', '2019-06-11 01:17:45', NULL),
-(28, 0, 'Master Data', 'master', 'mdi mdi-book', 4, 1, 'dashboard', '2018-10-15 09:49:33', '2019-03-25 15:35:06', NULL),
-(29, 28, 'Division', 'division', NULL, 13, 1, 'dashboard', '2018-10-15 09:51:25', '2019-03-13 19:11:30', '2019-03-13 19:11:30'),
-(30, 28, 'Department', 'department', NULL, 15, 1, 'dashboard', '2018-10-15 09:51:47', '2019-03-13 19:11:26', '2019-03-13 19:11:26'),
-(33, 28, 'Supplier', 'supplier', NULL, 19, 1, 'dashboard', '2018-10-15 09:53:37', '2019-03-13 19:11:19', '2019-03-13 19:11:19'),
-(37, 14, 'System', 'system', NULL, 53, 1, 'dashboard', '2018-10-16 08:21:44', '2019-06-11 01:17:45', NULL),
-(39, 28, 'User', 'user', 'mdi mdi-account', 5, 1, 'pengguna', '2018-10-18 04:25:00', '2019-03-25 15:35:06', NULL),
-(40, 28, 'Pasien', 'pasien', NULL, 9, 1, 'dashboard', '2019-03-18 15:12:42', '2019-06-11 01:17:44', NULL),
-(41, 28, 'Dokter', 'doctor', NULL, 11, 1, 'dashboard', '2019-03-18 15:56:07', '2019-06-11 01:17:44', NULL),
-(42, 28, 'Tindakan/Tarif', 'action', NULL, 13, 1, 'dashboard', '2019-03-18 15:58:12', '2019-06-11 01:17:44', NULL),
-(43, 28, 'Supplier', 'supplier', NULL, 19, 1, 'dashboard', '2019-04-01 17:38:08', '2019-06-11 01:17:45', NULL),
-(44, 28, 'Bahan & Obat', 'material', NULL, 21, 1, 'dashboard', '2019-04-01 17:38:30', '2019-06-11 01:17:45', NULL),
-(45, 28, 'Ruangan', 'room', NULL, 17, 1, 'dashboard', '2019-04-03 14:44:57', '2019-06-11 01:17:44', NULL),
-(46, 28, 'Kelas', 'level', NULL, 15, 1, 'dashboard', '2019-04-03 14:45:11', '2019-06-11 01:17:44', NULL),
-(47, 28, 'Departement', 'department', NULL, 7, 1, 'dashboard', '2019-04-03 14:46:47', '2019-05-08 23:37:10', '2019-05-08 23:37:10'),
-(48, 28, 'Divisi', 'division', NULL, 11, 1, 'dashboard', '2019-04-03 14:47:37', '2019-05-08 23:37:15', '2019-05-08 23:37:15'),
-(49, 28, 'Perusahaan', 'company', NULL, 7, 1, 'dashboard', '2019-04-03 15:52:28', '2019-06-11 01:17:44', NULL),
-(50, 58, 'Rawat Inap', 'rawat_inap', NULL, 29, 1, 'dashboard', '2019-04-03 15:59:09', '2019-04-03 16:07:51', '2019-04-03 16:07:51'),
-(51, 50, 'Registrasi', 'registration', NULL, 30, 1, 'dashboard', '2019-04-03 16:00:04', '2019-04-03 16:06:47', NULL),
-(52, 50, 'Pemeriksaan', 'examination', NULL, 32, 1, 'dashboard', '2019-04-03 16:00:30', '2019-04-03 16:06:47', NULL),
-(53, 58, 'Rawat Jalan', 'rawat_jalan', NULL, 35, 1, 'dashboard', '2019-04-03 16:00:54', '2019-04-03 16:07:51', '2019-04-03 16:07:51'),
-(54, 53, 'Registrasi', 'outpatient', NULL, 36, 1, 'dashboard', '2019-04-03 16:03:39', '2019-04-03 16:06:47', NULL),
-(55, 53, 'Pemeriksaan', 'examination_outpatient', NULL, 38, 1, 'dashboard', '2019-04-03 16:04:13', '2019-04-03 16:06:47', NULL),
-(56, 58, 'Pasien Keluar', 'comes_out', NULL, 41, 1, 'dashboard', '2019-04-03 16:05:23', '2019-04-03 16:07:51', '2019-04-03 16:07:51'),
-(57, 58, 'Pembayaran', 'payment', NULL, 43, 1, 'dashboard', '2019-04-03 16:05:49', '2019-04-03 16:07:51', '2019-04-03 16:07:51'),
-(58, 0, 'Rawat', 'rawat', NULL, 28, 1, 'dashboard', '2019-04-03 16:06:02', '2019-04-03 16:07:51', '2019-04-03 16:07:51'),
-(59, 0, 'Rawat Inap', 'inpatient', 'mdi mdi-hospital-building', 24, 1, 'dashboard', '2019-04-03 16:08:42', '2019-06-11 01:31:48', NULL),
-(60, 59, 'Registrasi', 'registration_inpatient', NULL, 25, 1, 'dashboard', '2019-04-03 16:09:14', '2019-06-11 01:17:45', NULL),
-(61, 59, 'Pemeriksaan', 'examination_inpatient', NULL, 27, 1, 'dashboard', '2019-04-03 16:09:34', '2019-06-11 01:17:45', NULL),
-(62, 0, 'Rawat Jalan', 'outpatient', 'mdi mdi-account-convert', 34, 1, 'dashboard', '2019-04-03 16:10:25', '2019-06-11 05:04:36', NULL),
-(63, 62, 'Registrasi', 'registration_outpatient', NULL, 35, 1, 'dashboard', '2019-04-03 16:10:53', '2019-06-11 05:04:36', NULL),
-(64, 62, 'Pemeriksaan', 'examination_outpatient', NULL, 37, 1, 'dashboard', '2019-04-03 16:12:00', '2019-06-11 05:04:36', NULL),
-(65, 59, 'Pasien Keluar', 'patient_exits', 'mdi mdi-book', 29, 1, 'dashboard', '2019-04-03 16:12:27', '2019-06-11 05:04:36', NULL),
-(66, 59, 'Pembayaran Rawat Inap', 'inpatient_payment', 'mdi mdi-book', 31, 1, 'dashboard', '2019-04-03 16:12:44', '2019-06-11 05:04:36', NULL),
-(67, 0, 'Informasi', 'Informas', 'mdi mdi-information', 42, 1, 'dashboard', '2019-05-08 22:31:32', '2019-06-11 05:04:23', NULL),
-(68, 0, 'Laporan', 'report', 'mdi mdi-bookmark-outline', 44, 1, 'dashboard', '2019-05-08 22:33:49', '2019-06-11 01:30:12', NULL),
-(69, 68, 'Rawat Inap Perhari', 'hospitalisation_day', 'Hospitalisation per day', 45, 1, 'dashboard', '2019-05-08 22:35:55', '2019-06-11 01:17:45', NULL),
-(70, 62, 'Pembayarann Rawat Jalan', 'payment', NULL, 39, 1, 'dashboard', '2019-06-11 01:17:37', '2019-06-11 05:04:36', NULL);
+(1, 0, 'Dashboard', 'dashboard', 'mdi mdi-view-dashboard', 2, 1, 'dashboard', '2018-08-15 11:26:26', '2018-10-10 08:48:15', NULL),
+(2, 0, 'Pengguna', 'user', 'mdi mdi-account', 4, 1, 'pengguna', '2018-08-15 11:28:13', '2018-10-15 02:56:15', '2018-10-15 02:56:15'),
+(3, 0, 'Tipe Kendaraan', 'type', 'mdi mdi-car', 6, 1, 'tipe-kendaraan', '2018-08-15 11:30:04', '2018-10-14 04:33:53', '2018-10-14 04:33:53'),
+(4, 0, 'Grup Lokasi', 'group_location', 'mdi mdi-pin', 8, 1, 'grup-lokasi', '2018-08-15 11:30:31', '2018-10-14 04:34:00', '2018-10-14 04:34:00'),
+(5, 0, 'Tarif', 'rate', 'mdi mdi-currency-usd', 10, 1, 'tarif', '2018-08-15 11:30:56', '2018-10-14 04:34:08', '2018-10-14 04:34:08'),
+(6, 0, 'Parkir Histori', 'parking_history', 'mdi mdi-parking', 12, 1, 'parkir-histori', '2018-08-15 11:33:32', '2018-10-14 04:34:20', '2018-10-14 04:34:20'),
+(7, 0, 'Isi Ulang Histori', 'topup_history', 'mdi mdi-book', 14, 1, 'isi-ulang-histori', '2018-08-15 11:34:00', '2018-10-14 04:34:31', '2018-10-14 04:34:31'),
+(8, 14, 'Menu', 'menu', 'mdi mdi-menu', 67, 1, 'settings', '2018-08-15 11:34:18', '2019-07-31 00:05:09', NULL),
+(14, 0, 'Setting', 'settings', 'mdi mdi-settings', 60, 1, 'settings', '2018-08-15 11:59:05', '2019-07-31 00:05:09', NULL),
+(15, 14, 'Roles', 'settings/role', 'fa fa-universal-access', 61, 1, 'settings', '2018-08-15 11:59:36', '2019-07-31 00:05:09', NULL),
+(16, 14, 'Permission', 'settings/permission', 'fa fa-key', 63, 1, 'settings', '2018-08-15 11:59:59', '2019-07-31 00:05:09', NULL),
+(17, 0, 'FAQ', 'faq', 'mdi mdi-help-circle', 32, 1, 'faq', '2018-08-22 09:41:18', '2018-10-15 02:55:46', '2018-10-15 02:55:46'),
+(18, 0, 'Bantuan', 'help', 'mdi mdi-help-circle-outline', 34, 1, 'bantuan', '2018-08-22 09:41:42', '2018-10-15 02:55:50', '2018-10-15 02:55:50'),
+(24, 0, 'Upload Data', 'upload', 'glyphicon glyphicon-upload', 4, 1, 'dashboard', '2018-10-14 04:36:12', '2019-03-13 12:10:57', '2019-03-13 12:10:57'),
+(25, 24, 'Upload Bom', 'bom', 'glyphicon glyphicon-upload', 7, 1, 'dashboard', '2018-10-14 04:36:56', '2019-03-13 12:10:57', '2019-03-13 12:10:57'),
+(26, 24, 'Upload Master Price', 'upload_master_price', 'glyphicon glyphicon-upload', 9, 1, 'dashboard', '2018-10-14 04:38:20', '2019-03-13 12:10:57', '2019-03-13 12:10:57'),
+(27, 24, 'Upload Budget Planning', 'upload_budget_planning', 'glyphicon glyphicon-upload', 5, 1, 'dashboard', '2018-10-14 04:39:17', '2019-03-13 12:10:57', '2019-03-13 12:10:57'),
+(28, 0, 'Master Data', 'master', 'mdi mdi-book', 4, 1, 'dashboard', '2018-10-15 02:49:33', '2019-03-25 08:35:06', NULL),
+(29, 28, 'Division', 'division', NULL, 13, 1, 'dashboard', '2018-10-15 02:51:25', '2019-03-13 12:11:30', '2019-03-13 12:11:30'),
+(30, 28, 'Department', 'department', NULL, 15, 1, 'dashboard', '2018-10-15 02:51:47', '2019-03-13 12:11:26', '2019-03-13 12:11:26'),
+(31, 28, 'Employee', 'employee', 'mdi mdi-account', 17, 1, 'dashboard', '2018-10-15 02:52:30', '2018-10-17 21:24:25', '2018-10-17 21:24:25'),
+(32, 28, 'Customer', 'customer', NULL, 17, 1, 'dashboard', '2018-10-15 02:53:22', '2019-03-13 12:11:23', '2019-03-13 12:11:23'),
+(33, 28, 'Supplier', 'supplier', NULL, 19, 1, 'dashboard', '2018-10-15 02:53:37', '2019-03-13 12:11:19', '2019-03-13 12:11:19'),
+(34, 28, 'Plant', 'plant', NULL, 23, 1, 'dashboard', '2018-10-15 02:54:19', '2018-10-17 01:45:25', '2018-10-17 01:45:25'),
+(35, 28, 'Part Category', 'category_part', NULL, 25, 1, 'dashboard', '2018-10-15 02:54:44', '2018-10-17 01:37:44', '2018-10-17 01:37:44'),
+(36, 28, 'Part', 'part', NULL, 21, 1, 'dashboard', '2018-10-15 02:55:09', '2019-03-13 12:11:11', '2019-03-13 12:11:11'),
+(37, 14, 'System', 'system', 'fa fa-cogs', 65, 1, 'settings', '2018-10-16 01:21:44', '2019-07-31 00:05:09', NULL),
+(38, 28, 'Catalog', 'catalog', NULL, 23, 1, 'dashboard', '2018-10-17 01:38:09', '2019-03-13 12:11:14', '2019-03-13 12:11:14'),
+(39, 28, 'User', 'user', 'mdi mdi-account', 5, 1, 'users', '2018-10-17 21:25:00', '2019-07-21 21:57:43', NULL),
+(40, 28, 'Pasien', 'pasien', 'fa fa-wheelchair', 13, 1, 'dashboard', '2019-03-18 08:12:42', '2019-07-21 21:53:14', NULL),
+(41, 28, 'Dokter', 'doctor', 'fa fa-user-md', 15, 1, 'dashboard', '2019-03-18 08:56:07', '2019-07-21 21:53:30', NULL),
+(42, 28, 'Tindakan/Tarif', 'action', 'fa fa-usd', 17, 1, 'dashboard', '2019-03-18 08:58:12', '2019-07-21 21:53:42', NULL),
+(43, 28, 'Supplier', 'supplier', 'fa fa-balance-scale', 23, 1, 'dashboard', '2019-04-01 10:38:08', '2019-07-21 21:54:17', NULL),
+(44, 0, 'Bahan & Obat', 'material', 'fa fa-medkit', 26, 1, 'dashboard', '2019-04-01 10:38:30', '2019-07-24 02:12:28', NULL),
+(45, 28, 'Ruangan', 'room', 'fa fa-bed', 21, 1, 'dashboard', '2019-04-03 07:44:57', '2019-07-21 21:54:06', NULL),
+(46, 28, 'Kelas', 'level', 'fa fa-level-up', 19, 1, 'dashboard', '2019-04-03 07:45:11', '2019-07-21 21:53:55', NULL),
+(47, 28, 'Departement', 'department', NULL, 7, 1, 'dashboard', '2019-04-03 07:46:47', '2019-05-08 16:37:10', '2019-05-08 16:37:10'),
+(48, 28, 'Divisi', 'division', NULL, 11, 1, 'dashboard', '2019-04-03 07:47:37', '2019-05-08 16:37:15', '2019-05-08 16:37:15'),
+(49, 28, 'Perusahaan', 'company', 'fa fa-briefcase', 9, 1, 'dashboard', '2019-04-03 08:52:28', '2019-07-21 21:53:02', NULL),
+(50, 58, 'Rawat Inap', 'rawat_inap', NULL, 29, 1, 'dashboard', '2019-04-03 08:59:09', '2019-04-03 09:07:51', '2019-04-03 09:07:51'),
+(51, 50, 'Registrasi', 'registration', NULL, 30, 1, 'dashboard', '2019-04-03 09:00:04', '2019-04-03 09:06:47', NULL),
+(52, 50, 'Pemeriksaan', 'examination', NULL, 32, 1, 'dashboard', '2019-04-03 09:00:30', '2019-04-03 09:06:47', NULL),
+(53, 58, 'Rawat Jalan', 'rawat_jalan', NULL, 35, 1, 'dashboard', '2019-04-03 09:00:54', '2019-04-03 09:07:51', '2019-04-03 09:07:51'),
+(54, 53, 'Registrasi', 'outpatient', NULL, 36, 1, 'dashboard', '2019-04-03 09:03:39', '2019-04-03 09:06:47', NULL),
+(55, 53, 'Pemeriksaan', 'examination_outpatient', NULL, 38, 1, 'dashboard', '2019-04-03 09:04:13', '2019-04-03 09:06:47', NULL),
+(56, 58, 'Pasien Keluar', 'comes_out', NULL, 41, 1, 'dashboard', '2019-04-03 09:05:23', '2019-04-03 09:07:51', '2019-04-03 09:07:51'),
+(57, 58, 'Pembayaran', 'payment', NULL, 43, 1, 'dashboard', '2019-04-03 09:05:49', '2019-04-03 09:07:51', '2019-04-03 09:07:51'),
+(58, 0, 'Rawat', 'rawat', NULL, 28, 1, 'dashboard', '2019-04-03 09:06:02', '2019-04-03 09:07:51', '2019-04-03 09:07:51'),
+(59, 0, 'Rawat Inap', 'inpatient', 'mdi mdi-hospital-building', 28, 1, 'dashboard', '2019-04-03 09:08:42', '2019-07-21 21:52:49', NULL),
+(60, 59, 'Registrasi', 'registration_inpatient', 'fa fa-user-plus', 29, 1, 'dashboard', '2019-04-03 09:09:14', '2019-07-21 21:54:42', NULL),
+(61, 59, 'Pemeriksaan', 'examination_inpatient', 'fa fa-stethoscope', 31, 1, 'dashboard', '2019-04-03 09:09:34', '2019-07-21 21:55:02', NULL),
+(62, 0, 'Rawat Jalan', 'outpatient', 'mdi mdi-account-convert', 38, 1, 'dashboard', '2019-04-03 09:10:25', '2019-07-31 00:05:16', NULL),
+(63, 62, 'Registrasi', 'registration_outpatient', 'fa fa-user-plus', 39, 1, 'dashboard', '2019-04-03 09:10:53', '2019-07-31 00:05:16', NULL),
+(64, 62, 'Pemeriksaan', 'examination_outpatient', 'fa fa-stethoscope', 41, 1, 'dashboard', '2019-04-03 09:12:00', '2019-07-31 00:05:16', NULL),
+(65, 59, 'Pasien Keluar', 'patient_exits', 'mdi mdi-book', 33, 1, 'dashboard', '2019-04-03 09:12:27', '2019-07-21 21:52:42', NULL),
+(66, 59, 'Pembayaran Rawat Inap', 'inpatient_payment', 'fa fa-usd', 35, 1, 'dashboard', '2019-04-03 09:12:44', '2019-07-21 21:55:39', NULL),
+(67, 0, 'Informasi', 'Informas', 'mdi mdi-information', 42, 1, 'dashboard', '2019-05-08 15:31:32', '2019-06-19 00:18:54', '2019-06-19 00:18:54'),
+(68, 0, 'Laporan', 'report', 'mdi mdi-bookmark-outline', 46, 1, 'dashboard', '2019-05-08 15:33:49', '2019-07-31 00:05:16', NULL),
+(69, 68, 'Rawat Jalan Perhari', 'hospitalisation_day', 'Hospitalisation per day', 51, 1, 'dashboard', '2019-05-08 15:35:55', '2019-07-31 00:05:09', NULL),
+(70, 62, 'Pembayaran Rawat Jalan', 'payment', 'fa fa-usd', 43, 1, 'dashboard', '2019-06-10 18:17:37', '2019-07-31 00:05:16', NULL),
+(71, 68, 'Rawat Jalan Periode', 'hospitalisation_periode', NULL, 53, 1, 'dashboard', '2019-06-19 00:17:45', '2019-07-31 00:05:09', NULL),
+(72, 68, 'Laporan Pasien Keluar Per Hari', 'pasien_exit_list', NULL, 57, 1, 'dashboard', '2019-06-25 16:02:18', '2019-07-31 00:05:09', NULL),
+(73, 68, 'Laporan Pasien Keluar Periode', 'pasien_exit_day', NULL, 55, 1, 'dashboard', '2019-06-25 16:02:57', '2019-07-31 00:05:09', NULL),
+(74, 28, 'Divisi', 'division', 'fa fa-users', 7, 1, 'dashboard', '2019-07-21 21:51:41', '2019-07-21 21:52:02', NULL),
+(75, 28, 'Departemen', 'department', 'fa fa-university', 11, 1, 'dashboard', '2019-07-21 21:52:35', '2019-07-21 21:52:52', NULL),
+(76, 68, 'Rawat Inap Perhari', 'inpatient_day', NULL, 47, 1, 'dashboard', '2019-07-31 00:04:42', '2019-07-31 00:05:16', NULL),
+(77, 68, 'Rawat Inap Per Periode', 'inpatient_periode', NULL, 49, 1, 'dashboard', '2019-07-31 00:05:00', '2019-07-31 00:05:09', NULL);
 
 -- --------------------------------------------------------
 
@@ -8267,86 +8159,45 @@ CREATE TABLE `migrations` (
 --
 
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
+(1, '2014_10_12_000000_create_users_table', 1),
 (2, '2014_10_12_100000_create_password_resets_table', 1),
 (3, '2016_06_01_000001_create_oauth_auth_codes_table', 1),
 (4, '2016_06_01_000002_create_oauth_access_tokens_table', 1),
 (5, '2016_06_01_000003_create_oauth_refresh_tokens_table', 1),
 (6, '2016_06_01_000004_create_oauth_clients_table', 1),
 (7, '2016_06_01_000005_create_oauth_personal_access_clients_table', 1),
-(8, '2018_10_15_013214_create_menus_table', 1),
-(9, '2018_10_15_021525_create_boms_table', 1),
-(10, '2018_10_15_030253_entrust_setup_tables', 1),
-(11, '2018_10_15_032350_create_login_histories_table', 1),
-(12, '2018_10_15_045420_create_settings_table', 1),
-(13, '2018_10_16_045846_create_master_prices_table', 1),
-(14, '2018_10_16_070240_create_divisions_tables', 2),
-(15, '2018_10_16_074700_create_budget_plannings_table', 2),
-(16, '2018_10_16_080743_create_departments_table', 2),
-(17, '2018_10_16_090615_create_bom_datas_table', 2),
-(18, '2018_10_16_135407_create_customers_table', 2),
-(19, '2018_10_17_054955_create_systems_table', 2),
-(20, '2018_10_17_064820_create_suppliers_table', 2),
-(21, '2018_10_18_053903_create_parts_table', 2),
-(22, '2018_10_24_050601_create_temporary_master_prices_table', 2),
-(23, '2018_10_24_050617_create_temporary_budgets_table', 2),
-(24, '2018_10_25_034505_create_sales_datas_table', 2),
-(25, '2018_10_29_035155_create_master_price_catalogs_table', 2),
-(26, '2018_10_30_011938_temporary_master_price_catalog', 2),
-(27, '2018_10_30_012403_temporary_sales_data', 2),
-(28, '2018_10_31_042413_create_bom_semis_table', 2),
-(29, '2018_10_31_042424_create_bom_semi_datas_table', 2),
-(30, '2018_10_31_065642_create_temporary_bom_semis_table', 2),
-(31, '2018_10_31_065702_create_temporary_bom_semi_datas_table', 2),
-(32, '2018_11_01_012427_create_temporary_boms_table', 2),
-(33, '2018_11_01_012444_create_temporary_bom_datas_table', 2),
-(34, '2018_11_07_042209_create_sections_table', 2),
-(35, '2018_11_13_035852_create_capexes_table', 2),
-(36, '2018_11_14_034611_create_approval_details_table', 2),
-(37, '2018_11_14_034628_create_approval_masters_table', 2),
-(38, '2018_11_14_034642_create_sap_assets_table', 2),
-(39, '2018_11_14_034750_create_sap_cost_centers_table', 2),
-(40, '2018_11_14_034804_create_sap_uoms_table', 2),
-(41, '2018_11_23_034248_create_expenses_table', 2),
-(42, '2018_12_03_021208_create_sap_gl_accounts_table', 2),
-(43, '2018_12_03_021621_create_sap_numbers_table', 2),
-(44, '2018_12_03_023731_create_sap_taxes_table', 2),
-(45, '2018_12_03_032257_create_sap_vendors_table', 2),
-(46, '2018_12_06_020057_create_approvals_table', 2),
-(47, '2018_12_06_035727_create_approval_dtls_table', 2),
-(48, '2018_12_18_024353_create_periods_table', 2),
-(49, '2019_01_16_045825_create_items_table', 2),
-(50, '2019_01_16_084958_create_item_categories_table', 2),
-(51, '2019_01_23_034644_create_tags_table', 2),
-(52, '2019_01_23_034850_create_item_tags_table', 2),
-(53, '2019_01_23_041122_create_medias_table', 2),
-(54, '2019_02_04_024613_create_upload_purchase_orders_table', 2),
-(55, '2019_02_04_025330_create_gr_confirms_table', 2),
-(56, '2019_02_04_025349_create_gr_confirm_details_table', 2),
-(57, '2019_02_04_060932_create_carts_table', 2),
-(58, '2019_02_21_034054_create_approver_user', 2),
-(59, '2019_02_22_022800_create_shoppingcart_table', 2),
-(60, '2019_03_12_083906_add_department_to_approval', 2),
-(61, '2014_10_12_000000_create_users_table', 3),
-(65, '2016_08_03_072729_create_provinces_table', 7),
-(66, '2016_08_03_072750_create_cities_table', 7),
-(67, '2016_08_03_072804_create_districts_table', 7),
-(68, '2016_08_03_072819_create_villages_table', 7),
-(72, '2019_03_19_053027_create_pasiens_table', 10),
-(74, '2019_03_19_053645_create_pasien_datas_table', 11),
-(75, '2019_03_19_054653_create_doctors_table', 12),
-(77, '2019_04_02_060656_create_materials_table', 13),
-(80, '2019_04_02_081602_create_rooms_table', 14),
-(81, '2019_04_04_042329_create_levels_table', 14),
-(83, '2019_04_04_070045_create_inpatients_table', 16),
-(87, '2019_04_04_053204_create_companies_table', 17),
-(88, '2019_04_10_055127_create_diagnoses_table', 18),
-(89, '2019_03_21_082407_create_actions_table', 19),
-(90, '2019_04_04_070254_create_outpatients_table', 19),
-(92, '2019_05_07_044308_create_examination_outpatient_datas_table', 21),
-(93, '2019_05_05_065322_create_examination_outpatients_table', 22),
-(94, '2018_04_01_030457_create_currencies_table', 23),
-(95, '2019_05_14_041532_create_payments_table', 23),
-(96, '2019_05_21_062511_create_inpatient_payments_table', 23);
+(8, '2016_08_03_072729_create_provinces_table', 1),
+(9, '2016_08_03_072750_create_cities_table', 1),
+(10, '2016_08_03_072804_create_districts_table', 1),
+(11, '2016_08_03_072819_create_villages_table', 1),
+(12, '2018_04_01_030457_create_currencies_table', 1),
+(13, '2018_10_15_013214_create_menus_table', 1),
+(14, '2018_10_15_030253_entrust_setup_tables', 1),
+(15, '2018_10_15_032350_create_login_histories_table', 1),
+(16, '2018_10_15_045420_create_settings_table', 1),
+(17, '2018_10_16_070240_create_divisions_tables', 1),
+(18, '2018_10_16_080743_create_departments_table', 1),
+(19, '2018_10_16_135407_create_customers_table', 1),
+(20, '2018_10_17_054955_create_systems_table', 1),
+(21, '2018_10_17_064820_create_suppliers_table', 1),
+(22, '2018_11_07_042209_create_sections_table', 1),
+(23, '2019_03_19_053027_create_pasiens_table', 1),
+(24, '2019_03_19_053645_create_pasien_datas_table', 1),
+(25, '2019_03_19_054653_create_doctors_table', 1),
+(26, '2019_03_21_082407_create_actions_table', 1),
+(27, '2019_04_02_060656_create_materials_table', 1),
+(28, '2019_04_02_081602_create_rooms_table', 1),
+(29, '2019_04_04_042329_create_levels_table', 1),
+(30, '2019_04_04_053204_create_companies_table', 1),
+(31, '2019_04_04_070045_create_inpatients_table', 1),
+(32, '2019_04_04_070254_create_outpatients_table', 1),
+(33, '2019_04_10_055127_create_diagnoses_table', 1),
+(34, '2019_05_02_082227_create_patient_exits_table', 1),
+(35, '2019_05_05_065322_create_examination_outpatients_table', 1),
+(36, '2019_05_07_044308_create_examination_outpatient_datas_table', 1),
+(37, '2019_05_14_041532_create_payments_table', 1),
+(38, '2019_05_21_062511_create_inpatient_payments_table', 1),
+(39, '2019_06_18_060002_create_examination_outpatient_details_table', 1);
 
 -- --------------------------------------------------------
 
@@ -8450,7 +8301,7 @@ CREATE TABLE `outpatients` (
 --
 
 INSERT INTO `outpatients` (`id`, `no_registrasi`, `pasien_id`, `tgl_periksa`, `poliklinik`, `doctor_id`, `disease`, `complaint`, `created_at`, `updated_at`) VALUES
-(1, '$getCodeOutpatient', 6, '2019-05-20', 'Poli Bedah', 13, 'dad', 'das', '2019-05-06 23:01:45', '2019-05-06 23:01:45');
+(1, '001', 2, '2019-07-30', 'Poli Gigi', 2, 'Sakit Gigi', 'Gigi Linu', '2019-07-21 23:20:54', '2019-07-29 23:35:22');
 
 -- --------------------------------------------------------
 
@@ -8473,8 +8324,8 @@ CREATE TABLE `pasiens` (
 --
 
 INSERT INTO `pasiens` (`id`, `no_rm`, `name`, `allergy`, `another_note`, `created_at`, `updated_at`) VALUES
-(6, 'PS00000001', 'ddada', 'dsa', 'das', '2019-05-03 18:19:30', '2019-05-03 18:19:30'),
-(7, '00000001', 'Denny', 'Obat Paracetamol', 'Cimahi', '2019-05-20 22:50:34', '2019-05-20 22:50:34');
+(1, '00000001', 'Ahmad Saefudin', 'Tidak Ada', 'Kepala Pusing', '2019-07-21 22:24:46', '2019-07-21 22:24:46'),
+(2, '00000002', 'Dadang Sukiman', 'Tidak Ada', 'Kurang Liburan', '2019-07-24 00:04:59', '2019-07-24 00:04:59');
 
 -- --------------------------------------------------------
 
@@ -8517,13 +8368,8 @@ CREATE TABLE `pasien_datas` (
 --
 
 INSERT INTO `pasien_datas` (`id`, `pasien_id`, `place`, `date_of_birth`, `gender`, `religion`, `education`, `work`, `status`, `blood_group`, `address`, `district_id`, `city_id`, `province_id`, `postal_code`, `identification_number`, `phone`, `father_name`, `mother_name`, `age`, `age_father`, `age_mother`, `guardian_name`, `guardian_address`, `family_relationship`, `created_at`, `updated_at`) VALUES
-(1, 1, 'Majalaya', '2019-03-12', 'Pria', 'kristen', 'SMP', 'Pegawai Negeri', '1', 'A-', 'Cimahi', '1201071', '1201', '12', '34234', '1231231231', '08999', 'Rudi', 'Wiwi', '19', '19', '15', 'Deny', '34', 'Ayah', '2019-03-28 04:35:53', '2019-05-02 01:06:31'),
-(2, 2, 'Jakarta', '2019-04-17', 'Pria', 'kristen', 'SD', '', '1', 'A+', 'Cimahi', '1502030', '1502', '15', '423424', '3601223123133', '56464', 'Danny', 'Dewwi', '12', '34', '46', 'Daraman', 'Cimahi', 'Paman', '2019-04-25 01:37:53', '2019-04-25 01:37:53'),
-(3, 3, 'Jakarta', '2019-05-06', 'Pria', 'kristen', 'SMA', 'Pengusaha', '1', 'AB+', 'Cimahi', '1404020', '1404', '14', '311212', '4565654564', '085728382', 'danny', 'Dewi', '17', '45', '67', 'Dian', 'Cimahi', 'Paman', '2019-05-03 17:13:28', '2019-05-03 17:13:28'),
-(4, 4, 'casc', '2019-05-21', 'Pria', 'kristen', 'SD', 'BUMN/BUMD', '1', 'A-', 'eqe', '1402022', '1402', '14', '31313', '242424', '3213', '31231', 'eqewq', '12312', 'eqqeq', 'eqeq', 'eqw', 'ewq', 'eqw', '2019-05-03 17:28:29', '2019-05-03 17:28:29'),
-(5, 5, 'dasd', '2019-05-20', 'Perempuan', 'kristen', 'SMP', 'Guru', '1', 'A+', '423', '1502021', '1502', '15', '4234', '4242', '3424', '424', '4324', '4234', '4324', '423', '4242', '42', 'e42', '2019-05-03 17:30:18', '2019-05-03 17:30:18'),
-(6, 6, 'dasd', '2019-05-27', 'Perempuan', 'budha', 'SD', 'TNI/POLRI', '1', 'A+', '342', '1204011', '1204', '12', '3424', '3441', '4242', '42342', '423', '134', '43', '423', '423', '423', '423', '2019-05-03 18:19:30', '2019-05-03 18:19:30'),
-(7, 7, 'Jakarta', '2019-05-22', 'Pria', 'kristen', 'SMP', 'BUMN/BUMD', 'Kawin', 'AB-', 'fsd', '1402021', '1402', '14', '42424', '3443434345345435', '34243', 'fssfsd', 'fsd', '12', '23', '43', 'sds', 'ada', 'aasd', '2019-05-20 22:50:34', '2019-05-20 22:50:34');
+(1, 1, 'Bandung', '1996-07-07', 'Pria', 'islam', 'S1', 'Pegawai Negeri', 'Lajang', 'AB+', 'Jl. Test ABC No. 01', '3204040', '3204', '32', '40377', '33061244039', '081222333444', 'Dadang', 'Dedeh', '22', '47', '44', 'Diding', 'Jl. Test ABC No. 01', 'Paman', '2019-07-21 22:24:46', '2019-07-24 22:35:58'),
+(2, 2, 'Bandung', '1995-05-05', 'Pria', 'islam', 'S1', 'BUMN/BUMD', 'Lajang', 'AB+', 'Jl. Test ABC No. 01', '3273050', '3273', '32', '40377', '33066644123', '081333444555', 'Dudung', 'Dien', '23', '44', '42', 'Wawan', 'Jl. Test ABC No. 01', 'Paman', '2019-07-24 00:04:59', '2019-07-24 00:04:59');
 
 -- --------------------------------------------------------
 
@@ -8537,12 +8383,31 @@ CREATE TABLE `password_resets` (
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data for table `password_resets`
+-- Table structure for table `patient_exits`
 --
 
-INSERT INTO `password_resets` (`email`, `token`, `created_at`) VALUES
-('syechrugotama@gmail.com', '$2y$10$/0jHMxPQKINVVmiFUXEKJuht5V5m1O4yzFrvbGMH3bGarCVqjkVkC', '2019-03-14 02:10:06');
+CREATE TABLE `patient_exits` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `no_registrasi` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `pasien_id` int(11) NOT NULL,
+  `kel` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `age` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `address` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tgl_masuk` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `time` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `room_id` int(11) NOT NULL,
+  `disease` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tgl_keluar` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `time_keluar` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `way_out` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `exit_state` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `total_biaya` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -8552,14 +8417,14 @@ INSERT INTO `password_resets` (`email`, `token`, `created_at`) VALUES
 
 CREATE TABLE `payments` (
   `id` int(10) UNSIGNED NOT NULL,
-  `no_registrasi` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `pasien_id` int(11) NOT NULL,
+  `outpatient_id` int(11) NOT NULL,
+  `pasien_id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `total_biaya` int(11) NOT NULL,
   `sisa_tagihan` int(11) NOT NULL,
   `jumlah_dibayar` int(11) NOT NULL,
   `tgl_bayar` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `diskon` int(11) NOT NULL,
-  `discount` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `diskon` int(11) NOT NULL DEFAULT '0',
+  `discount` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `sisa_pembayaran` int(11) NOT NULL,
   `payment` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `address` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -8568,12 +8433,14 @@ CREATE TABLE `payments` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `payments`
+--
+
+INSERT INTO `payments` (`id`, `outpatient_id`, `pasien_id`, `total_biaya`, `sisa_tagihan`, `jumlah_dibayar`, `tgl_bayar`, `diskon`, `discount`, `sisa_pembayaran`, `payment`, `address`, `ket`, `created_at`, `updated_at`) VALUES
+(1, 1, 'Dadang Sukiman', 20000, 0, 20000, '2019-07-30', 0, 'JAMST', 0, '01', 'Jl. Test ABC No. 01', 'Lunas', '2019-07-29 23:42:33', '2019-07-29 23:42:33');
+
 -- --------------------------------------------------------
-
---
--- Table structure for table `periods`
---
-
 
 --
 -- Table structure for table `permissions`
@@ -8594,13 +8461,9 @@ CREATE TABLE `permissions` (
 --
 
 INSERT INTO `permissions` (`id`, `parent_id`, `name`, `display_name`, `description`, `created_at`, `updated_at`) VALUES
-(1, 0, 'dashboard', 'Dashboard', NULL, '2018-10-10 22:45:34', '2018-10-10 22:45:34'),
-(2, 0, 'pengguna', 'Pengguna', NULL, '2018-10-10 22:46:20', '2018-10-10 22:46:20'),
-(3, 0, 'bantuan', 'Bantuan', NULL, '2018-10-10 22:47:21', '2018-10-10 22:47:21'),
-(4, 0, 'menu', 'Menu', NULL, '2018-10-10 22:47:41', '2018-10-10 22:47:41'),
-(5, 0, 'pengaturan', 'Pengaturan', NULL, '2018-10-10 22:47:51', '2018-10-10 22:47:51'),
-(6, 0, 'peran', 'Peran', NULL, '2018-10-10 22:47:58', '2018-10-10 22:47:58'),
-(7, 0, 'izin-hak', 'Izin Hak', NULL, '2018-10-10 22:48:05', '2018-10-10 22:48:05');
+(1, 0, 'dashboard', 'Dashboard', 'Dashboard', NULL, NULL),
+(2, 0, 'users', 'Users', 'Users', NULL, NULL),
+(3, 0, 'settings', 'Settings', 'Settings', '2019-06-26 02:44:59', '2019-06-26 02:44:59');
 
 -- --------------------------------------------------------
 
@@ -8620,14 +8483,7 @@ CREATE TABLE `permission_role` (
 INSERT INTO `permission_role` (`permission_id`, `role_id`) VALUES
 (1, 1),
 (2, 1),
-(2, 2),
-(3, 1),
-(3, 2),
-(4, 1),
-(4, 2),
-(5, 1),
-(6, 1),
-(7, 1);
+(3, 1);
 
 -- --------------------------------------------------------
 
@@ -8700,8 +8556,7 @@ CREATE TABLE `roles` (
 --
 
 INSERT INTO `roles` (`id`, `name`, `display_name`, `description`, `created_at`, `updated_at`) VALUES
-(1, 'admin', 'Admin', NULL, '2018-10-14 18:19:29', '2018-10-14 18:19:29'),
-(2, 'operational', 'Operational', 'Memanage Pendaftaran Pasien', '2019-03-14 19:51:53', '2019-03-14 19:51:53');
+(1, 'admin', 'Admin', 'Admin', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -8719,9 +8574,7 @@ CREATE TABLE `role_user` (
 --
 
 INSERT INTO `role_user` (`user_id`, `role_id`) VALUES
-(1, 1),
-(2, 1),
-(4, 1);
+(6, 1);
 
 -- --------------------------------------------------------
 
@@ -8745,7 +8598,10 @@ CREATE TABLE `rooms` (
 --
 
 INSERT INTO `rooms` (`id`, `code`, `name`, `level_id`, `total_place_number`, `place_resource`, `created_at`, `updated_at`) VALUES
-(2, 'A123', 'Siliwangi', 2, 12, 12, '2019-05-03 19:00:03', '2019-05-03 19:00:03');
+(1, 'R001', 'Kamar Melati', 1, 10, 10, '2019-07-21 22:42:05', '2019-07-23 00:32:07'),
+(2, 'R002', 'Kamar Mawar', 1, 10, 10, '2019-07-21 22:42:44', '2019-07-21 22:42:44'),
+(3, 'R003', 'Kamar Cempaka', 2, 10, 10, '2019-07-21 22:43:06', '2019-07-21 22:43:06'),
+(4, 'R004', 'Kamar Dahlia', 2, 10, 10, '2019-07-21 22:43:40', '2019-07-21 22:43:40');
 
 -- --------------------------------------------------------
 
@@ -8770,20 +8626,12 @@ CREATE TABLE `sections` (
 
 CREATE TABLE `settings` (
   `id` int(10) UNSIGNED NOT NULL,
-  `key` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `value` text COLLATE utf8mb4_unicode_ci,
+  `system_type` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `system_code` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `system_val` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  `deleted_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `settings`
---
-
-INSERT INTO `settings` (`id`, `key`, `value`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'status', '{1,\"aktif\"}', '2019-03-14 03:17:04', '2019-03-14 03:45:10', NULL),
-(2, 'dir_key', '{\"masuk\"}', '2019-03-14 03:46:39', '2019-03-14 03:46:39', NULL);
 
 -- --------------------------------------------------------
 
@@ -8811,7 +8659,9 @@ CREATE TABLE `suppliers` (
 --
 
 INSERT INTO `suppliers` (`id`, `supplier_code`, `supplier_name`, `supplier_address`, `supplier_phone`, `supplier_email`, `supplier_website`, `supplier_pic_name`, `supplier_pic_phone`, `supplier_pic_email`, `created_at`, `updated_at`) VALUES
-(1, '001', 'Formaltech', 'Jln Karapitan Bandung No 41', '081267384992', 'syechrugotama@gmail.com', 'formaltech.com', 'Denny Syapuhtra', '081233488478', 'syechrugotama@gmail.com', '2019-05-08 22:18:36', '2019-05-08 22:25:17');
+(1, '001', 'Supplier A', 'Jl. Test ABC No.01', '081222555666', 'supplier_a@gmail.com', 'supplier.com', 'Denny', '081222555666', 'denny@gmail.com', '2019-07-21 23:32:44', '2019-07-21 23:32:44'),
+(2, '002', 'Supplier B', 'Jl. Test ABC No. 02', NULL, NULL, NULL, NULL, NULL, NULL, '2019-07-23 00:12:41', '2019-07-23 00:16:44'),
+(3, '003', 'Supplier C', 'Jl. Test ABC No. 03', NULL, NULL, NULL, NULL, NULL, NULL, '2019-07-23 00:15:45', '2019-07-23 00:15:45');
 
 -- --------------------------------------------------------
 
@@ -8833,26 +8683,28 @@ CREATE TABLE `systems` (
 --
 
 INSERT INTO `systems` (`id`, `system_type`, `system_code`, `system_val`, `created_at`, `updated_at`) VALUES
-(1, 'config_other', 'dir_key', 'ADMIN;PLANT', '2018-10-16 16:43:36', '2018-10-17 13:37:27'),
-(15, 'config_multiply', 'status', '0,Non Active;1,Active', '2018-10-18 16:23:00', '2018-10-18 16:23:00'),
-(16, 'config_multiply', 'religion', 'islam,Islam;kristen,Kristen;budha,Budha;kataolik,Katolik;hindu,Hindu;kepercayaan,Kepercayaan', '2019-03-21 04:29:57', '2019-04-03 22:06:42'),
-(17, 'config_multiply', 'education', 'SD,SD;SMP,SMP;SMA,SMA;S1,S1;S2,S2', '2019-03-25 21:37:28', '2019-03-25 21:43:54'),
-(18, 'config_multiply', 'gender', 'Pria,Laki Laki; Perempuan,Perempuan', '2019-03-25 22:13:06', '2019-03-25 22:27:21'),
-(19, 'config_multiply', 'work', 'Pegawai Negeri,Pegawai Negeri;TNI/POLRI,TNI/POlRI;BUMN/BUMD,BUMN/BUMD;Guru,Guru;Pengusaha,Pengusaha,Karyawan Swasta,Karyawan Swasta;Petani,Petani;Peternak,Peternak;Wiraswasta,Wiraswasta', '2019-03-25 23:01:27', '2019-04-03 22:10:31'),
-(20, 'config_multiply', 'blood_group', 'A-,A Rh-;A+,A Rh+;AB-,AB Rh-;AB+,AB Rh+;B-,B Rh-;B+,B Rh+;O-,O Rh-;O+,O Rh+', '2019-03-25 23:12:20', '2019-04-03 22:16:04'),
-(21, 'config_multiply', 'poliklinik', 'Poli Klinik,Poli Klinik;Poli Bedah,Poli Bedah;Poli Anak, Poli Anak;Poli Gigi,Poli Gigi;Poli Kebidanan,Poli Kebidanan', '2019-04-03 21:55:02', '2019-04-03 21:55:02'),
-(22, 'config_multiply', 'group', 'AKS,Alat Kesehatan;BBK,Bahan Baku;GEN,Generik;NAR,Narkotika;NGN,Non Generik', '2019-04-03 21:59:52', '2019-05-19 22:10:06'),
-(23, 'config_multiply', 'type', 'EXT,Penggunaan Luar;INF,Infus;INJ,Injeksi;ORA,Oral', '2019-04-03 22:02:59', '2019-05-19 22:15:25'),
-(24, 'config_multiply', 'disease', '01,Paru-Paru;02,Kusta', '2019-04-03 22:05:19', '2019-04-03 22:05:19'),
-(25, 'config_multiply', 'marital_status', 'Lajang,Lajang;Kawin,Kawin;Duda,Duda;Janda,Janda', '2019-04-03 22:13:27', '2019-05-20 22:48:26'),
-(26, 'config_multiply', 'family_relationship', '01,Ayah/Ibu;02,Paman/Bibi;03,Kakak/Adik;04,Saudara', '2019-04-03 22:19:27', '2019-04-03 22:19:27'),
-(27, 'config_multiply', 'entry_procedure', '01,Melalui Rawat Jalan;02,Melalui UGD;03,Kiriman Dokter;04,Rujukan RS Lain;05,Dari Puskesmas;06,Masuk Langsung', '2019-04-03 22:23:25', '2019-04-03 22:23:25'),
-(28, 'config_multiply', 'payment', '01,Tunai/Sendiri;02,Askes;03,Tanggungan Perusahaan;04,Kartu Kredit', '2019-04-03 22:25:37', '2019-04-03 22:25:37'),
-(29, 'config_multiply', 'discount', 'JAMST,Jamsostek;JPS,Jaring Pengaman Sos;KARY,Karyawan RS;PERSH,Perusahaan Langganan', '2019-04-03 22:27:44', '2019-04-03 22:27:44'),
-(30, 'config_multiply', 'way_out', '01,Kemauan Sendiri;02,Pulang Paksa;03,Melarikan Diri', '2019-04-03 22:29:42', '2019-04-03 22:29:42'),
-(31, 'config_multiply', 'exit_state', '01,Sembuh;02,Perbaikan;03,Masih Sakit;04,Meninggal Dunia', '2019-04-03 22:31:19', '2019-04-03 22:31:19'),
-(32, 'config_other', 'person_in_charge', 'Orang Tua;Teman', '2019-04-25 21:34:39', '2019-04-25 21:34:39'),
-(33, 'config_other', 'entry_procedure', 'Rumah;Puskesmas', '2019-04-25 21:36:09', '2019-04-25 21:36:09');
+(1, 'config_multiply', 'status', '0, Non Active;1, Active', NULL, NULL),
+(2, 'config_other', 'dir_key', 'ADMIN;PLANT', NULL, NULL),
+(3, 'config_multiply', 'religion', 'islam,Islam;kristen,Kristen;budha,Budha;kataolik,Katolik;hindu,Hindu;kepercayaan,Kepercayaan', NULL, NULL),
+(4, 'config_multiply', 'education', 'SD,SD;SMP,SMP;SMA,SMA;S1,S1;S2,S2', NULL, NULL),
+(5, 'config_multiply', 'gender', 'Pria,Laki Laki; Perempuan,Perempuan', NULL, NULL),
+(6, 'config_multiply', 'work', 'Pegawai Negeri,Pegawai Negeri;TNI/POLRI,TNI/POlRI;BUMN/BUMD,BUMN/BUMD;Guru,Guru;Pengusaha,Pengusaha,Karyawan Swasta,Karyawan Swasta;Petani,Petani;Peternak,Peternak;Wiraswasta,Wiraswasta', NULL, NULL),
+(7, 'config_multiply', 'blood_group', 'A-,A Rh-;A+,A Rh+;AB-,AB Rh-;AB+,AB Rh+;B-,B Rh-;B+,B Rh+;O-,O Rh-;O+,O Rh+', NULL, NULL),
+(8, 'config_multiply', 'poliklinik', 'Poli Klinik,Poli Klinik;Poli Bedah,Poli Bedah;Poli Anak, Poli Anak;Poli Gigi,Poli Gigi;Poli Kebidanan,Poli Kebidanan', NULL, NULL),
+(9, 'config_multiply', 'drug_class', 'AKS,Alat Kesehatan;BBK,Bahan Baku;GEN,Generik;NAR,Narkotika;NGN,Non Generik', NULL, NULL),
+(10, 'config_multiply', 'type_of_medicine', 'EXT,Penggunaan Luar;INF,Infus;INJ,Injeksi;ORA,Oral', NULL, NULL),
+(11, 'config_multiply', 'disease', '01,Paru-Paru;02,Kusta', NULL, NULL),
+(12, 'config_multiply', 'marital_status', 'Lajang,Lajang;Kawin,Kawin;Duda,Duda;Janda,Janda', NULL, NULL),
+(13, 'config_multiply', 'family_relationship', '01,Ayah/Ibu;02,Paman/Bibi;03,Kakak/Adik;04,Saudara', NULL, NULL),
+(14, 'config_multiply', 'entry_procedure', '01,Melalui Rawat Jalan;02,Melalui UGD;03,Kiriman Dokter;04,Rujukan RS Lain;05,Dari Puskesmas;06,Masuk Langsung', NULL, NULL),
+(15, 'config_multiply', 'payment', '01,Tunai/Sendiri;02,Askes;03,Tanggungan Perusahaan;04,Kartu Kredit', NULL, NULL),
+(16, 'config_multiply', 'discount', 'JAMST,Jamsostek;JPS,Jaring Pengaman Sos;KARY,Karyawan RS;PERSH,Perusahaan Langganan', NULL, NULL),
+(17, 'config_multiply', 'way_out', '01,Kemauan Sendiri;02,Pulang Paksa;03,Melarikan Diri', NULL, NULL),
+(18, 'config_multiply', 'exit_state', '01,Sembuh;02,Perbaikan;03,Masih Sakit;04,Meninggal Dunia', NULL, NULL),
+(19, 'config_other', 'person_in_charge', 'Orang Tua;Wali;Teman', NULL, '2019-07-23 23:41:17'),
+(20, 'config_other', 'entry_procedure', 'Rumah;Puskesmas', NULL, NULL),
+(21, 'config_multiply', 'type', '0, Tablet;1, Serbuk;2, Cair', '2019-07-21 23:28:53', '2019-07-21 23:29:29'),
+(22, 'config_multiply', 'group', '0, Generik;1, Non Generik', '2019-07-21 23:30:25', '2019-07-21 23:31:14');
 
 -- --------------------------------------------------------
 
@@ -8865,6 +8717,7 @@ CREATE TABLE `users` (
   `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `password` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` int(11) NOT NULL,
   `photo` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'img/pp.png',
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `department_id` int(11) DEFAULT NULL,
@@ -8878,9 +8731,8 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `email`, `password`, `photo`, `remember_token`, `department_id`, `division_id`, `direction`, `created_at`, `updated_at`) VALUES
-(1, 'syechru 4', 'syechrugotama@gmail.com', '$2y$10$gaQFEvoYSQc/1rc4u//DSe.AJsbHdo/PUpdLinQYy.EPAqLTCu4k2', 'img/pp.png', 'dhP8R6C0hYg38m75rRvjYd0oHNPID4yJawElcZ2NJXcVXjCDU88kst7slPKf', NULL, NULL, NULL, '2019-03-14 18:46:41', '2019-03-14 19:24:47'),
-(2, 'syechrudenny', 'syechrudenny@gmail.com', '$2y$10$ejN1esbTZHwgiUZe7g1tC.gNobwfnPYFSUYEhDfUWJEzkdFtj8/.O', '1552614566.jpg', NULL, NULL, NULL, NULL, '2019-03-14 18:49:26', '2019-03-14 18:49:26');
+INSERT INTO `users` (`id`, `name`, `email`, `password`, `status`, `photo`, `remember_token`, `department_id`, `division_id`, `direction`, `created_at`, `updated_at`) VALUES
+(6, 'rifal', 'rifal@gmail.com', '$2y$10$ln1n4HexE7ghHvm1CddLeeGFFKjURDumc8.AdTJFzf89ws/2wxsPi', 1, 'img/pp.png', '4XPAma3pe4WTfMbElGLF7IogGdesgZ4FloP05K7CMz03j19JxDPRoLhGuIfg', 1, 1, NULL, '2019-06-26 02:24:42', '2019-07-23 22:35:17');
 
 -- --------------------------------------------------------
 
@@ -91021,13 +90873,7 @@ ALTER TABLE `actions`
 --
 ALTER TABLE `cities`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `cities_province_id_foreign` (`province_id`);
-
---
--- Indexes for table `classes`
---
-ALTER TABLE `classes`
-  ADD PRIMARY KEY (`id`);
+  ADD KEY `indonesia_cities_province_id_foreign` (`province_id`);
 
 --
 -- Indexes for table `companies`
@@ -91064,7 +90910,7 @@ ALTER TABLE `diagnoses`
 --
 ALTER TABLE `districts`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `districts_city_id_foreign` (`city_id`);
+  ADD KEY `indonesia_districts_city_id_foreign` (`city_id`);
 
 --
 -- Indexes for table `divisions`
@@ -91091,6 +90937,12 @@ ALTER TABLE `examination_outpatient_datas`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `examination_outpatient_details`
+--
+ALTER TABLE `examination_outpatient_details`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `inpatients`
 --
 ALTER TABLE `inpatients`
@@ -91101,7 +90953,6 @@ ALTER TABLE `inpatients`
 --
 ALTER TABLE `inpatient_payments`
   ADD PRIMARY KEY (`id`);
-
 
 --
 -- Indexes for table `levels`
@@ -91114,16 +90965,11 @@ ALTER TABLE `levels`
 --
 ALTER TABLE `login_histories`
   ADD PRIMARY KEY (`id`);
+
 --
 -- Indexes for table `materials`
 --
 ALTER TABLE `materials`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `medias`
---
-ALTER TABLE `medias`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -91177,6 +91023,7 @@ ALTER TABLE `oauth_refresh_tokens`
 --
 ALTER TABLE `outpatients`
   ADD PRIMARY KEY (`id`);
+
 --
 -- Indexes for table `pasiens`
 --
@@ -91196,17 +91043,16 @@ ALTER TABLE `password_resets`
   ADD KEY `password_resets_email_index` (`email`);
 
 --
+-- Indexes for table `patient_exits`
+--
+ALTER TABLE `patient_exits`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `payments`
 --
 ALTER TABLE `payments`
   ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `periods`
---
-ALTER TABLE `periods`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `periods_name_unique` (`name`);
 
 --
 -- Indexes for table `permissions`
@@ -91283,7 +91129,7 @@ ALTER TABLE `users`
 --
 ALTER TABLE `villages`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `villages_district_id_foreign` (`district_id`);
+  ADD KEY `indonesia_villages_district_id_foreign` (`district_id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -91293,25 +91139,19 @@ ALTER TABLE `villages`
 -- AUTO_INCREMENT for table `actions`
 --
 ALTER TABLE `actions`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT for table `classes`
---
-ALTER TABLE `classes`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `companies`
 --
 ALTER TABLE `companies`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `currencies`
 --
 ALTER TABLE `currencies`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `customers`
@@ -91323,7 +91163,7 @@ ALTER TABLE `customers`
 -- AUTO_INCREMENT for table `departments`
 --
 ALTER TABLE `departments`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `diagnoses`
@@ -91335,31 +91175,31 @@ ALTER TABLE `diagnoses`
 -- AUTO_INCREMENT for table `divisions`
 --
 ALTER TABLE `divisions`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `doctors`
 --
 ALTER TABLE `doctors`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `examination_outpatients`
 --
 ALTER TABLE `examination_outpatients`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `examination_outpatient_datas`
 --
 ALTER TABLE `examination_outpatient_datas`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `expenses`
+-- AUTO_INCREMENT for table `examination_outpatient_details`
 --
-ALTER TABLE `expenses`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+ALTER TABLE `examination_outpatient_details`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `inpatients`
@@ -91377,7 +91217,7 @@ ALTER TABLE `inpatient_payments`
 -- AUTO_INCREMENT for table `levels`
 --
 ALTER TABLE `levels`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `login_histories`
@@ -91389,25 +91229,19 @@ ALTER TABLE `login_histories`
 -- AUTO_INCREMENT for table `materials`
 --
 ALTER TABLE `materials`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `medias`
---
-ALTER TABLE `medias`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `menus`
 --
 ALTER TABLE `menus`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=71;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=78;
 
 --
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=97;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT for table `oauth_clients`
@@ -91431,36 +91265,43 @@ ALTER TABLE `outpatients`
 -- AUTO_INCREMENT for table `pasiens`
 --
 ALTER TABLE `pasiens`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `pasien_datas`
 --
 ALTER TABLE `pasien_datas`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `patient_exits`
+--
+ALTER TABLE `patient_exits`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `payments`
 --
 ALTER TABLE `payments`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
 --
 -- AUTO_INCREMENT for table `permissions`
 --
 ALTER TABLE `permissions`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `rooms`
 --
 ALTER TABLE `rooms`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `sections`
@@ -91472,31 +91313,25 @@ ALTER TABLE `sections`
 -- AUTO_INCREMENT for table `settings`
 --
 ALTER TABLE `settings`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `suppliers`
 --
 ALTER TABLE `suppliers`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `systems`
 --
 ALTER TABLE `systems`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
-
---
--- AUTO_INCREMENT for table `tags`
---
-ALTER TABLE `tags`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Constraints for dumped tables
@@ -91506,19 +91341,19 @@ ALTER TABLE `users`
 -- Constraints for table `cities`
 --
 ALTER TABLE `cities`
-  ADD CONSTRAINT `cities_province_id_foreign` FOREIGN KEY (`province_id`) REFERENCES `provinces` (`id`);
+  ADD CONSTRAINT `indonesia_cities_province_id_foreign` FOREIGN KEY (`province_id`) REFERENCES `provinces` (`id`);
 
 --
 -- Constraints for table `districts`
 --
 ALTER TABLE `districts`
-  ADD CONSTRAINT `districts_city_id_foreign` FOREIGN KEY (`city_id`) REFERENCES `cities` (`id`);
+  ADD CONSTRAINT `indonesia_districts_city_id_foreign` FOREIGN KEY (`city_id`) REFERENCES `cities` (`id`);
 
 --
 -- Constraints for table `villages`
 --
 ALTER TABLE `villages`
-  ADD CONSTRAINT `villages_district_id_foreign` FOREIGN KEY (`district_id`) REFERENCES `districts` (`id`);
+  ADD CONSTRAINT `indonesia_villages_district_id_foreign` FOREIGN KEY (`district_id`) REFERENCES `districts` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
