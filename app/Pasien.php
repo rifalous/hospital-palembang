@@ -7,7 +7,8 @@ use DB;
 
 class Pasien extends Model
 {
-	protected $hidden = ['created_at', 'updated_at'];
+    protected $hidden = ['created_at', 'updated_at'];
+    protected $guarded = ['no_bpjs'];
 	protected $fillable = ['*'];
     
     public function details()

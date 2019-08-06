@@ -20,6 +20,7 @@ class CreatePasiensTable extends Migration
             $table->string('name');
             $table->string('allergy');
             $table->string('another_note');
+            $table->string('no_bpjs');
             $table->timestamps();
         });
     }

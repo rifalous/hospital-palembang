@@ -96,7 +96,7 @@
 
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label class="control-label">Tanggal Bayar <span class="text-danger">*</span></label>
+                                <label class="control-label">Tanggal Bayar<span class="text-danger">*</span></label>
                                 <input type="text" name="tgl_bayar"  value="{{ $payment->tgl_bayar }}" class="form-control datepicker" placeholder="yyyy-mm-dd"  readonly="readonly" required="required">
                                 <span class="help-block"></span>
                             </div>

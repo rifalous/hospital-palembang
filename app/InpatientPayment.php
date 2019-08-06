@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class InpatientPayment extends Model
 {
 	protected $hidden = ['created_at', 'updated_at'];
+    protected $guarded = ['diskon', 'discount'];
 	protected $fillable = ['*'];
 
     public function room()

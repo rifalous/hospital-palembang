@@ -6,7 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Payment extends Model
 {
-	protected $hidden = ['created_at', 'updated_at'];
+    protected $hidden = ['created_at', 'updated_at'];
+    protected $guarded = ['diskon', 'discount'];
 	protected $fillable = ['*'];
 
     public function room()
