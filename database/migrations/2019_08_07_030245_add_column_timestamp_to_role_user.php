@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddDepartmentToApproval extends Migration
+class AddColumnTimestampToRoleUser extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,9 @@ class AddDepartmentToApproval extends Migration
      */
     public function up()
     {
-        Schema::table('approvals', function (Blueprint $table) {
-            $table->string('department')->after('id');
+        //
+        Schema::table('role_user', function (Blueprint $table) {
+            $table->timestamps();
         });
     }
 
@@ -25,8 +26,9 @@ class AddDepartmentToApproval extends Migration
      */
     public function down()
     {
-        Schema::table('approvals', function (Blueprint $table) {
-            $table->dropColumn('department');
+        //
+        Schema::table('role_user', function (Blueprint $table) {
+            $table->timestamps();
         });
     }
 }

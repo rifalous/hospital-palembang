@@ -37,7 +37,11 @@ $(document).ready(function(){
 				id: $('[name="id"]').val()
 			},
 			success: function(data) {
-				$('[name="check_date"]').val(data);
+				$('[name="tgl_masuk"]').val(data.tgl_masuk);
+				$('[name="room_id"]').val(data.room.id).change();
+				$('[name="class_id"]').val(data.room.level_id).change();
+				$('[name="doctor_name"]').val(data.doctor.name).change();
+
 			}
 		});
 	});
@@ -156,7 +160,7 @@ function onAddRow()
                     '</td>' +
                     '<td style="width: 20%">'+
 						'<div class="form-group clearfix">' +
-                        	'<select data-id="'+row_length+'" name="doctor_id['+ row_length +']" class="select2 form-control doctor-id" required="required" data-placeholder="Pilih Dokter"></select>'+
+						'<select data-id="'+row_length+'" name="doctor_id['+ row_length +']" class="select2 form-control doctor-id" required="required" data-placeholder="Pilih Dokter"></select>'+
                         	'<span class="help-block"></span>' +
                         '</div>' +
                     '</td>' +
@@ -165,13 +169,16 @@ function onAddRow()
         
     $('#details-inpatient-table').append(table);
 
-    arr_action = getAction();
+    arr_doctor = getDoctor();
 
+    $('.doctor-id').select2({
+    	data: arr_doctor
+    });
+
+	arr_action = getAction();
     $('.action-id').select2({
     	data: arr_action
-    })
-
-    $('.select2').select2();
+    });
 
     $('.number').keypress(function(e){
     	if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
@@ -191,6 +198,18 @@ function onAddRow()
     $('[name="price_material"]').change(function(){
     	console.log($(this).val());
     });
+}
+
+function getDoctor()
+{
+	var res = $.ajax({
+		url: SITE_URL + '/examination_outpatient/get_doctor',
+		type: 'get',
+		dataType: 'json',
+		async: false,
+	});
+
+	return res.responseJSON;
 }
 
 function onAddRow1()

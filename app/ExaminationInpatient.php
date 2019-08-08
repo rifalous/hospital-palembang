@@ -12,8 +12,23 @@ class ExaminationInpatient extends Model
 
      public function inpatient()
     {
-        return $this->belongsTo('App\Inpatient', 'registration_id');
+        return $this->belongsTo('App\Inpatient', 'inpatient_id');
         
+    }
+
+    public function details()
+    {
+        return $this->hasMany(ExaminationInpatientData::class, 'examination_inpatient_id');
+    }
+
+    public function doctor()
+    {
+        return $this->belongsTo('App\Doctor','doctor_id', 'id');
+    }
+
+    public function material()
+    {
+        return $this->hasMany(ExaminationInpatientDetail::class, 'examination_inpatient_id');
     }
 
     public function pasien()
@@ -28,4 +43,10 @@ class ExaminationInpatient extends Model
     public function detail(){
     	return $this->hasMany(ExaminationInpatientDetail::class, 'examination_inpatient_id');
     }
+
+    public function action()
+    {
+        return $this->belongsTo('App\Action','action_id', 'id');
+    }
+
 }

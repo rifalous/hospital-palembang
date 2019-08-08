@@ -138,6 +138,22 @@
                                 <input type="text" name="phone" placeholder="eg: 02122xxx" class="form-control number" value="{{ $registration_inpatient->phone }}" required="required"></input>
                                 <span class="help-block"></span>
                             </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Diagnosa</label>
+                                        <input name="disease" value="{{ $registration_inpatient->disease }}" class="form-control" placeholder="eg: Flu" rows="4" required="required" maxlength="35"></input>
+                                        <span class="help-block"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Keluhan</label>
+                                        <input name="complaint" value="{{ $registration_inpatient->complaint }}" class="form-control" placeholder="eg: Perut Sakit" rows="4" required="required" maxlength="35"></input>
+                                        <span class="help-block"></span>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="form-group">
                                 <label class="control-label">Diagnosa<span class="text-danger">*</span></label>
                                 <input name="disease" class="form-control" placeholder="eg: Perut Sakit" rows="4" value="{{ $registration_inpatient->disease }}" required="required"></input>

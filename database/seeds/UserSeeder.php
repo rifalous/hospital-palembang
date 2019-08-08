@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\User;
+use App\Role_user;
 
 
 class UserSeeder extends Seeder
@@ -14,10 +15,14 @@ class UserSeeder extends Seeder
     public function run()
     {
         $user = new User;
-        $user->name= 'syechru';
-        $user->email= 'syechrugotama@gmail.com';
-        $user->password= bcrypt('syechru356');
-
+        $user->name= 'admin';
+        $user->email= 'admin@gmail.com';
+        $user->password= bcrypt('admin');
         $user->save();
+
+        $role_user = new Role_user;
+        $role_user->role_id= 1;
+        $role_user->user_id= $user->id;
+        $role_user->save();
     }
 }

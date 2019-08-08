@@ -102,6 +102,8 @@ Route::middleware('auth')->group(function(){
 	Route::get('examination_inpatient/get_inpatient', 'ExaminationInpatientController@getInpatient');
 	Route::get('examination_inpatient/get_data', 'ExaminationInpatientController@getData');
 	Route::resource('examination_inpatient', 'ExaminationInpatientController');
+	Route::get('examination_inpatient/details-data/{id}', 'ExaminationInpatientController@getDetailsMaterial');
+	Route::get('examination_inpatient/details-data1/{id}', 'ExaminationInpatientController@getDetailsData');
 
 	Route::get('examination_outpatient/get_action', 'ExaminationOutpatientController@getAction');
 	Route::get('examination_outpatient/get_doctor', 'ExaminationOutpatientController@getDoctor');

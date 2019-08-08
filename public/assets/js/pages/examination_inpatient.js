@@ -1,7 +1,7 @@
-var tOutpatient;
+var tInPatient;
 $(document).ready(function(){
 
-	tOutpatient = $('#table-examination-inpatient').DataTable({
+	tInPatient = $('#table-examination-inpatient').DataTable({
 		ajax: SITE_URL + '/examination_inpatient/get_data',
         columns: [
             {
@@ -27,7 +27,7 @@ $(document).ready(function(){
 
     $('#table-examination-inpatient tbody').on('click', 'td.details-control', function () {
         var tr = $(this).closest('tr');
-        var row = tOutpatient.row(tr);
+        var row = tInPatient.row(tr);
         var tableId = 'posts-' + row.data().id;
 
         if (row.child.isShown()) {
@@ -50,15 +50,14 @@ $(document).ready(function(){
             ajax: data.details_url,
             columns: [
               
-               { data: 'action_id', name: 'action_id'},
-               { data: 'cost_outpatient', name: 'cost_outpatient'},
-               { data: 'many_action', name: 'many_action'},
-               { data: 'total_action', name: 'total_action'},
-               { data: 'price_doctor', name: 'price_doctor'},
-               { data: 'material_id', name: 'material_id'},
-               { data: 'price_material', name: 'price_material'},
-               { data: 'many_material', name: 'many_material'},
-               { data: 'total_material', name: 'total_material'},    
+                { data: 'action.action', name: 'action_id'},
+                { data: 'cost_inpatient', name: 'cost_inpatient'}, 
+                { data: 'many_action', name: 'many_action'},
+                { data: 'total_action', name: 'total_action'},
+                { data: 'material_id', name: 'material_id'},
+                { data: 'price_material', name: 'price_material'},
+                { data: 'many_material', name: 'many_material'},
+                { data: 'total_material', name: 'total_material'},    
                
             ],
             ordering: false,
@@ -81,7 +80,6 @@ $(document).ready(function(){
                         <th>Biaya</th>
                         <th>Banyak</th>
                         <th>Total</th>
-                        <th>Biaya Dokter</th>
                         <th>Bahan/Obat</th>
                         <th>Biaya</th>
                         <th>Banyak</th>

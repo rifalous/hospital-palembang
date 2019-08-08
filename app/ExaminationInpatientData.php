@@ -8,15 +8,25 @@ class ExaminationInpatientData extends Model
 {
     protected $hidden = ['created_at', 'updated_at'];
 	protected $fillable = ['*'];
-	protected $table = 'examination_inpatient_data';
 
 	public function action()
     {
-        return $this->belongsTo(Action::class, 'action_id');
+        return $this->belongsTo('App\Action','action_id', 'id');
     }
 
-    public function ExaminationOutpatient()
+    public function material()
     {
-    	return $this->belogsToMany(ExaminationOutpatient::class, 'examination_outpatient_id');
+    	return $this->belongsTo('App\Material','material_id', 'id');
     }
+
+    public function doctor()
+    {
+        return $this->belongsTo('App\Doctor','doctor_id', 'id');
+    }
+
+    public function ExaminationInpatient()
+    {
+        return $this->belogsToMany(ExaminationInpatient::class, 'examination_inpatient_id');
+    }
+
 }

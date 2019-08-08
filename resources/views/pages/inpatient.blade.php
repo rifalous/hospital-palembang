@@ -82,6 +82,7 @@
                     <th>Nama</th>
                     <th>Alamat</th>
                     <th>No Telephone</th>
+                    <th>Keluhan</th>
                     
                   </tr>
                 </thead>

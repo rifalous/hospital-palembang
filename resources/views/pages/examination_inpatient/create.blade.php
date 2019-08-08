@@ -52,8 +52,8 @@
 	                    </div>
                       <div class="col-md-6">
                           <div class="form-group">
-                              <label class="control-label">Tanggal Periksa<span class="text-danger">*</span></label>
-                              <input type="text" name="tgl_masuk" class="form-control datepicker " placeholder="yyyy-mm-dd" required="required" readonly="readonly">
+                          <label class="control-label">Tanggal Masuk<span class="text-danger">*</span></label>
+                              <input type="text" name="tgl_masuk" class="form-control datepicker " disabled="" placeholder="yyyy-mm-dd" required="required">
                               <span class="help-block"></span>
                           </div>
                       </div>
@@ -88,6 +88,23 @@
                       </div>
                   </div>
     
+                  <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                          <label for="field-1" class="control-label">Dokter <span class="text-danger">*</span></label>
+                          <input type="text" name="doctor_name" placeholder="eg. Indra" readonly="readonly" class="form-control" id="doctor_id" required="required">
+                          <span class="help-block"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                          <label for="field-1" class="control-label">Tanggal Periksa <span class="text-danger">*</span></label>
+                          <input type="text" name="check_date" class="form-control datepicker " placeholder="yyyy-mm-dd" required="required">
+                          <span class="help-block"></span>
+                        </div>
+                    </div>
+                  </div>
+
 	                <div class="row">
 	                    <div class="col-md-6">
 	                      <!-- <small class="text-muted">Daftar Unit Kompetensi</small> -->

@@ -20,7 +20,8 @@ $(document).ready(function(){
             { data: 'person_in_charge', name: 'person_in_charge'},
             { data: 'name', name: 'name'},
             { data: 'address', name: 'address'},
-            { data: 'phone', name: 'phone'}
+            { data: 'phone', name: 'phone'},
+            { data: 'complaint', name: 'complaint'}
         ],
         	scrollCollapse: true,
 			scrollX: '100%',

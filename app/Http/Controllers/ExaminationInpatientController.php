@@ -48,10 +48,11 @@ class ExaminationInpatientController extends Controller
         DB::transaction(function() use ($request){
 
             $examination_inpatient                  = new ExaminationInpatient;
-            $examination_inpatient->registration_id = $request->inpatient_id;
-            $examination_inpatient->check_date      = $request->tgl_masuk;
-            $examination_inpatient->room_id         = $request->tgl_masuk;
-            $examination_inpatient->class_id        = $request->tgl_masuk;
+            $examination_inpatient->inpatient_id    = $request->inpatient_id;
+            $examination_inpatient->check_date      = $request->check_date;
+            $examination_inpatient->room_id         = $request->room_id;
+            $examination_inpatient->level_id        = $request->class_id;
+
             $examination_inpatient->save();
 
             $examination_inpatient_id = $examination_inpatient->id;
@@ -60,9 +61,9 @@ class ExaminationInpatientController extends Controller
 
               foreach($request->action_id as $index => $value) { 
                 $actions                            = new ExaminationInpatientData;
-                $actions->examination_inpatient_id = $examination_inpatient_id;
+                $actions->examination_inpatient_id  = $examination_inpatient_id;
                 $actions->action_id                 = $request->action_id[$index];
-                $actions->cost_inpatient           = $request->cost_inpatient[$index];
+                $actions->cost_inpatient            = $request->cost_inpatient[$index];
                 $actions->many_action               = $request->many_action[$index];
                 $actions->total_action              = $request->total_action[$index];
                 $actions->doctor_id                 = $request->doctor_id[$index];
@@ -99,9 +100,9 @@ class ExaminationInpatientController extends Controller
 
     public function getInpatient(Request $request)
     {
-        $inpatient = Inpatient::get();
+        $inpatient = Inpatient::with('room','doctor')->get();
         
-        return response()->json($inpatient);
+        return response()->json($inpatient->first());
     }
 
     public function getAction(Request $request){
@@ -117,7 +118,7 @@ class ExaminationInpatientController extends Controller
 
      public function getdata(){
        
-        $examination_inpatient = ExaminationInpatient::with(['inpatient'])->get();
+        $examination_inpatient = ExaminationInpatient::with('inpatient')->get();
 
         return DataTables::of($examination_inpatient)
 
@@ -158,4 +159,34 @@ class ExaminationInpatientController extends Controller
 
         ->toJson();
     }
+
+    // getMaterial
+    public function getDetailsData($id)
+    {
+        $details = ExaminationInpatient::find($id)
+                ->details()
+                ->with(['action','doctor'])
+                ->get();
+        return Datatables::of($details)->make(true);
+    }
+    
+    // Get Action
+    public function getDetailsMaterial($id)
+    {
+        $details = ExaminationInpatient::find($id)
+                ->details()
+                ->with(['action','doctor'])
+                ->get();
+        $materials = ExaminationInpatient::find($id)
+                ->material()
+                ->with(['material'])
+                ->get();
+        $details[0]->examination_inpatient_id = $materials[0]->examination_inpatient_id;
+        $details[0]->material_id = $materials[0]->material_id;
+        $details[0]->price_material = $materials[0]->price_material;
+        $details[0]->many_material = $materials[0]->many_material;
+        $details[0]->total_material = $materials[0]->total_material;
+        return Datatables::of($details)->make(true);
+    }
+
 }
