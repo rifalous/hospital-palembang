@@ -6,32 +6,27 @@ var arr_outpatient = [];
 
 $(document).ready(function(){
 	$('#details-outpatient-table').on('click', '.removeRow', function(){
-		updatePrice1();
-		updateTotalPrice();
 	    var init_length = $('#details-outpatient-table > tbody > tr').length;
 
 	    if (init_length <= 1) {
-	        $('#details-outpatient-table > tbody').append('<tr class="text-center" id="empty-row"><td colspan="5">No data</td></tr>');
+	        $('#details-outpatient-table > tbody').append('<tr class="text-center" id="empty-row"><td colspan="5">Tidak Ada Data</td></tr>');
 	    }
 
-	    $(this).parent().parent().remove();
-		
-		
-
+		$(this).parent().parent().remove();
+		updatePrice();
+		updateTotalPrice();
 	});
 
 	$('#details-outpatient-material').on('click', '.removeRow', function(){
-		updatePrice1();
-		updateTotalPrice();
 	    var init_length = $('#details-outpatient-material > tbody > tr').length;
 
 	    if (init_length <= 1) {
-	        $('#details-outpatient-material > tbody').append('<tr class="text-center" id="empty-row1"><td colspan="5">No data</td></tr>');
+	        $('#details-outpatient-material > tbody').append('<tr class="text-center" id="empty-row1"><td colspan="5">Tidak Ada Data</td></tr>');
 	    }
 
-	    $(this).parent().parent().remove();
-		
-
+		$(this).parent().parent().remove();
+		updatePrice1();
+		updateTotalPrice();
 	});
 
 	

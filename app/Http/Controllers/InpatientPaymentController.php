@@ -59,7 +59,7 @@ class InpatientPaymentController extends Controller
         DB::transaction(function() use ($request){
 
             $payment                    = new InpatientPayment;
-            $payment->no_registrasi     = $request->no_registrasi;
+            //$payment->no_registrasi     = $request->no_registrasi;
             $payment->pasien_id         = $request->pasien_id;
             $payment->room_id           = $request->room_id;
             $payment->total_biaya       = $request->total_biaya;
