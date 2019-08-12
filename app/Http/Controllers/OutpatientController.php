@@ -156,7 +156,7 @@ class OutpatientController extends Controller
                 $res = [
                     'title' => 'Berhasil',
                     'type' => 'success',
-                    'message' => count($request->id). ' Data Berhasil Di Hapus'
+                    'message' => count($request->id). 'Data berhasil dihapus!'
                 ];
 
         return response()->json($res);

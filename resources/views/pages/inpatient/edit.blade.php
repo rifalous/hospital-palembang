@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-    Edit Registrasi Rawat Inap
+Ubah Registrasi Rawat Inap
 @endsection
 
 @section('content')
@@ -12,13 +12,13 @@
     <div class="row">
         <div class="col-xs-12">
             <div class="page-title-box">
-                <h4 class="page-title">Edit Registrasi Rawat Inap</h4>
+                <h4 class="page-title">Ubah Registrasi Rawat Inap</h4>
                 <ol class="breadcrumb p-0 m-0">
                     <li>
                         <a href="{{ route('registration_inpatient.index') }}">Registrasi Rawat Inap</a>
                     </li>
                     <li class="active">
-                        Edit Registrasi Rawat Inap
+                    Ubah Registrasi Rawat Inap
                     </li>
                 </ol>
                 <div class="clearfix"></div>
@@ -169,7 +169,7 @@
 
             <button class="btn btn-default btn-bordered waves-effect waves-light" type="reset">Reset</button>
 
-            <button class="btn btn-primary btn-bordered waves-effect waves-light" type="submit">Save Changes</button>
+            <button class="btn btn-primary btn-bordered waves-effect waves-light" type="submit">Simpan Perubahan</button>
 
         </div>
     </form>

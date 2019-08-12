@@ -156,7 +156,7 @@ class SectionController extends Controller
         $res = [
                     'title' => 'Sukses',
                     'type' => 'success',
-                    'message' => 'Data Deleted Success!'
+                    'message' => 'Data berhasil dihapus!'
                 ];
 
         return redirect()

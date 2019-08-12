@@ -60,7 +60,6 @@
                             <th>Tanggal Periksa</th>
                             <th>Dokter</th>
                             <th>Diagnosa</th>
-                            <th>Keluhan</th>
                             <th style="width: 100px">Opsi</th>
                         </tr>
                     </thead>

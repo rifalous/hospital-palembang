@@ -172,7 +172,7 @@ class UserController extends Controller
         $res = [
                     'title' => 'Sukses',
                     'type' => 'success',
-                    'message' => 'Data berhasil sihapus!'
+                    'message' => 'User berhasil sihapus!'
                 ];
 
         return redirect('user')

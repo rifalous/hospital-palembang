@@ -134,7 +134,7 @@ class SettingController extends Controller
         $res = [
                 'title' => 'Sukses',
                 'type' => 'success',
-                'message' => 'Data berhasil diubah!'
+                'message' => 'Data berhasil dihapus!'
             ];
 
 

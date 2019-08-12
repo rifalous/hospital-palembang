@@ -112,6 +112,24 @@ class ExaminationInpatientController extends Controller
         return view('pages.examination_inpatient.edit', compact(['inpatients','actions','doctors','examination_inpatient','materials']));
     }
 
+    public function destroy($id)
+    {
+        DB::transaction(function() use ($id){
+
+            $examination_inpatient = ExaminationInpatient::find($id);
+            $examination_inpatient->delete();
+
+        });
+
+        $res = [
+                    'title' => 'Sukses',
+                    'type' => 'success',
+                    'message' => 'Data berhasil dihapus!'
+                ];
+
+        return redirect('examination_inpatient')->with($res);
+    }
+
     public function getInpatient(Request $request)
     {
         $inpatient = Inpatient::with('room','doctor')->get();

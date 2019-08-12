@@ -138,7 +138,7 @@ class LevelController extends Controller
         $res = [
                     'title' => 'Sukses',
                     'type' => 'success',
-                    'message' => 'Data berhasil sihapus!'
+                    'message' => 'Data berhasil dihapus!'
                 ];
 
         return redirect('level')

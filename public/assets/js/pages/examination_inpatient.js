@@ -15,7 +15,6 @@ $(document).ready(function(){
             { data: 'tgl_periksa', name: 'tgl_periksa'},
             { data: 'doktor_name', name: 'doktor_name'},
             { data: 'disease', name: 'disease'},
-            { data: 'complaint', name: 'complaint'},
             { data: 'options', name: 'options', searching: false, sorting: false, class: 'text-center' }
         ],
         order: [1, 'asc'],
