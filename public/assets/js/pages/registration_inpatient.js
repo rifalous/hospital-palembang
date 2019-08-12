@@ -143,3 +143,5 @@ function on_delete()
 	}
 
 }
+
+$.fn.dataTable.ext.errMode = 'throw';

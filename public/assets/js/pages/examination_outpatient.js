@@ -115,7 +115,7 @@ $(document).ready(function(){
                         <th>Biaya</th>
                         <th>Banyak</th>
                         <th>Total</th>
-                        <th>Nama DOkter</th>
+                        <th>Nama Dokter</th>
                         
                     </tr>
 

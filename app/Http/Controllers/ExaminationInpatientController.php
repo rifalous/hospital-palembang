@@ -11,6 +11,7 @@ use App\ExaminationInpatientDetail;
 use App\Inpatient;
 use App\Action;
 use App\Material;
+use App\Doctor;
 use App\Room;
 use App\Level;
 use App\Outpatient;
@@ -98,6 +99,19 @@ class ExaminationInpatientController extends Controller
                     ->with($res);
     }
 
+    public function edit($id)
+    {
+        $inpatient = Inpatient::select('id', 'no_registrasi as text')->get();
+        $actions = Action::select('id', 'action as text')->get();
+        $doctors = Doctor::select('id', 'name as text')->get();
+        $materials = Material::select('id', 'name as text')->get();
+        
+        $examination_inpatient  = ExaminationInpatient::find($id);
+
+
+        return view('pages.examination_inpatient.edit', compact(['inpatients','actions','doctors','examination_inpatient','materials']));
+    }
+
     public function getInpatient(Request $request)
     {
         $inpatient = Inpatient::with('room','doctor')->get();
@@ -116,7 +130,7 @@ class ExaminationInpatientController extends Controller
         return response()->json($actions);
     }
 
-     public function getdata(){
+    public function getdata(){
        
         $examination_inpatient = ExaminationInpatient::with('inpatient')->get();
 
