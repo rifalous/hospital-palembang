@@ -65,12 +65,10 @@
                       </div>
                     </th>
                     
-                    <th>No Registrasi</th>
                     <th>Nama</th>
                     <th>Usia</th>
                     <th>Jenis Kelamin</th>
                     <th>Ruangan</th>
-                    <th>Diagnosa</th>
                     <th>Total Biaya</th>
                     <th>Sisa Tagihan</th>
                     <th>Jumlah Dibayar</th>

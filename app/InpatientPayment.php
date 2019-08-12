@@ -18,7 +18,12 @@ class InpatientPayment extends Model
     public function pasien()
     {
         return $this->belongsTo('App\Pasien','pasien_id', 'id');
-	}
+    }
+    
+    public function inpatient()
+    {
+        return $this->belongsTo('App\Inpatient', 'inpatient_id'); 
+    }
 	
     public function patient_exits()
     {

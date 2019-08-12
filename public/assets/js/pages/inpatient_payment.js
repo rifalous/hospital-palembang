@@ -6,7 +6,7 @@ $(document).ready(function(){
         headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
         columns: [
             { data: 'option', name: 'option', orderable: false, searchable: false, class: 'text-center' },
-            { data: 'no_registrasi', name: 'no_registrasi' },
+            //{ data: 'no_registrasi', name: 'examination_inpatient_id' },
             { data: 'pasien_name', name: 'pasien_name' },
             { data: 'pasien_age', name: 'pasien_age' },
             { data: 'pasien_gender', name: 'pasien_gender'},
@@ -16,7 +16,6 @@ $(document).ready(function(){
             //{ data: 'room_class', name: 'room_class'},
             //{ data: 'tgl_keluar', name: 'tgl_keluar'},
             //{ data: 'time_keluar', name: 'time_keluar'},
-            { data: 'disease', name: 'disease'},
             { data: 'total_biaya', name: 'total_biaya'},
             { data: 'sisa_tagihan', name: 'sisa_tagihan'},
             { data: 'jumlah_dibayar', name: 'jumlah_dibayar'},

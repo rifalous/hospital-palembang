@@ -25,7 +25,7 @@ class InpatientPaymentController extends Controller
     {
         if ($request->wantsJson()) {
 
-            $payments= InpatientPayment::with(['room','pasien','patient_exits'])->get();
+            $payments= InpatientPayment::with(['room','pasien','inpatient','patient_exits'])->get();
 
             return response()->json($payments);
         }
@@ -128,7 +128,7 @@ class InpatientPaymentController extends Controller
         DB::transaction(function() use ($request, $id){
 
             $payment                    = InpatientPayment::find($id);
-            $payment->no_registrasi     = $request->no_registrasi;
+            //$payment->no_registrasi     = $request->no_registrasi;
             $payment->pasien_id         = $request->pasien_id;
             $payment->room_id           = $request->room_id;
             $payment->total_biaya       = $request->total_biaya;
@@ -177,7 +177,7 @@ class InpatientPaymentController extends Controller
 
     public function getData(){
        
-        $data = InpatientPayment::with(['room','pasien','patient_exits'])->get();
+        $data = InpatientPayment::with(['room','pasien'])->get();
 
         return DataTables::of($data)
 
@@ -199,10 +199,6 @@ class InpatientPaymentController extends Controller
             ->addColumn('pasien_name', function($data){
                 return $data->pasien['name'];
             })
-            
-            ->addColumn('pasien_name', function($data){
-                return $data->pasien['name'];
-            })
 
             ->addColumn('pasien_gender', function($data){
                 return $data->pasien->details['gender'];
@@ -210,10 +206,6 @@ class InpatientPaymentController extends Controller
 
             ->addColumn('pasien_age', function($data){
                 return $data->pasien->details['age'];
-            })
-
-            ->addColumn('disease', function($data){
-                return $data->patient_exits['disease'];
             })
             
 

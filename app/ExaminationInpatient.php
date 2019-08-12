@@ -10,10 +10,9 @@ class ExaminationInpatient extends Model
     protected $fillable = ['*'];
     protected $table = 'examination_inpatient';
 
-     public function inpatient()
+    public function inpatient()
     {
-        return $this->belongsTo('App\Inpatient', 'inpatient_id');
-        
+        return $this->belongsTo('App\Inpatient', 'inpatient_id');   
     }
 
     public function details()

@@ -180,7 +180,7 @@ Route::middleware('auth')->group(function(){
 	Route::get('inpatient_payment/get_data', 'InpatientPaymentController@getData');
 	Route::resource('inpatient_payment', 'InpatientPaymentController');
 
-	// Master Inpatient Payment 
+	// Master Patient Exits
 	Route::get('patient_exits/get_data', 'PatientExitsController@getData');
 	Route::resource('patient_exits', 'PatientExitsController');
 
