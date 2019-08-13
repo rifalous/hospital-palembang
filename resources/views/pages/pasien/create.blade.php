@@ -127,8 +127,14 @@ Tambah Pasien
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label class="control-label">No Pengenal/KTP <span class="text-danger">*</span></label>
+                                <label class="control-label">Nomor Pengenal/KTP <span class="text-danger">*</span></label>
                                 <input type="text" name="identification_number" placeholder="eg. 3671245xxxxx" class="form-control number" required="required" maxlength="16"></input>
+                                <span class="help-block"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label">Nomor BPJS</label>
+                                <input type="text" name="bpjs_number" placeholder="eg. 00017257xxxxx" class="form-control number" required="required" maxlength="16"></input>
                                 <span class="help-block"></span>
                             </div>
 
@@ -156,7 +162,7 @@ Tambah Pasien
 
                             <div class="form-group">
                                 <label class="control-label">Alamat <span class="text-danger">*</span></label>
-                                <textarea name="address" class="form-control" placeholder="eg: Jl. Pahlawan No 80 Block C-01" rows="13" required="required" maxlength="75"></textarea>
+                                <textarea name="address" class="form-control" placeholder="eg: Jl. Pahlawan No 80 Block C-01" rows="9" required="required" maxlength="75"></textarea>
                                 <span class="help-block"></span>
                             </div>
 

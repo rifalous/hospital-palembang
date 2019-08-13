@@ -78,6 +78,7 @@ class PasienController extends Controller
 
             $details->postal_code 	= $request->postal_code;
             $details->identification_number = $request->identification_number;
+            $details->bpjs_number   = $request->bpjs_number;
             $details->phone 		= $request->phone;
             $details->father_name 	= $request->father_name;
             $details->mother_name 	= $request->mother_name;
@@ -150,6 +151,7 @@ class PasienController extends Controller
 
             $pasien_data->postal_code 	= $request->postal_code;
             $pasien_data->identification_number = $request->identification_number;
+            $pasien_data->bpjs_number = $request->bpjs_number;
             $pasien_data->phone 		= $request->phone;
             $pasien_data->father_name 	= $request->father_name;
             $pasien_data->mother_name 	= $request->mother_name;

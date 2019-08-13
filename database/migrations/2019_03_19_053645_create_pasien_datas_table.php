@@ -31,6 +31,7 @@ class CreatePasienDatasTable extends Migration
             $table->string('province_id'); 
             $table->string('postal_code'); 
             $table->string('identification_number'); 
+            $table->string('bpjs_number'); 
             $table->string('phone');   
             $table->string('father_name');   
             $table->string('mother_name');   
