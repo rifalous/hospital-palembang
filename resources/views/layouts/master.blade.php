@@ -119,7 +119,7 @@
                 </div> <!-- content -->
 
                 <footer class="footer">
-                    &copy; 2019 PT. Formaltech Solusindo
+                    &copy; 2019 RSUD Kabupaten Ogan Ilir
                 </footer>
 
             </div>

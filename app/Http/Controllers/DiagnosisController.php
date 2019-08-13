@@ -146,10 +146,10 @@ class DiagnosisController extends Controller
 
         return DataTables::of($diagnosis);
 
-        ->rawColumns(['options'])
-        ->addColumns('options' function($diagnosis)){
+        //->rawColumns(['options'])
+        //->addColumns('options' function($diagnosis)){
 
             
-        }
     }
+
 }
