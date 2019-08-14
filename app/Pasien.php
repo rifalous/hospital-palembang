@@ -48,7 +48,7 @@ class Pasien extends Model
         return $code_rm;
     }
 
-    public function payement()
+    public function payment()
     {
         return $this->hasOne('App\Payment', 'pasien_id');
         

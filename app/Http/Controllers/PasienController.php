@@ -177,8 +177,19 @@ class PasienController extends Controller
 
     public function show($id)
     {
-        $pasien = pasien::find($id);
-        return view('pages.pasien.show', compact(['pasien']));
+        
+        $provinces 		 = Indonesia::allProvinces();
+    	$cities			 = Indonesia::allCities();
+    	$districts		 = Indonesia::allDistricts();
+    	$religions		 = System::configmultiply('religion');
+        $educations		 = System::configmultiply('education');
+        $works			 = System::configmultiply('work');
+        $blood_groups	 = System::configmultiply('blood_group');
+        $genders		 = System::configmultiply('gender');
+        $status	 		 = System::configmultiply('marital_status');
+        $pasien 		 = Pasien::find($id);
+
+        return view('pages.pasien.show',compact(['pasien','villages','provinces','cities','districts','religions','educations','works','blood_groups','genders','status']));
     }
 
     public function destroy($id)
@@ -211,6 +222,7 @@ class PasienController extends Controller
 
         ->addColumn('options', function($pasien){
             return '
+                <a href="'.route('pasien.show', $pasien->id).'" class="btn btn-warning btn-xs" data-toggle="tooltip" title="Lihat Detail"><i class="mdi mdi-magnify"></i></a>
                 <a href="'.route('pasien.edit', $pasien->id).'" class="btn btn-success btn-xs" data-toggle="tooltip" title="Ubah"><i class="mdi mdi-pencil"></i></a>
                 <button class="btn btn-danger btn-xs" data-toggle="tooltip" title="Hapus" onclick="on_delete('.$pasien->id.')"><i class="mdi mdi-close"></i></button>
                 <form action="'.route('pasien.destroy', $pasien->id).'" method="POST" id="form-delete-'.$pasien->id .'" style="display:none">

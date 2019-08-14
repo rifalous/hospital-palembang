@@ -230,7 +230,7 @@
                             </div>
                             <div class="form-group">
                                 <label class="control-label">Hubungan Keluarga<span class="text-danger">*</span></label>
-                                <input type="text" name="family_relationship" placeholder="eg: Paman" class="form-control" value="{{ $pasien->details->family_relationship }}" required="required"></input>
+                                <input type="text" name="family_relationship" placeholder="eg: Paman" class="form-control" value="{{ $pasien->details->family_relationship }}"></input>
                                 <span class="help-block"></span>
                             </div>      
                         </div>
