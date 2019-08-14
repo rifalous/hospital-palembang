@@ -214,18 +214,18 @@
                                 <span class="help-block"></span>
                             </div>
                             <div class="form-group">
-                                <label class="control-label">Nama Ayah<span class="text-danger">*</span></label>
-                                <input type="text" name="father_name" placeholder="eg: Dany Firmasyah" class="form-control" value="{{ $pasien->details->father_name }}" required="required"></input>
+                                <label class="control-label">Nama Ayah</label>
+                                <input type="text" id="father_name" name="father_name" placeholder="eg: Dany Firmasyah" class="form-control" value="{{ $pasien->details->father_name }}"></input>
                                 <span class="help-block"></span>
                             </div>
                             <div class="form-group">
-                                <label class="control-label">Nama Ibu<span class="text-danger">*</span></label>
-                                <input type="text" name="mother_name" placeholder="eg: Dewi Anggraeni" class="form-control" value="{{ $pasien->details->mother_name }}" required="required"></input>
+                                <label class="control-label">Nama Ibu</label>
+                                <input type="text" id="mother_name" name="mother_name" placeholder="eg: Dewi Anggraeni" class="form-control" value="{{ $pasien->details->mother_name }}"></input>
                                 <span class="help-block"></span>
                             </div>
                             <div class="form-group">
-                                <label class="control-label">Nama Wali<span class="text-danger">*</span></label>
-                                <input type="text" name="guardian_name" placeholder="eg: Darman" class="form-control"value="{{ $pasien->details->guardian_name }}" required="required"></input>
+                                <label class="control-label">Nama Wali</label>
+                                <input type="text" id="guardian_name" name="guardian_name" placeholder="eg: Darman" class="form-control"value="{{ $pasien->details->guardian_name }}"></input>
                                 <span class="help-block"></span>
                             </div>
                             <div class="form-group">

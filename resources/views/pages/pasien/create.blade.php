@@ -201,23 +201,23 @@ Tambah Pasien
                                 <span class="help-block"></span>
                             </div>
                             <div class="form-group">
-                                <label class="control-label">Nama Ayah <span class="text-danger">*</span></label>
-                                <input type="text" name="father_name" placeholder="eg: Dany Firmasyah" class="form-control" required="required" maxlength="25"></input>
+                                <label class="control-label">Nama Ayah</label>
+                                <input type="text" id="father_name" name="father_name" placeholder="eg: Dany Firmasyah" class="form-control" maxlength="25"></input>
                                 <span class="help-block"></span>
                             </div>
                             <div class="form-group">
-                                <label class="control-label">Nama Ibu <span class="text-danger">*</span></label>
-                                <input type="text" name="mother_name" placeholder="eg: Dewi Anggraeni" class="form-control" required="required" maxlength="25"></input>
+                                <label class="control-label">Nama Ibu</label>
+                                <input type="text" id="mother_name" name="mother_name" placeholder="eg: Dewi Anggraeni" class="form-control" maxlength="25"></input>
                                 <span class="help-block"></span>
                             </div>
                             <div class="form-group">
-                                <label class="control-label">Nama Wali <span class="text-danger">*</span></label>
-                                <input type="text" name="guardian_name" placeholder="eg: Darman" class="form-control" required="required" maxlength="25"></input>
+                                <label class="control-label">Nama Wali</label>
+                                <input type="text" id="guardian_name" name="guardian_name" placeholder="eg: Darman" class="form-control" maxlength="25"></input>
                                 <span class="help-block"></span>
                             </div>
                             <div class="form-group">
                                 <label class="control-label">Hubungan Keluarga <span class="text-danger">*</span></label>
-                                <input type="text" name="family_relationship" placeholder="eg: Paman" class="form-control" required="required"maxlength="25"></input>
+                                <input type="text" id="family_relationship" name="family_relationship" placeholder="eg: Paman" class="form-control" maxlength="25"></input>
                                 <span class="help-block"></span>
                             </div>      
                         </div>
