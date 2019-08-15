@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 15, 2019 at 07:19 AM
+-- Generation Time: Aug 15, 2019 at 07:44 AM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.1.26
 
@@ -8232,15 +8232,15 @@ INSERT INTO `menus` (`id`, `parent_id`, `name`, `url`, `icon`, `order_number`, `
 (66, 59, 'Pembayaran Rawat Inap', 'inpatient_payment', 'fa fa-usd', 35, 1, 'dashboard', '2019-04-03 09:12:44', '2019-07-21 21:55:39', NULL),
 (67, 0, 'Informasi', 'Informas', 'mdi mdi-information', 42, 1, 'dashboard', '2019-05-08 15:31:32', '2019-06-19 00:18:54', '2019-06-19 00:18:54'),
 (68, 0, 'Laporan', 'report', 'mdi mdi-bookmark-outline', 46, 1, 'dashboard', '2019-05-08 15:33:49', '2019-07-31 00:05:16', NULL),
-(69, 68, 'Rawat Jalan Perhari', 'hospitalisation_day', 'Hospitalisation per day', 51, 1, 'dashboard', '2019-05-08 15:35:55', '2019-07-31 00:05:09', NULL),
+(69, 68, 'Pembayaran Rawat Jalan Per Hari', 'hospitalisation_day', 'Hospitalisation per day', 51, 1, 'dashboard', '2019-05-08 15:35:55', '2019-08-14 22:43:23', NULL),
 (70, 62, 'Pembayaran Rawat Jalan', 'payment', 'fa fa-usd', 43, 1, 'dashboard', '2019-06-10 18:17:37', '2019-07-31 00:05:16', NULL),
-(71, 68, 'Rawat Jalan Periode', 'hospitalisation_periode', NULL, 53, 1, 'dashboard', '2019-06-19 00:17:45', '2019-07-31 00:05:09', NULL),
-(72, 68, 'Laporan Pasien Keluar Per Hari', 'pasien_exit_list', NULL, 57, 1, 'dashboard', '2019-06-25 16:02:18', '2019-07-31 00:05:09', NULL),
-(73, 68, 'Laporan Pasien Keluar Periode', 'pasien_exit_day', NULL, 55, 1, 'dashboard', '2019-06-25 16:02:57', '2019-07-31 00:05:09', NULL),
+(71, 68, 'Pembayaran Rawat Jalan Periode', 'hospitalisation_periode', NULL, 53, 1, 'dashboard', '2019-06-19 00:17:45', '2019-08-14 22:42:18', NULL),
+(72, 68, 'Laporan Pasien Keluar Per Hari', 'pasien_exit_list', NULL, 55, 1, 'dashboard', '2019-06-25 16:02:18', '2019-08-14 22:43:35', NULL),
+(73, 68, 'Laporan Pasien Keluar Periode', 'pasien_exit_day', NULL, 57, 1, 'dashboard', '2019-06-25 16:02:57', '2019-08-14 22:43:35', NULL),
 (74, 28, 'Divisi', 'division', 'fa fa-users', 7, 1, 'dashboard', '2019-07-21 21:51:41', '2019-07-21 21:52:02', NULL),
 (75, 28, 'Departemen', 'department', 'fa fa-university', 11, 1, 'dashboard', '2019-07-21 21:52:35', '2019-07-21 21:52:52', NULL),
-(76, 68, 'Rawat Inap Perhari', 'inpatient_day', NULL, 47, 1, 'dashboard', '2019-07-31 00:04:42', '2019-07-31 00:05:16', NULL),
-(77, 68, 'Rawat Inap Per Periode', 'inpatient_periode', NULL, 49, 1, 'dashboard', '2019-07-31 00:05:00', '2019-07-31 00:05:09', NULL);
+(76, 68, 'Pembayaran Rawat Inap Per Hari', 'inpatient_day', NULL, 47, 1, 'dashboard', '2019-07-31 00:04:42', '2019-08-14 22:43:17', NULL),
+(77, 68, 'Pembayaran Rawat Inap Periode', 'inpatient_periode', NULL, 49, 1, 'dashboard', '2019-07-31 00:05:00', '2019-08-14 22:42:29', NULL);
 
 -- --------------------------------------------------------
 

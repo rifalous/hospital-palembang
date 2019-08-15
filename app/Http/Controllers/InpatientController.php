@@ -140,6 +140,7 @@ class InpatientController extends Controller
             $inpatient->name              = $request->name;
             $inpatient->address           = $request->address;
             $inpatient->phone             = $request->phone;
+            $inpatient->complaint         = $request->complaint;
             $inpatient->save();
             
 

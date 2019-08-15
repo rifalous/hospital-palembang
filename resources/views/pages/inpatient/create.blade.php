@@ -153,11 +153,6 @@ Tambah Registrasi Rawat Inap
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label class="control-label">Diagnosa<span class="text-danger">*</span></label>
-                                <input name="disease" class="form-control" placeholder="eg: Perut Sakit" rows="4" required="required" maxlength="35"></input>
-                                <span class="help-block"></span>
-                            </div>
                         </div>
                     </div>
                 </div>

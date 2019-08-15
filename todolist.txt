@@ -1,0 +1,16 @@
+- Menambahkan Field Nomor BPJS Pada Data Pasien (Create, Edit). Field Nomor BPJS Opsional, Boleh Diisi atau dikosongkan. (Done)
+- Pada Data Pasien, Field Nama Wali boleh dikosongkan jika Nama Ayah / Nama Ibu diisi dan Sebaliknya Nama Ayah / Nama Ibu boleh dikosongkan jika Nama Wali diisi. (Done)
+- Menambahkan Opsi View Pada Data Pasien, Registrasi Rawat Inap, Registrasi Rawat Jalan (Done)
+- Menambahkan Foto Profil Pada Data Pasien :
+	Create 	: bisa mengupload foto
+	Edit 	: bisa menghapus dan mengganti foto
+	View	: bisa menampilkan foto
+- Menambahkan Button Print Pada View Data Pasien, Registrasi Rawat Inap, Registrasi Rawat Jalan	(On Progress)
+- Menambahkan Kolom Opsi (Edit, View, Delete) Pada Registrasi Rawat Inap dan Registrasi Rawat Jalan
+- Fix Data Table Index Rawat Inap dan Rawat Jalan
+- Fix Pemeriksaan Rawat Inap Edit/Update
+- Pasien Keluar Rawat Inap (Create, Edit) Get Data No RM, Tgl & Jam Masuk, Ruangan, Diagnosis, Total Biaya Berdasarkan Nomor Registrasi
+- Pembayaran Rawat Inap (Create, Edit) Get Data No RM, Ruangan, Total Biaya, Alamat Berdasarkan Nomor Registrasi
+- Pada Dashboard Menambahkan Grafik Pasien Rawat Inap Perhari dan Pasien Rawat Jalan Perhari
+- Menambahkan Tanggal, Pagi Siang Sore Malam, Pemberi Obat Pada Pemeriksaan Rawat Inap
+- Menambahkan Laboratorium Pada Pemeriksaan Rawat Inap dan Rawat Jalan
