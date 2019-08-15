@@ -123,7 +123,23 @@ function on_edit()
 		var id = $('input[name="rowcheck[]"]:checked').val();
 		window.location.replace(SITE_URL + '/registration_outpatient/'+id+'/edit');
   	}
+}
 
+//show
+
+function on_show()
+{
+	if ($('input[name="rowcheck[]"]:checked').length == 0) {
+      	show_notification('Informasi', 'warning', 'Silahkan Pilih Data Dahulu!');
+  	}
+  	else if ($('input[name="rowcheck[]"]:checked').length > 1) {
+      	show_notification('Information', 'warning', 'Silahkan Pilih Salah Satu Data!');
+  	}
+  	else {
+
+		var id = $('input[name="rowcheck[]"]:checked').val();
+		window.location.replace(SITE_URL + '/registration_outpatient/'+id);
+  	}
 }
 
 // delete

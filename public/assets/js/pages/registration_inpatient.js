@@ -86,7 +86,7 @@ $(document).ready(function(){
 
 });
 
-// search
+// Search
 
 function on_search()
 {
@@ -94,7 +94,7 @@ function on_search()
   	tbProgram.search(src).draw();
 }
 
-// clear search
+// Clear search
 
 function on_clear_search()
 {
@@ -102,7 +102,7 @@ function on_clear_search()
 	on_search();
 }
 
-// clear
+// Clear
 
 function on_clear()
 {
@@ -113,7 +113,7 @@ function on_clear()
 
 }
 
-// edit
+// Edit
 
 function on_edit()
 {
@@ -131,7 +131,7 @@ function on_edit()
 
 }
 
-// delete
+// Delete
 
 function on_delete()
 {
@@ -143,5 +143,23 @@ function on_delete()
 	}
 
 }
+
+// View
+
+function on_show()
+{
+	if ($('input[name="rowcheck[]"]:checked').length == 0) {
+      	show_notification('Informasi', 'warning', 'Silahkan Pilih Data Dahulu!');
+  	}
+  	else if ($('input[name="rowcheck[]"]:checked').length > 1) {
+      	show_notification('Information', 'warning', 'Silahkan Pilih Salah Satu Data!');
+  	}
+  	else {
+
+		var id = $('input[name="rowcheck[]"]:checked').val();
+		window.location.replace(SITE_URL + '/registration_inpatient/'+id);
+  	}
+}
+
 
 $.fn.dataTable.ext.errMode = 'throw';

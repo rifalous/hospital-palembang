@@ -88,7 +88,11 @@ class OutpatientController extends Controller
      */
     public function show($id)
     {
-        //
+        $pasiens           = Pasien::get();
+        $doctors           = Doctor::get();
+        $polikliniks       = System::configMultiply('poliklinik');
+        $registration_outpatient = Outpatient::find($id);
+        return view('pages.outpatient.show', compact(['pasiens','doctors','polikliniks','registration_outpatient']));
     }
 
     /**

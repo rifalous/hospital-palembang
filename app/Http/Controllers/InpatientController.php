@@ -95,7 +95,14 @@ class InpatientController extends Controller
      */
     public function show($id)
     {
-        //
+        $rooms = Room::get();
+        $pasiens = Pasien::get();
+        $doctors = Doctor::get();
+        $entry_procedures       = System::config('entry_procedure');
+        $person_in_charges      = System::config('person_in_charge');
+        $registration_inpatient = Inpatient::find($id);
+
+        return view('pages.inpatient.show', compact(['registration_inpatient','rooms','pasiens','doctors','entry_procedures','person_in_charges']));
     }
 
     /**
