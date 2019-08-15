@@ -17,12 +17,6 @@ Route::get('/', function () {
 
 Route::middleware('auth')->group(function(){
 
-	Route::get('/cart', 'CartController@index');
-	Route::put('/cart/{id}', 'CartController@update');
-	Route::delete('/cart/{id}', 'CartController@delete');
-	Route::get('cart/delete/{id}', 'CartController@deleteCart');
-	Route::get('/cart/checkout', 'CartController@checkout');
-
 	Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 	Route::get('/dashboard/get_chart', 'DashboardController@getChart')->name('dashboard.chart');
 	Route::get('/dashboard/get_data_park', 'DashboardController@getDataPark')->name('dashboard.get_data_park');

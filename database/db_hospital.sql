@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 05, 2019 at 07:59 AM
+-- Generation Time: Aug 15, 2019 at 07:19 AM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.1.26
 
@@ -7850,6 +7850,91 @@ INSERT INTO `doctors` (`id`, `code`, `nip`, `name`, `address`, `phone`, `created
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `examination_inpatient`
+--
+
+CREATE TABLE `examination_inpatient` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `inpatient_id` int(11) NOT NULL,
+  `pasien_id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `doctor_name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `room_id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `level_id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `amount_action` double(25,2) NOT NULL,
+  `amount_material` double(25,2) NOT NULL,
+  `amount` double(25,2) NOT NULL,
+  `check_date` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `registration_date` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `examination_inpatient`
+--
+
+INSERT INTO `examination_inpatient` (`id`, `inpatient_id`, `pasien_id`, `doctor_name`, `room_id`, `level_id`, `amount_action`, `amount_material`, `amount`, `check_date`, `registration_date`, `created_at`, `updated_at`) VALUES
+(1, 1, '', '', '1', '1', 0.00, 0.00, 0.00, '2019-08-08', '', '2019-08-07 23:00:00', '2019-08-07 23:00:00'),
+(2, 1, '', '', '1', '1', 0.00, 0.00, 0.00, '2019-08-13', '', '2019-08-12 23:29:57', '2019-08-12 23:29:57');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `examination_inpatient_datas`
+--
+
+CREATE TABLE `examination_inpatient_datas` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `examination_inpatient_id` int(11) NOT NULL,
+  `action_id` int(11) NOT NULL,
+  `cost_inpatient` double(25,2) NOT NULL,
+  `many_action` int(11) NOT NULL,
+  `total_action` double(25,2) NOT NULL,
+  `doctor_id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `examination_inpatient_datas`
+--
+
+INSERT INTO `examination_inpatient_datas` (`id`, `examination_inpatient_id`, `action_id`, `cost_inpatient`, `many_action`, `total_action`, `doctor_id`, `created_at`, `updated_at`) VALUES
+(1, 1, 1, 10000.00, 2, 20000.00, '1', '2019-08-07 23:00:00', '2019-08-07 23:00:00'),
+(2, 2, 1, 2.00, 1000, 2000.00, '1', '2019-08-12 00:46:14', '2019-08-12 00:46:14'),
+(3, 2, 1, 1000.00, 2, 2000.00, '1', '2019-08-12 23:29:57', '2019-08-12 23:29:57'),
+(4, 2, 1, 5000.00, 1, 5000.00, '1', '2019-08-12 23:29:57', '2019-08-12 23:29:57');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `examination_inpatient_details`
+--
+
+CREATE TABLE `examination_inpatient_details` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `examination_inpatient_id` int(11) NOT NULL,
+  `material_id` int(11) NOT NULL,
+  `price_material` double(25,2) NOT NULL,
+  `many_material` int(11) NOT NULL,
+  `total_material` double(25,2) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `examination_inpatient_details`
+--
+
+INSERT INTO `examination_inpatient_details` (`id`, `examination_inpatient_id`, `material_id`, `price_material`, `many_material`, `total_material`, `created_at`, `updated_at`) VALUES
+(1, 1, 1, 5000.00, 1, 5000.00, '2019-08-07 23:00:00', '2019-08-07 23:00:00'),
+(2, 1, 2, 5000.00, 1, 5000.00, '2019-08-07 23:00:00', '2019-08-07 23:00:00'),
+(3, 2, 1, 8000.00, 1, 8000.00, '2019-08-12 00:46:14', '2019-08-12 00:46:14'),
+(4, 2, 1, 1000.00, 2, 2000.00, '2019-08-12 23:29:57', '2019-08-12 23:29:57');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `examination_outpatients`
 --
 
@@ -7872,7 +7957,7 @@ CREATE TABLE `examination_outpatients` (
 --
 
 INSERT INTO `examination_outpatients` (`id`, `outpatient_id`, `pasien_id`, `doctor_name`, `amount_action`, `amount_material`, `amount`, `check_date`, `registration_date`, `created_at`, `updated_at`) VALUES
-(1, 1, 'Dadang Sukiman', 'David Foster', 0.00, 20000.00, 20000.00, '2019-07-22', '2019-07-22', '2019-07-21 23:37:30', '2019-07-29 01:17:07');
+(1, 1, 'Dadang Sukiman', 'David Foster', 20000.00, 20000.00, 40000.00, '2019-07-22', '2019-07-22', '2019-07-21 23:37:30', '2019-08-11 23:20:30');
 
 -- --------------------------------------------------------
 
@@ -7891,6 +7976,13 @@ CREATE TABLE `examination_outpatient_datas` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `examination_outpatient_datas`
+--
+
+INSERT INTO `examination_outpatient_datas` (`id`, `examination_outpatient_id`, `action_id`, `cost_outpatient`, `many_action`, `total_action`, `doctor_id`, `created_at`, `updated_at`) VALUES
+(1, 1, 1, 10000.00, 2, 20000.00, '1', '2019-08-11 23:20:30', '2019-08-11 23:20:30');
 
 -- --------------------------------------------------------
 
@@ -7914,7 +8006,7 @@ CREATE TABLE `examination_outpatient_details` (
 --
 
 INSERT INTO `examination_outpatient_details` (`id`, `examination_outpatient_id`, `material_id`, `price_material`, `many_material`, `total_material`, `created_at`, `updated_at`) VALUES
-(3, 1, 2, 10000.00, 2, 20000.00, '2019-07-29 01:17:07', '2019-07-29 01:17:07');
+(4, 1, 1, 10000.00, 2, 20000.00, '2019-08-11 23:20:30', '2019-08-11 23:20:30');
 
 -- --------------------------------------------------------
 
@@ -7937,15 +8029,16 @@ CREATE TABLE `inpatients` (
   `address` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `phone` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `complaint` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `inpatients`
 --
 
-INSERT INTO `inpatients` (`id`, `no_registrasi`, `pasien_id`, `tgl_masuk`, `time`, `entry_procedure`, `room_id`, `doctor_id`, `disease`, `person_in_charge`, `name`, `address`, `phone`, `created_at`, `updated_at`) VALUES
-(1, '001', 1, '2019-07-22', '14:00', 'Puskesmas', 1, 1, 'Cancer', 'Orang Tua', 'Dadang', 'Jl. Test ABC No.01', '081222333444', '2019-07-22 00:27:34', '2019-07-22 00:27:34');
+INSERT INTO `inpatients` (`id`, `no_registrasi`, `pasien_id`, `tgl_masuk`, `time`, `entry_procedure`, `room_id`, `doctor_id`, `disease`, `person_in_charge`, `name`, `address`, `phone`, `created_at`, `updated_at`, `complaint`) VALUES
+(1, '001', 1, '2019-07-22', '14:00', 'Puskesmas', 1, 1, 'Cancer', 'Orang Tua', 'Dadang', 'Jl. Test ABC No.01', '081222333444', '2019-07-22 00:27:34', '2019-07-22 00:27:34', '');
 
 -- --------------------------------------------------------
 
@@ -7971,6 +8064,13 @@ CREATE TABLE `inpatient_payments` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `inpatient_payments`
+--
+
+INSERT INTO `inpatient_payments` (`id`, `examination_inpatient_id`, `pasien_id`, `room_id`, `total_biaya`, `sisa_tagihan`, `jumlah_dibayar`, `tgl_bayar`, `diskon`, `discount`, `sisa_pembayaran`, `payment`, `address`, `ket`, `created_at`, `updated_at`) VALUES
+(1, 1, 1, 1, 1000000, 0, 1000000, '2019-08-08', 0, 'JAMST', 0, '01', 'Jl. Test ABC No. 01', 'Lunas', '2019-08-07 23:23:47', '2019-08-07 23:23:47');
 
 -- --------------------------------------------------------
 
@@ -8197,7 +8297,13 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (36, '2019_05_07_044308_create_examination_outpatient_datas_table', 1),
 (37, '2019_05_14_041532_create_payments_table', 1),
 (38, '2019_05_21_062511_create_inpatient_payments_table', 1),
-(39, '2019_06_18_060002_create_examination_outpatient_details_table', 1);
+(39, '2019_06_18_060002_create_examination_outpatient_details_table', 1),
+(40, '2019_04_23_045014_create_shoppingcart_table', 2),
+(41, '2019_08_07_030245_add_column_timestamp_to_role_user', 2),
+(42, '2019_08_07_032347_examination_inpatient_table', 2),
+(43, '2019_08_07_033430_examination_inpatient_datas_table', 2),
+(44, '2019_08_07_033444_examination_inpatient_detail_table', 2),
+(45, '2019_08_07_043353_add_column_complaint_to_inpatients', 2);
 
 -- --------------------------------------------------------
 
@@ -8350,15 +8456,16 @@ CREATE TABLE `pasien_datas` (
   `province_id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `postal_code` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `identification_number` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `bpjs_number` varchar(15) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `phone` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `father_name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `mother_name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `father_name` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `mother_name` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `age` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `age_father` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `age_mother` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `guardian_name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `guardian_name` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `guardian_address` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `family_relationship` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `family_relationship` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -8367,9 +8474,9 @@ CREATE TABLE `pasien_datas` (
 -- Dumping data for table `pasien_datas`
 --
 
-INSERT INTO `pasien_datas` (`id`, `pasien_id`, `place`, `date_of_birth`, `gender`, `religion`, `education`, `work`, `status`, `blood_group`, `address`, `district_id`, `city_id`, `province_id`, `postal_code`, `identification_number`, `phone`, `father_name`, `mother_name`, `age`, `age_father`, `age_mother`, `guardian_name`, `guardian_address`, `family_relationship`, `created_at`, `updated_at`) VALUES
-(1, 1, 'Bandung', '1996-07-07', 'Pria', 'islam', 'S1', 'Pegawai Negeri', 'Lajang', 'AB+', 'Jl. Test ABC No. 01', '3204040', '3204', '32', '40377', '33061244039', '081222333444', 'Dadang', 'Dedeh', '22', '47', '44', 'Diding', 'Jl. Test ABC No. 01', 'Paman', '2019-07-21 22:24:46', '2019-07-24 22:35:58'),
-(2, 2, 'Bandung', '1995-05-05', 'Pria', 'islam', 'S1', 'BUMN/BUMD', 'Lajang', 'AB+', 'Jl. Test ABC No. 01', '3273050', '3273', '32', '40377', '33066644123', '081333444555', 'Dudung', 'Dien', '23', '44', '42', 'Wawan', 'Jl. Test ABC No. 01', 'Paman', '2019-07-24 00:04:59', '2019-07-24 00:04:59');
+INSERT INTO `pasien_datas` (`id`, `pasien_id`, `place`, `date_of_birth`, `gender`, `religion`, `education`, `work`, `status`, `blood_group`, `address`, `district_id`, `city_id`, `province_id`, `postal_code`, `identification_number`, `bpjs_number`, `phone`, `father_name`, `mother_name`, `age`, `age_father`, `age_mother`, `guardian_name`, `guardian_address`, `family_relationship`, `created_at`, `updated_at`) VALUES
+(1, 1, 'Bandung', '1996-07-07', 'Pria', 'islam', 'S1', 'Pegawai Negeri', 'Lajang', 'AB+', 'Jl. Test ABC No. 01', '3204040', '3204', '32', '40377', '33061244039', '0001725722199', '081222333444', 'Dadang', 'Dedeh', '22', '47', '44', 'Diding', 'Jl. Test ABC No. 01', 'Paman', '2019-07-21 22:24:46', '2019-08-13 02:02:06'),
+(2, 2, 'Bandung', '1995-05-05', 'Pria', 'islam', 'S1', 'BUMN/BUMD', 'Lajang', 'AB+', 'Jl. Test ABC No. 01', '3273050', '3273', '32', '40377', '33066644123', NULL, '081333444555', 'Dudung', 'Dien', '23', '44', '42', 'Wawan', 'Jl. Test ABC No. 01', 'Paman', '2019-07-24 00:04:59', '2019-07-24 00:04:59');
 
 -- --------------------------------------------------------
 
@@ -8566,15 +8673,17 @@ INSERT INTO `roles` (`id`, `name`, `display_name`, `description`, `created_at`, 
 
 CREATE TABLE `role_user` (
   `user_id` int(10) UNSIGNED NOT NULL,
-  `role_id` int(10) UNSIGNED NOT NULL
+  `role_id` int(10) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `role_user`
 --
 
-INSERT INTO `role_user` (`user_id`, `role_id`) VALUES
-(6, 1);
+INSERT INTO `role_user` (`user_id`, `role_id`, `created_at`, `updated_at`) VALUES
+(6, 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -8636,6 +8745,20 @@ CREATE TABLE `settings` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `shoppingcart`
+--
+
+CREATE TABLE `shoppingcart` (
+  `identifier` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `instance` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `content` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `suppliers`
 --
 
@@ -8686,7 +8809,7 @@ INSERT INTO `systems` (`id`, `system_type`, `system_code`, `system_val`, `create
 (1, 'config_multiply', 'status', '0, Non Active;1, Active', NULL, NULL),
 (2, 'config_other', 'dir_key', 'ADMIN;PLANT', NULL, NULL),
 (3, 'config_multiply', 'religion', 'islam,Islam;kristen,Kristen;budha,Budha;kataolik,Katolik;hindu,Hindu;kepercayaan,Kepercayaan', NULL, NULL),
-(4, 'config_multiply', 'education', 'SD,SD;SMP,SMP;SMA,SMA;S1,S1;S2,S2', NULL, NULL),
+(4, 'config_multiply', 'education', 'SD,SD;SMP,SMP;SMA,SMA;D3,D3;S1,S1;S2,S2', NULL, '2019-08-12 01:27:42'),
 (5, 'config_multiply', 'gender', 'Pria,Laki Laki; Perempuan,Perempuan', NULL, NULL),
 (6, 'config_multiply', 'work', 'Pegawai Negeri,Pegawai Negeri;TNI/POLRI,TNI/POlRI;BUMN/BUMD,BUMN/BUMD;Guru,Guru;Pengusaha,Pengusaha,Karyawan Swasta,Karyawan Swasta;Petani,Petani;Peternak,Peternak;Wiraswasta,Wiraswasta', NULL, NULL),
 (7, 'config_multiply', 'blood_group', 'A-,A Rh-;A+,A Rh+;AB-,AB Rh-;AB+,AB Rh+;B-,B Rh-;B+,B Rh+;O-,O Rh-;O+,O Rh+', NULL, NULL),
@@ -8732,7 +8855,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `status`, `photo`, `remember_token`, `department_id`, `division_id`, `direction`, `created_at`, `updated_at`) VALUES
-(6, 'rifal', 'rifal@gmail.com', '$2y$10$ln1n4HexE7ghHvm1CddLeeGFFKjURDumc8.AdTJFzf89ws/2wxsPi', 1, 'img/pp.png', '4XPAma3pe4WTfMbElGLF7IogGdesgZ4FloP05K7CMz03j19JxDPRoLhGuIfg', 1, 1, NULL, '2019-06-26 02:24:42', '2019-07-23 22:35:17');
+(6, 'rifal', 'rifal@gmail.com', '$2y$10$ln1n4HexE7ghHvm1CddLeeGFFKjURDumc8.AdTJFzf89ws/2wxsPi', 1, 'img/pp.png', 'Dmb60hQYcOP46RnAWahF4ItQxCzk6tNlnhOBSh1VUrwgeyy2zPYzjS3wbros', 1, 1, NULL, '2019-06-26 02:24:42', '2019-07-23 22:35:17');
 
 -- --------------------------------------------------------
 
@@ -90925,6 +91048,24 @@ ALTER TABLE `doctors`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `examination_inpatient`
+--
+ALTER TABLE `examination_inpatient`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `examination_inpatient_datas`
+--
+ALTER TABLE `examination_inpatient_datas`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `examination_inpatient_details`
+--
+ALTER TABLE `examination_inpatient_details`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `examination_outpatients`
 --
 ALTER TABLE `examination_outpatients`
@@ -91105,6 +91246,12 @@ ALTER TABLE `settings`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `shoppingcart`
+--
+ALTER TABLE `shoppingcart`
+  ADD PRIMARY KEY (`identifier`,`instance`);
+
+--
 -- Indexes for table `suppliers`
 --
 ALTER TABLE `suppliers`
@@ -91184,6 +91331,24 @@ ALTER TABLE `doctors`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
+-- AUTO_INCREMENT for table `examination_inpatient`
+--
+ALTER TABLE `examination_inpatient`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `examination_inpatient_datas`
+--
+ALTER TABLE `examination_inpatient_datas`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `examination_inpatient_details`
+--
+ALTER TABLE `examination_inpatient_details`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
 -- AUTO_INCREMENT for table `examination_outpatients`
 --
 ALTER TABLE `examination_outpatients`
@@ -91193,13 +91358,13 @@ ALTER TABLE `examination_outpatients`
 -- AUTO_INCREMENT for table `examination_outpatient_datas`
 --
 ALTER TABLE `examination_outpatient_datas`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `examination_outpatient_details`
 --
 ALTER TABLE `examination_outpatient_details`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `inpatients`
@@ -91211,7 +91376,7 @@ ALTER TABLE `inpatients`
 -- AUTO_INCREMENT for table `inpatient_payments`
 --
 ALTER TABLE `inpatient_payments`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `levels`
@@ -91241,7 +91406,7 @@ ALTER TABLE `menus`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 
 --
 -- AUTO_INCREMENT for table `oauth_clients`
