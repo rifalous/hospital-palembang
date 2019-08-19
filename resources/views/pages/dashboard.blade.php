@@ -21,11 +21,10 @@
                 <div class="clearfix"></div>
             </div>
 		</div
-        	</div>
+    </div>
     <!-- end row -->
 
     <div class="row">
-
         <div class="col-lg-3 col-md-6">
             <div class="card-box widget-box-two widget-two-primary">
                 <i class="fa fa-user-md widget-two-icon"></i>
@@ -69,7 +68,15 @@
                 </div>
             </div>
         </div><!-- end col -->
+    </div>
 
+    <div class="row">
+        <div class="col-xs-6">
+            {!! $chart->container() !!}
+        </div><!-- end col -->
+        <div class="col-xs-6">
+            {!! $chart2->container() !!}
+        </div><!-- end col -->
     </div>
 </div> <!-- container -->
 
@@ -82,4 +89,7 @@
     </script>
 @endif
 <script src="{{ url('assets/js/pages/dashboard.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js" charset="utf-8"></script>
+{!! $chart->script() !!}
+{!! $chart2->script() !!}
 @endpush

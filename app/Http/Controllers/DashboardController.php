@@ -10,17 +10,34 @@ use App\Inpatient;
 use App\User;
 use App\Outpatient;
 use App\Setting;
+use App\Charts\SampleChart;
 
 class DashboardController extends Controller
 {
     public function index(Request $request)
     {
+    	$users = User::get();
+     	$doctors = Doctor::get();
+     	$inpatient = Inpatient::get();
+     	$outpatient = Outpatient::get();
+	
+		$today_inpatient = Inpatient::whereDate('created_at', today())->count();
+		$yesterday_inpatient = Inpatient::whereDate('created_at', today()->subDays(1))->count();
+		$inpatient_2_days_ago = Inpatient::whereDate('created_at', today()->subDays(2))->count();
+		 
+		$chart = new SampleChart();
+		$chart->labels(['2 hari lalu', 'kemarin', 'hari ini']);	
+		//$chart->loaderColor('green');
+		$chart->dataset('Pasien Rawat Inap', 'bar', [$inpatient_2_days_ago, $yesterday_inpatient, $today_inpatient])->backgroundColor('lightcoral');
 
-     $users = User::get();
-     $doctors = Doctor::get();
-     $inpatient = Inpatient::get();
-     $outpatient = Outpatient::get();
-       
+		$today_outpatient = Outpatient::whereDate('created_at', today())->count();
+		$yesterday_outpatient = Outpatient::whereDate('created_at', today()->subDays(1))->count();
+		$outpatient_2_days_ago = Outpatient::whereDate('created_at', today()->subDays(2))->count();
+		 
+		$chart2 = new SampleChart;
+		$chart2->labels(['2 hari lalu', 'kemarin', 'hari ini']);
+		//$chart2->loaderColor('red');
+		$chart2->dataset('Pasien Rawat Jalan', 'bar', [$outpatient_2_days_ago, $yesterday_outpatient, $today_outpatient])->backgroundColor('lightgreen');
 
    //  	$types = Type::get();
    //      $group_locations = GroupLocation::get();
@@ -34,7 +51,7 @@ class DashboardController extends Controller
    //  	}
 
         // if (auth()->user()->hasRole('approval')) {
-        return view('pages.dashboard', compact(['users','doctors','inpatient','outpatient']));
+        return view('pages.dashboard', compact(['users','doctors','inpatient','outpatient', 'chart', 'chart2']));
     }
 
     public function getChart(Request $request)
