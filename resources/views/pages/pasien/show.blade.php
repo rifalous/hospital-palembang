@@ -136,17 +136,30 @@
 
                             <div class="form-group">
                                 <label class="control-label">Provinsi</label>
-                                <input type="text" name="province_id" class="form-control number" readonly maxlength="16" value="{{ $pasien->details->province_id }}"></input>
+                                <select disabled name="province_id" class="select2" data-placeholder="Pilih Provinsi" onchange="getDistrict(this.value)" required="required" data-allow-clear="true">
+                                    @foreach ($provinces as $province)
+                                        <option value="{{ $province['id'] }}" {{ $province['id'] == $pasien->details->province_id ? 'selected=selected' : '' }}>{{ $province['name'] }}</option>
+                                    @endforeach
+                                </select>
                             </div>
+
                             <div class="form-group">
                                 <label class="control-label">Kota</label>
-                                <input type="text" name="city_id" class="form-control number" readonly maxlength="16" value="{{ $pasien->details->city_id }}"></input>
+                                <select disabled name="city_id" class="select2" data-placeholder="Pilih Kota" onchange="getCity(this.value)"required="required">
+                                    @foreach ($cities as $city)
+                                        <option value="{{ $city['id'] }}" {{ $city['id'] == $pasien->details->city_id ? 'selected=selected' : '' }}>{{ $city['name'] }}</option>
+                                    @endforeach
+                                </select>
                             </div>
 
                             <div class="form-group">
                                 <div class="form-group">
                                     <label class="control-label">Kecamatan</label>
-                                    <input type="text" name="district_id" class="form-control number" readonly maxlength="16" value="{{ $pasien->details->district_id }}"></input>
+                                    <select disabled name="district_id" class="form-control select2" data-placeholder="Pilih Kecamatan" required="required">
+                                    @foreach ($districts as $district)
+                                        <option value="{{ $district['id'] }}" {{ $district['id'] == $pasien->details->district_id ? 'selected=selected' : '' }}>{{ $district['name'] }}</option>
+                                    @endforeach
+                                    </select>
                                     <span class="help-block"></span>
                                 </div>
                             </div>
