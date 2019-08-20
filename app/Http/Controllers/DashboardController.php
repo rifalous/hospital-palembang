@@ -27,7 +27,7 @@ class DashboardController extends Controller
 		 
 		$chart = new SampleChart();
 		$chart->labels(['2 hari lalu', 'kemarin', 'hari ini']);	
-		//$chart->loaderColor('green');
+		$chart->loaderColor('lightcoral');
 		$chart->dataset('Pasien Rawat Inap', 'bar', [$inpatient_2_days_ago, $yesterday_inpatient, $today_inpatient])->backgroundColor('lightcoral');
 
 		$today_outpatient = Outpatient::whereDate('created_at', today())->count();
@@ -36,7 +36,7 @@ class DashboardController extends Controller
 		 
 		$chart2 = new SampleChart;
 		$chart2->labels(['2 hari lalu', 'kemarin', 'hari ini']);
-		//$chart2->loaderColor('red');
+		$chart2->loaderColor('lightgreen');
 		$chart2->dataset('Pasien Rawat Jalan', 'bar', [$outpatient_2_days_ago, $yesterday_outpatient, $today_outpatient])->backgroundColor('lightgreen');
 
    //  	$types = Type::get();
