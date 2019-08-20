@@ -72,10 +72,18 @@
 
     <div class="row">
         <div class="col-xs-6">
-            {!! $chart->container() !!}
+            <div class="card-box widget-box-two">
+                <div class="wigdet-two-content">
+                {!! $chart->container() !!}
+                </div>
+            </div>
         </div><!-- end col -->
         <div class="col-xs-6">
-            {!! $chart2->container() !!}
+            <div class="card-box widget-box-two">
+                <div class="wigdet-two-content">
+                {!! $chart2->container() !!}
+                </div>
+            </div>
         </div><!-- end col -->
     </div>
 </div> <!-- container -->

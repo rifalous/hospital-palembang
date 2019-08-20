@@ -26,7 +26,7 @@ class DashboardController extends Controller
 		$inpatient_2_days_ago = Inpatient::whereDate('created_at', today()->subDays(2))->count();
 		 
 		$chart = new SampleChart();
-		$chart->labels(['2 hari lalu', 'kemarin', 'hari ini']);	
+		$chart->labels(['2 Hari Lalu', 'Kemarin', 'Hari Ini']);	
 		$chart->loaderColor('lightcoral');
 		$chart->dataset('Pasien Rawat Inap', 'bar', [$inpatient_2_days_ago, $yesterday_inpatient, $today_inpatient])->backgroundColor('lightcoral');
 
@@ -35,7 +35,7 @@ class DashboardController extends Controller
 		$outpatient_2_days_ago = Outpatient::whereDate('created_at', today()->subDays(2))->count();
 		 
 		$chart2 = new SampleChart;
-		$chart2->labels(['2 hari lalu', 'kemarin', 'hari ini']);
+		$chart2->labels(['2 Hari Lalu', 'Kemarin', 'Hari Ini']);	
 		$chart2->loaderColor('lightgreen');
 		$chart2->dataset('Pasien Rawat Jalan', 'bar', [$outpatient_2_days_ago, $yesterday_outpatient, $today_outpatient])->backgroundColor('lightgreen');
 
