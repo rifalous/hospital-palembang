@@ -110,7 +110,7 @@
                                     <button class="btn btn-danger btn-circle btn-bordered waves-effect waves-light" type="button" data-dz-remove><i class="mdi mdi-close"></i></button>
                                 </div>
 
-                                <img data-dz-thumbnail class="thumbail-preview img img-responsive img-thumbnail">
+                                <img data-dz-thumbnail class="thumbail-preview img img-responsive img-thumbnail" style="height:90%;widht:100%">
 
                                 <div class="progress-wrapper">
                                     <div class="progress progress-striped active" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
@@ -120,7 +120,8 @@
 
                             </div>
                         </div>
-                        <input type="text" name="old_pic" hidden="hidden">
+                        <input type="text" name="old_pic" hidden="hidden" value="{{ $pasien->details->photos }}">
+                        <input type="text" name="new_pic" hidden="hidden">
                     </div>
 
                 </div>
@@ -137,7 +138,7 @@
 
                             <div class="form-group">
                                 <label class="control-label">Nomor BPJS</label>
-                                <input type="text" name="bpjs_number" placeholder="eg. 00017257xxxxx" class="form-control number" required="required" maxlength="16" value="{{ $pasien->details->bpjs_number }}"></input>
+                                <input type="text" name="bpjs_number" placeholder="eg. 00017257xxxxx" class="form-control number" maxlength="16" value="{{ $pasien->details->bpjs_number }}"></input>
                                 <span class="help-block"></span>
                             </div>
 

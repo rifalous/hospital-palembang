@@ -39,8 +39,9 @@ class CreatePasienDatasTable extends Migration
             $table->string('age_father');   
             $table->string('age_mother');   
             $table->string('guardian_name');   
-            $table->string('guardian_address');   
-            $table->string('family_relationship');   
+            $table->string('guardian_address');
+            $table->string('family_relationship');
+            $table->string('photos');
             $table->timestamps();
         });
     }

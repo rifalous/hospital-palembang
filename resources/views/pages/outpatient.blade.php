@@ -34,10 +34,12 @@
                   
                   <a class="btn btn-primary btn-bordered waves-effect waves-light" href="{{ url('registration_outpatient/create') }}">Tambah</a>
                   
-                  <button class="btn btn-primary btn-bordered waves-effect waves-light" onclick="on_show()">Lihat Detail</button>                  
+                  <!--
+                  <button class="btn btn-primary btn-bordered waves-effect waves-light" onclick="on_show()">Lihat Detail</button>
                   <button class="btn btn-primary btn-bordered waves-effect waves-light" onclick="on_edit()">Ubah</button>
                   <button class="btn btn-primary btn-bordered waves-effect waves-light" onclick="on_delete()">Hapus</button>
-                 
+                  -->
+                  
                   </div>
               </div>
               <div class="col-md-4">

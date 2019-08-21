@@ -22,13 +22,11 @@ uploadPicture.on("addedfile", function(file) {
   if (file.type != 'image/jpeg'){
     show_notification('Kesalahan', 'error', 'Format tidak di dukung');
     uploadPicture.removeFile(file);
-    console.log(file.type);
   }
 
   else if (file.size >= 1000000){
     show_notification('Kesalahan', 'error', 'Berkas terlalu besar');
     uploadPicture.removeFile(file);
-    console.log(file.size);
   }
   else{
     $('.drag-drop').hide();
@@ -39,6 +37,10 @@ uploadPicture.on("addedfile", function(file) {
 });
 
 uploadPicture.on("removedfile", function(file) {
+  const name = $('[name="new_pic"]').val();
+  if (name != '') {
+    on_remove(name);
+  }
   $('.drag-drop').show();
   $('.drag-drop').css('border', '3px dashed #e1e1e1');
 });
@@ -49,7 +51,7 @@ uploadPicture.on('maxfilesexceeded', function(file){
 });
 
 uploadPicture.on('success', function(file, response) {
-  $('[name="old_pic"]').val(response);
+  $('[name="new_pic"]').val(response);
   $('.progress-wrapper').hide();
 });
 
@@ -60,9 +62,12 @@ uploadPicture.on('error', function(xhr, status, error) {
     }
 });
 
-uploadPicture.on('sending', function(file, xhr, formData) {
-  formData.append('old_pic', $('[name="old_pic"]').val());
-});
+// uploadPicture.on('sending', function(file, xhr, formData) {
+//   if ($('[name="old_pic"]').val() != '') {
+//     formData.append('old_pic', $('[name="old_pic"]').val());
+//   }
+//   // formData.append('old_pic', $('[name="old_pic"]').val());
+// });
 
 $('.drag-drop').on('dragover', function(){
     $(this).css('border', '3px dashed #5b90bf');

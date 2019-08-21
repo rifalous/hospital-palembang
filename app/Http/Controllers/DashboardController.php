@@ -28,6 +28,7 @@ class DashboardController extends Controller
 		$chart = new SampleChart();
 		$chart->labels(['2 Hari Lalu', 'Kemarin', 'Hari Ini']);	
 		$chart->loaderColor('lightcoral');
+		$chart->title("Grafik Registrasi Pasien Rawat Inap", 14, '#666', true, "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif");
 		$chart->dataset('Pasien Rawat Inap', 'bar', [$inpatient_2_days_ago, $yesterday_inpatient, $today_inpatient])->backgroundColor('lightcoral');
 
 		$today_outpatient = Outpatient::whereDate('created_at', today())->count();
@@ -37,6 +38,7 @@ class DashboardController extends Controller
 		$chart2 = new SampleChart;
 		$chart2->labels(['2 Hari Lalu', 'Kemarin', 'Hari Ini']);	
 		$chart2->loaderColor('lightgreen');
+		$chart2->title("Grafik Registrasi Pasien Rawat Jalan", 14, '#666', true, "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif");
 		$chart2->dataset('Pasien Rawat Jalan', 'bar', [$outpatient_2_days_ago, $yesterday_outpatient, $today_outpatient])->backgroundColor('lightgreen');
 
    //  	$types = Type::get();

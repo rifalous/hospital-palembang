@@ -42,6 +42,8 @@ Route::middleware('auth')->group(function(){
 
 	// Master Pasien
 	Route::get('pasien/get_data', 'PasienController@getData');
+	Route::post('media/upload', 'PasienController@upload');
+	Route::get('media/remove/{filename}', 'PasienController@remove');
 	Route::get('pasien/details-data/{id}', 'PasienController@getDetailsData');
 	Route::get('pasien/get_district/{province_id}', 'PasienController@getDistrict');
 	Route::get('/pasien/export', 'PasienController@export')->name('pasien.export');
@@ -81,11 +83,13 @@ Route::middleware('auth')->group(function(){
 	// Master Registrasi Rawat Inap
 	Route::get('registration_inpatient/get_data', 'InpatientController@getData');
 	Route::get('/registration_inpatient/export', 'InpatientController@export')->name('registration_inpatient.export');
+	Route::delete('registration_inpatient/remove/{id}', 'InpatientController@remove')->name('registration_inpatient.remove');
 	Route::resource('registration_inpatient', 'InpatientController');
 
 	// Master Registrasi Rawat Jalan 
 	Route::get('registration_outpatient/get_data', 'OutpatientController@getData');
 	Route::get('/registration_outpatient/export', 'OutpatientController@export')->name('registration_outpatient.export');
+	Route::delete('registration_outpatient/remove/{id}', 'OutpatientController@remove')->name('registration_outpatient.remove');
 	Route::resource('registration_outpatient', 'OutpatientController');
 
 	// Master Pemeriksaan Rawat Inap

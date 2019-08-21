@@ -117,7 +117,7 @@ Tambah Pasien
 
                             </div>
                         </div>
-                        <input type="text" name="old_pic" hidden="hidden">
+                        <input type="text" name="new_pic" hidden="hidden">
                     </div>
 
                 </div>

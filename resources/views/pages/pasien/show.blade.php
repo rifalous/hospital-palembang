@@ -94,26 +94,7 @@
                 <div class="card-box">
                     <div class="form-group">
                         <label>Foto</label>
-                        <div class="drag-drop text-center">
-                            
-                        </div>
-                        <div class="preview">
-                            <div class="template">
-                                <div class="remove">
-                                    <button class="btn btn-danger btn-circle btn-bordered waves-effect waves-light" type="button" data-dz-remove><i class="mdi mdi-close"></i></button>
-                                </div>
-
-                                <img data-dz-thumbnail class="thumbail-preview img img-responsive img-thumbnail">
-
-                                <div class="progress-wrapper">
-                                    <div class="progress progress-striped active" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
-                                        <div class="progress-bar progress-bar-success" style="width:0%;" data-dz-uploadprogress></div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                        <input type="text" name="old_pic" hidden="hidden">
+                        <div class="preview"><img class="thumbail-preview img img-responsive img-thumbnail" src="{{ asset('uploads/' . $pasien->details->photos) }}"></div>
                     </div>
 
                 </div>
@@ -136,30 +117,17 @@
 
                             <div class="form-group">
                                 <label class="control-label">Provinsi</label>
-                                <select disabled name="province_id" class="select2" data-placeholder="Pilih Provinsi" onchange="getDistrict(this.value)" required="required" data-allow-clear="true">
-                                    @foreach ($provinces as $province)
-                                        <option value="{{ $province['id'] }}" {{ $province['id'] == $pasien->details->province_id ? 'selected=selected' : '' }}>{{ $province['name'] }}</option>
-                                    @endforeach
-                                </select>
+                                <input type="text" name="province_id" class="form-control number" readonly maxlength="16" value="{{ $pasien->details->province_id }}"></input>
                             </div>
-
                             <div class="form-group">
                                 <label class="control-label">Kota</label>
-                                <select disabled name="city_id" class="select2" data-placeholder="Pilih Kota" onchange="getCity(this.value)"required="required">
-                                    @foreach ($cities as $city)
-                                        <option value="{{ $city['id'] }}" {{ $city['id'] == $pasien->details->city_id ? 'selected=selected' : '' }}>{{ $city['name'] }}</option>
-                                    @endforeach
-                                </select>
+                                <input type="text" name="city_id" class="form-control number" readonly maxlength="16" value="{{ $pasien->details->city_id }}"></input>
                             </div>
 
                             <div class="form-group">
                                 <div class="form-group">
                                     <label class="control-label">Kecamatan</label>
-                                    <select disabled name="district_id" class="form-control select2" data-placeholder="Pilih Kecamatan" required="required">
-                                    @foreach ($districts as $district)
-                                        <option value="{{ $district['id'] }}" {{ $district['id'] == $pasien->details->district_id ? 'selected=selected' : '' }}>{{ $district['name'] }}</option>
-                                    @endforeach
-                                    </select>
+                                    <input type="text" name="district_id" class="form-control number" readonly maxlength="16" value="{{ $pasien->details->district_id }}"></input>
                                     <span class="help-block"></span>
                                 </div>
                             </div>

@@ -46,6 +46,24 @@ class PasienController extends Controller
         return view('pages.pasien.create',compact(['villages','provinces','cities','districts','religions','educations','works', 'blood_groups', 'genders', 'status','getRegistration']));
     }
 
+    public function upload(Request $request)
+    {
+        $file = $request->file('file');
+        $nama_file = time()."_".$file->getClientOriginalName();
+        $file->move('uploads',$nama_file);
+        return $nama_file;
+    }
+
+    public function remove(Request $request, $filename)
+    {
+        try{
+            @unlink('uploads/'.$filename);
+            return 'success upload file';
+        } catch (Exception  $e) {
+            return 'Error: '.$e->getMessage();
+        }
+    }
+
     public function store(Request $request)
     {
     	DB::transaction(function() use ($request){
@@ -87,6 +105,7 @@ class PasienController extends Controller
             $details->guardian_name = $request->guardian_name;
             $details->guardian_address = $request->guardian_address;
             $details->family_relationship = $request->family_relationship;
+            $details->photos    = (!empty($request->new_pic)) ? $request->new_pic : '';
 
             $pasien->details()->save($details);
 
@@ -146,8 +165,7 @@ class PasienController extends Controller
             $pasien_data->province_id 	= $request->province_id;
             $pasien_data->phone 		= $request->phone;
             $pasien_data->work          = $request->work;
-            
-
+            $pasien_data->photos    = (!empty($request->new_pic)) ? $request->new_pic : $request->old_pic;
 
             $pasien_data->postal_code 	= $request->postal_code;
             $pasien_data->identification_number = $request->identification_number;
