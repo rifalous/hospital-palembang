@@ -5,7 +5,7 @@ $(document).ready(function(){
         ajax: SITE_URL + '/registration_inpatient/get_data',
         headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
         columns: [
-            { data: 'option', name: 'option', orderable: false, searchable: true, class: 'text-center' },
+            //{ data: 'option', name: 'option', orderable: false, searchable: true, class: 'text-center' },
             { data: 'no_registrasi', name: 'no_registrasi' },
             { data: 'pasien_name', name: 'pasien_name' },
             { data: 'pasien_gender', name: 'pasien_gender' },
@@ -21,7 +21,9 @@ $(document).ready(function(){
             { data: 'name', name: 'name'},
             { data: 'address', name: 'address'},
             { data: 'phone', name: 'phone'},
-            { data: 'complaint', name: 'complaint'}
+            { data: 'complaint', name: 'complaint'},
+            { data: 'actions', name: 'actions', searching: false, sorting: false, class: 'text-center' }
+
         ],
         	scrollCollapse: true,
 			scrollX: '100%',

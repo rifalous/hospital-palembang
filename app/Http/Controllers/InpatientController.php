@@ -186,6 +186,28 @@ class InpatientController extends Controller
         
     }
 
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function remove(Request $request,$id)
+    {
+        
+        //true
+        $vocation = Inpatient::where('id', $request->id)->delete();
+    
+        $res = [
+            'title' => 'Berhasil',
+            'type' => 'success',
+            'message' => count($request->id). 'Data berhasil dihapus!'
+        ];
+
+        return response()->json($res);
+        
+    }
+
     public function export() 
     {
         $inpatients = Inpatient::select('no_registrasi','tgl_masuk','time','pasiens.name','pasiens.allergy')
@@ -206,7 +228,7 @@ class InpatientController extends Controller
 
         return DataTables::of($data)
 
-            ->rawColumns(['option', 'details'])
+            ->rawColumns(['option', 'actions'])
 
             ->addColumn('option', function($data) {
 
@@ -217,7 +239,6 @@ class InpatientController extends Controller
 
             })
             
-
             ->addColumn('pasien_name', function($data){
                 return $data->pasien->name;
             })
@@ -240,6 +261,14 @@ class InpatientController extends Controller
 
             ->addColumn('room_class', function($data){
                 return $data->room->level->class;
+            })
+
+            ->addColumn('actions', function($data){
+                return '
+                    <a href="'.route('registration_inpatient.show', $data->id).'" class="btn btn-warning btn-xs" data-toggle="tooltip" title="Lihat Detail"><i class="mdi mdi-magnify"></i></a>
+                    <a href="'.route('registration_inpatient.edit', $data->id).'" class="btn btn-success btn-xs" data-toggle="tooltip" title="Ubah"><i class="mdi mdi-pencil"></i></a>
+                    <button class="btn btn-danger btn-xs" data-toggle="tooltip" title="Hapus" onclick="on_delete('.$data->id.')"><i class="mdi mdi-close"></i></button>
+                ';
             })
 
             ->make(true);

@@ -39,7 +39,9 @@
                   <button class="btn btn-primary btn-bordered waves-effect waves-light" onclick="on_edit()">Ubah</button>
                   <button class="btn btn-primary btn-bordered waves-effect waves-light" onclick="on_delete()">Hapus</button>
                   -->
-                  
+
+                  <a href="{{ route('registration_outpatient.export') }}" class="btn btn-primary btn-bordered waves-effect waves-light"><i class="mdi mdi-download"></i> Eksport</a>
+
                   </div>
               </div>
               <div class="col-md-4">
@@ -58,13 +60,14 @@
               <table id="table-registration_outpatient" class="table table-bordered table-responsive">
                 <thead>
                   <tr>
+                    <!--
                     <th class="text-center" >
                       <div class="checkbox">
                           <input id="select-all" type="checkbox">
                           <label for="select-all"></label>
                       </div>
                     </th>
-                    
+                    -->
                     <th>No Registrasi</th>
                     <th>Nama Pasien</th>
                     <th>Jenis Kelamin </th>
@@ -74,8 +77,7 @@
                     <th>Poliklinik</th>
                     <th>Diagnosa</th>
                     <th>Keluhan</th>
-
-                    
+                    <th>Aksi</th>
                   </tr>
                 </thead>
               </table>
@@ -95,6 +97,7 @@
             </div>
             <div class="modal-body">Data yang dipilih akan dihapus, apakah anda yakin?</div>
           <div class="modal-footer">
+            <button type="button" id="btn-confirm-by-id" class="btn btn-primary btn-sm">Ya</button>
             <button type="button" id="btn-confirm" class="btn btn-primary btn-sm">Ya</button>
             <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Batal</button>
         </div>

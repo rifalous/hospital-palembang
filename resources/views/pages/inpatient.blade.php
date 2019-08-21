@@ -60,12 +60,14 @@
               <table id="table-registration_inpatient" class="table table-bordered table-responsive">
                 <thead>
                   <tr>
+                    <!--
                     <th class="text-center" >
                       <div class="checkbox">
                           <input id="select-all" type="checkbox">
                           <label for="select-all"></label>
                       </div>
                     </th>
+                    -->
                     
                     <th>No Registrasi</th>
                     <th>Nama Pasien</th>
@@ -83,6 +85,7 @@
                     <th>Alamat</th>
                     <th>No Telephone</th>
                     <th>Keluhan</th>
+                    <th>Aksi</th>
                     
                   </tr>
                 </thead>
@@ -103,6 +106,7 @@
             </div>
             <div class="modal-body">Data yang dipilih akan dihapus, apakah anda yakin?</div>
           <div class="modal-footer">
+            <button type="button" id="btn-confirm-by-id" class="btn btn-primary btn-sm">Ya</button>
             <button type="button" id="btn-confirm" class="btn btn-primary btn-sm">Ya</button>
             <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Batal</button>
         </div>

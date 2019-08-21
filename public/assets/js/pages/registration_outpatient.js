@@ -5,8 +5,7 @@ $(document).ready(function(){
         ajax: SITE_URL + '/registration_outpatient/get_data',
         headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
         columns: [
-            { data: 'option', name: 'option', orderable: false,  class: 'text-center' },
-            
+            //{ data: 'option', name: 'option', orderable: false,  class: 'text-center' },
             { data: 'no_registrasi', name: 'no_registrasi' },
             { data: 'pasien_name', name: 'pasien_name' },
             { data: 'pasien_gender', name: 'pasien_gender' },
@@ -16,10 +15,12 @@ $(document).ready(function(){
             { data: 'poliklinik', name: 'poliklinik'},
             { data: 'disease', name: 'disease'},
             { data: 'complaint', name: 'complaint'},
+            { data: 'actions', name: 'actions', searching: false, sorting: false, class: 'text-center' }
+
         ],
         	searchable: false,
         	scrollCollapse: true,
-			scrollX: '100%',
+			scrollX: '100%'
     });
 	$('#search').keyup(function(event){
 		    if(event.keyCode == 13){

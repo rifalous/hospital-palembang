@@ -10,6 +10,7 @@ use App\Doctor;
 use App\System;
 use DB;
 use DataTables;
+use Excel;
 use Storage;
 
 class OutpatientController extends Controller
@@ -156,14 +157,48 @@ class OutpatientController extends Controller
     {
         $outpatient = Outpatient::whereIn('id', $request->id)
                                 ->delete();
-        
-                $res = [
-                    'title' => 'Berhasil',
-                    'type' => 'success',
-                    'message' => count($request->id). 'Data berhasil dihapus!'
-                ];
+        $res = [
+            'title' => 'Berhasil',
+            'type' => 'success',
+            'message' => count($request->id). 'Data berhasil dihapus!'
+        ];
 
         return response()->json($res);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function remove(Request $request,$id)
+    {
+        
+        //true
+        $vocation = Outpatient::where('id', $request->id)->delete();
+    
+        $res = [
+            'title' => 'Berhasil',
+            'type' => 'success',
+            'message' => count($request->id). 'Data berhasil dihapus!'
+        ];
+
+        return response()->json($res);
+        
+    }
+
+    public function export() 
+    {
+        $outpatients = Outpatient::select('no_registrasi','tgl_periksa','poliklinik','pasiens.name','doctor_id','disease','complaint')
+                    ->join('pasiens', 'outpatients.pasien_id', '=', 'pasiens.id')
+                    ->get();
+       return Excel::create('Data Registrasi Rawat Jalan', function($excel) use ($outpatients){
+             $excel->sheet('Data Registrasi Rawat Jalan', function($sheet) use ($outpatients){
+                 $sheet->fromArray($outpatients);
+             });
+
+        })->download('csv');
     }
 
     public function getData(){
@@ -172,7 +207,7 @@ class OutpatientController extends Controller
 
         return DataTables::of($data)
 
-            ->rawColumns(['option', 'details'])
+            ->rawColumns(['option', 'actions'])
 
             ->addColumn('option', function($data) {
 
@@ -198,6 +233,14 @@ class OutpatientController extends Controller
 
             ->addColumn('doctor_name', function($data){
                 return $data->doctor->name;
+            })
+
+            ->addColumn('actions', function($data){
+                return '
+                    <a href="'.route('registration_outpatient.show', $data->id).'" class="btn btn-warning btn-xs" data-toggle="tooltip" title="Lihat Detail"><i class="mdi mdi-magnify"></i></a>
+                    <a href="'.route('registration_outpatient.edit', $data->id).'" class="btn btn-success btn-xs" data-toggle="tooltip" title="Ubah"><i class="mdi mdi-pencil"></i></a>
+                    <button class="btn btn-danger btn-xs" data-toggle="tooltip" title="Hapus" onclick="on_delete('.$data->id.')"><i class="mdi mdi-close"></i></button>
+                ';
             })
 
             ->make(true);
