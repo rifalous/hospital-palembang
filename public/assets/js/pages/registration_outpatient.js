@@ -21,9 +21,7 @@ $(document).ready(function(){
 		scrollCollapse: true,
 		scrollX: '100%',
 		drawCallback: function(){
-			$('[data-toggle="tooltip"]').tooltip({
-				'container': 'body'
-		});
+			$('[data-toggle="tooltip"]').tooltip();
 		}
 	});
 	$('#search').keyup(function(event){
