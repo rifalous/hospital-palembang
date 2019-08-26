@@ -61,7 +61,7 @@
 	<tbody>
 		@foreach($inpatient_periode as $data)
 		<tr>
-			<td><center>{{ $data->inpatient->no_registrasi }}</td></center>
+			<td><center>{{ $data->examination_inpatient->inpatient['no_registrasi'] }}</td></center>
 			<center></center><td>{{ $data->tgl_bayar }}</td>
 			<td>Rp {{ number_format($data->total_biaya) }}</td>
 			<td>Rp {{ number_format($data->sisa_tagihan) }}</td>
