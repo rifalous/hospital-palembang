@@ -82,12 +82,14 @@ Route::middleware('auth')->group(function(){
 
 	// Master Registrasi Rawat Inap
 	Route::get('registration_inpatient/get_data', 'InpatientController@getData');
+	Route::get('registration_inpatient/print_data/{id}', 'InpatientController@pdf')->name('registration_inpatient.print_data');
 	Route::get('/registration_inpatient/export', 'InpatientController@export')->name('registration_inpatient.export');
 	Route::delete('registration_inpatient/remove/{id}', 'InpatientController@remove')->name('registration_inpatient.remove');
 	Route::resource('registration_inpatient', 'InpatientController');
 
 	// Master Registrasi Rawat Jalan 
 	Route::get('registration_outpatient/get_data', 'OutpatientController@getData');
+	Route::get('registration_outpatient/print_data/{id}', 'OutpatientController@pdf')->name('registration_outpatient.print_data');
 	Route::get('/registration_outpatient/export', 'OutpatientController@export')->name('registration_outpatient.export');
 	Route::delete('registration_outpatient/remove/{id}', 'OutpatientController@remove')->name('registration_outpatient.remove');
 	Route::resource('registration_outpatient', 'OutpatientController');

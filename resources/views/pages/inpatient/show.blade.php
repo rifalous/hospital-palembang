@@ -159,15 +159,9 @@ Lihat Detail Registrasi Rawat Inap
         </div>
         <div class="col-md-12 text-right">
             <hr>
-
-            <button disabled class="btn btn-primary btn-bordered waves-effect waves-light" type="submit">Print Detail Registrasi</button>
-
+            <a href="{{route('registration_inpatient.print_data', $registration_inpatient->id)}}" target="_blank" class="btn btn-primary btn-bordered waves-effect waves-light">Print Detail Registrasi</a>
         </div>
     </form>
 </div>
 
 @endsection
-
-@push('js')
-<script src="{{ url('assets/js/pages/registration_inpatient-add-edit.js') }}"></script>
-@endpush

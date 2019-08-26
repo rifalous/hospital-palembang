@@ -27,7 +27,9 @@ $(document).ready(function(){
 		scrollCollapse: true,
 		scrollX: '100%',
 		drawCallback: function(){
-			$('[data-toggle="tooltip"]').tooltip();
+			$('[data-toggle="tooltip"]').tooltip({
+				'container': 'body'
+		});
 		}
 	});
 	$('#search').keyup(function(event){
@@ -184,6 +186,3 @@ function on_show()
 		window.location.replace(SITE_URL + '/registration_inpatient/'+id);
   	}
 }
-
-
-$.fn.dataTable.ext.errMode = 'throw';
