@@ -53,7 +53,7 @@ class User extends Authenticatable
 
     public function getPhotoProfileAttribute()
     {
-        return !empty($this->photo) && file_exists(public_path('storage/uploads/'.$this->photo)) ? url('storage/uploads/'.$this->photo) : \Gravatar::src($this->email);
+        return !empty($this->photo) && file_exists($this->photo) ? url($this->photo) : \Gravatar::src($this->email);
 
     }
 

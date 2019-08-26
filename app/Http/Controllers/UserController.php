@@ -64,9 +64,9 @@ class UserController extends Controller
             if ($request->hasFile('photo')) {
                 $file = $request->file('photo');
                 $name = time() . '.' . $file->getClientOriginalExtension();
-                $path = $file->storeAs('public/uploads', $name);
+                $file->move('uploads', $name);
 
-                $user->photo = $name;   
+                $user->photo = 'uploads/'.$name;   
             }
 
             $user->division_id = $request->division_id;
@@ -121,13 +121,12 @@ class UserController extends Controller
 
                 $file = $request->file('photo');
                 $name = time() . '.' . $file->getClientOriginalExtension();
-                $path = $file->storeAs('public/uploads', $name);
+                $file->move('uploads', $name);
+                $user->photo = 'uploads/'.$name;  
                 
-                if (file_exists(public_path('storage/uploads/'.$user->photo)) && !empty($user->photo)) {
-                    unlink(public_path('storage/uploads/'.$user->photo));
+                if (file_exists($user->photo) && !empty($user->photo)) {
+                    unlink($user->photo);
                 }
-
-                $user->photo = $name;   
             }
 
             // if ($request->hasFile('photo')) {

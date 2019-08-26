@@ -57,7 +57,7 @@
 
                         <div class="form-group">
                             <label class="control-label">Foto</label>
-                            <input type="file" name="photo" class="form-control" accept=".jpg,.jpeg" value="{{ $user->photo }}">
+                            <input type="file" name="photo" class="form-control" accept=".jpg,.jpeg">
                         </div>
 
                         <div class="row">
