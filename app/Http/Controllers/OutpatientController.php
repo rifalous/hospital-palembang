@@ -10,6 +10,7 @@ use App\Doctor;
 use App\System;
 use DB;
 use PDF;
+use Excel;
 use DataTables;
 use Storage;
 

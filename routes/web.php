@@ -181,6 +181,7 @@ Route::middleware('auth')->group(function(){
 
 	// Master Pasien Keluar
 	Route::get('patient_exits/get_data', 'PatientExitsController@getData');
+	Route::get('patient_exits/get_data/{id}', 'PatientExitsController@getDataByRegistrationNumber');
 	Route::resource('patient_exits', 'PatientExitsController');
 
 	// Settings

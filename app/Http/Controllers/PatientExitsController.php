@@ -215,5 +215,17 @@ class PatientExitsController extends Controller
             ->make(true);
     }
 
+    public function getDataByRegistrationNumber($id) {
+        $data = Inpatient::find($id);
+        $data->pasien->no_rm;
+        $data->room->id;
+        $amount = 0;
+        foreach($data->examination_inpatient as $exam) {
+            $amount += $exam->amount;
+        }
+        $data->totalAmount = $amount;
+        return response()->json($data);
+    }
+
     
 }
