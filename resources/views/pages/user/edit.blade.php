@@ -29,7 +29,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="card-box">
-                <form action="{{ route('user.update', $user->id) }}" method="post" id="form-add-edit">
+                <form action="{{ route('user.update', $user->id) }}" method="post" id="form-add-edit" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
                     <input type="text" name="id" value="{{ $user->id }}" hidden="hidden">

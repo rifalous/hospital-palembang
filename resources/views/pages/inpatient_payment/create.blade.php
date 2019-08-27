@@ -51,12 +51,8 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="control-label">No RM <span class="text-danger">*</span></label>
-                                <select name="pasien_id" class="select2" data-placeholder="Pilih No Rekam Medis" data-allow-clear="true" required="required">
-                                    <option></option>
-                                    @foreach ($pasiens as $pasien)
-                                        <option value="{{ $pasien['no_rm'] }}">{{ $pasien['no_rm'] }} - {{ $pasien['name'] }}</option>
-                                    @endforeach
-                                </select>
+                                <input type="text" name="pasien_rm_number" class="form-control" placeholder="Masukkan No Rekam Medis" rows="4" required="required">
+                                <input type="hidden" name="pasien_id" class="form-control" required="required">
                             </div>
                         </div>
                     </div>
@@ -65,12 +61,8 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label class="control-label">Ruangan <span class="text-danger">*</span></label>
-                                <select name="room_id" class="select2" data-placeholder="Pilih Ruangan" data-allow-clear="true" required="required">
-                                    <option></option>
-                                    @foreach ($rooms as $room)
-                                        <option value="{{ $room['id'] }}">{{ $room['name'] }} - {{ $room->level['class'] }}</option>
-                                    @endforeach
-                                </select>
+                                <input type="text" name="room_name" class="form-control" placeholder="Masukkan ruangan" rows="4" required="required">
+                                <input type="hidden" name="room_id" class="form-control" required="required">
                             </div>
                         </div>
                     </div>   

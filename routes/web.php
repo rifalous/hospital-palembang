@@ -98,6 +98,8 @@ Route::middleware('auth')->group(function(){
 	Route::get('examination_inpatient/get_data', 'ExaminationInpatientController@getData');
 	Route::get('examination_inpatient/get_action', 'ExaminationInpatientController@getAction');
 	Route::get('examination_inpatient/get_medicine', 'ExaminationInpatientController@getMedicine');
+	Route::get('examination_inpatient/get_medicine_time', 'ExaminationInpatientController@getMedicineTime');
+	Route::get('examination_inpatient/get_lab', 'ExaminationInpatientController@getLab');
 	Route::get('examination_inpatient/get_inpatient', 'ExaminationInpatientController@getInpatient');
 	Route::get('examination_inpatient/get_data', 'ExaminationInpatientController@getData');
 	Route::get('examination_inpatient/details-data/{id}', 'ExaminationInpatientController@getDetailsMaterial');
@@ -145,6 +147,7 @@ Route::middleware('auth')->group(function(){
 
 	// Master Pembayaran Rawat Inap
 	Route::get('inpatient_payment/get_data', 'InpatientPaymentController@getData');
+	Route::get('inpatient_payment/get_data/{id}', 'InpatientPaymentController@getDetailData');
 	Route::resource('inpatient_payment', 'InpatientPaymentController');
 
 	// Master Pembayaran Rawat Jalan

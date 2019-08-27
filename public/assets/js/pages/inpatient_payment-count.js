@@ -26,3 +26,28 @@ function updatePrice(val)
 	$("#diskon").trigger('change');
 }
 
+$("[name='no_registrasi']").change(function(){
+    const value = $(this).val();
+    var res = $.ajax({
+        url: SITE_URL+'/inpatient_payment/get_data/'+value,
+        type: 'get',
+        dataType: 'json',
+        async: false
+    });
+
+    const output = res.responseJSON;
+    const pasien = output.pasien;
+    const room = output.room;
+
+    if (output != {}) {
+        $('[name="pasien_rm_number"]').val(pasien.no_rm +' - ' + pasien.name)
+        $('[name="pasien_id"]').val(pasien.id)
+
+        $('[name="room_name"]').val(room.name +' - ' + room.level.class)
+        $('[name="room_id"]').val(room.id)
+
+        $('[name="total_biaya"]').val(output.examination_inpatient.amount);
+        $('[name="address"]').val(output.address);
+    }
+});
+
