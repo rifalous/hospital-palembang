@@ -164,7 +164,7 @@ class ExaminationInpatientController extends Controller
             if (count($request->material_id) > 0) {
 
             foreach($request->material_id as $index => $value) { 
-                $materials                            = ExaminationInpatientDetail::find($request->material_detail_id[$index]);
+                //$materials                            = ExaminationInpatientDetail::find($request->material_detail_id[$index]);
                 $materials->examination_inpatient_id  = $id;
                 $materials->material_id               = $request->material_id[$index];
                 $materials->price_material            = $request->price_material[$index];
@@ -178,14 +178,18 @@ class ExaminationInpatientController extends Controller
 
             if (count($request->lab_id) > 0) {
   
-                foreach($request->lab_id as $index => $value) { 
-                  $labs                            = ExaminationInpatientLab::find($request->check_lab_id[$index]);
-                  $labs->examination_inpatient_id  = $id;
-                  $labs->lab_id                    = $request->lab_id[$index];
-                  $labs->hasil                     = $request->hasil_lab[$index];
-                  $labs->biaya                     = $request->price_lab[$index];
-                  $labs->doctor_id                 = $request->doctor_id_lab[$index];
-                  $labs->save();
+                foreach($request->lab_id as $index => $value) {
+                    if (empty($request->check_lab_id[$index])) {
+                      $labs                          = new ExaminationInpatientLab;
+                    } else {
+                      $labs                          = ExaminationInpatientLab::find($request->check_lab_id[$index]);
+                    }  
+                    $labs->examination_inpatient_id  = $id;
+                    $labs->lab_id                    = $request->lab_id[$index];
+                    $labs->hasil                     = $request->hasil_lab[$index];
+                    $labs->biaya                     = $request->price_lab[$index];
+                    $labs->doctor_id                 = $request->doctor_id_lab[$index];
+                    $labs->save();
                 }
 
             }
