@@ -65,6 +65,11 @@ Route::middleware('auth')->group(function(){
 	Route::get('/material/export', 'MaterialController@export')->name('material.export');
 	Route::resource('material', 'MaterialController');
 
+	// Master Laboratoria
+	Route::get('laboratoria/get_data', 'LaboratoriaController@getData');
+	Route::get('/laboratoria/export', 'LaboratoriaController@export')->name('laboratoria.export');
+	Route::resource('laboratoria', 'LaboratoriaController');
+
 	// Master Kelas
 	Route::get('level/get_data', 'LevelController@getData');
 	Route::get('/level/export', 'LevelController@export')->name('level.export');

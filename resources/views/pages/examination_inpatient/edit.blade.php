@@ -69,7 +69,7 @@
                       </div>
                       <div class="col-md-6">
                           <div class="form-group">
-                              <label class="control-label">Tanggal Periksa<span class="text-danger">*</span></label>
+                              <label class="control-label">Tanggal Masuk<span class="text-danger">*</span></label>
                               <input type="text" name="registration_date" value="{{ $examination_inpatient->registration_date }}" class="form-control" readonly="readonly" id="check_date" required="required">
                               <span class="help-block"></span>
                           </div>
