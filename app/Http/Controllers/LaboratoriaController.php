@@ -141,6 +141,19 @@ class LaboratoriaController extends Controller
                     ->with($res);
     }
 
+    public function export() 
+    {
+        $laboratoria = Laboratoria::get();
+
+        return Excel::create('Data Laboratorium', function($excel) use ($laboratoria){
+             $excel->sheet('Data Laboratorium', function($sheet) use ($laboratoria){
+                 $sheet->fromArray($laboratoria);
+             });
+
+        })->download('csv');
+
+    }
+
     public function getData(Request $request)
     {
         $laboratoria = Laboratoria::get();
