@@ -7,6 +7,8 @@ use DB;
 use App\ExaminationOutpatient;
 use App\ExaminationOutpatientData;
 use App\ExaminationOutpatientDetail;
+use App\ExaminationOutpatientLab;
+use App\Laboratorium;
 use App\Outpatient;
 use App\Action;
 use App\Doctor;
@@ -23,11 +25,12 @@ class ExaminationOutpatientController extends Controller
 
     public function create()
     {
-        $outpatient  = Outpatient::get();
+        $outpatient  = Outpatient::doesnthave('examination_outpatient')->get();
         $materials   = Material::get();
         $actions  	 = Action::get();
+        $labs = Laboratorium::all();
 
-        return view('pages.examination_outpatient.create', compact(['outpatient','materials','actions']));
+        return view('pages.examination_outpatient.create', compact(['outpatient','materials','actions', 'labs']));
     }
 
     /**
@@ -47,6 +50,7 @@ class ExaminationOutpatientController extends Controller
             $examination_outpatient->check_date        = $request->check_date;
             $examination_outpatient->amount_action     = $request->amount_action;
             $examination_outpatient->amount_material   = $request->amount_material;
+            $examination_outpatient->amount_lab        = $request->amount_lab;
             $examination_outpatient->amount            = $request->amount;
             $examination_outpatient->doctor_name            = $request->doctor_name;
             $examination_outpatient->save();
@@ -79,7 +83,19 @@ class ExaminationOutpatientController extends Controller
                 $materials->total_material            = $request->total_material[$index];
                 $materials->save();
               }
+            }
 
+            if (count($request->lab_id) > 0) {
+  
+                foreach($request->lab_id as $index => $value) { 
+                  $labs                            = new ExaminationOutpatientLab;
+                  $labs->examination_outpatient_id  = $examination_outpatient_id;
+                  $labs->lab_id                    = $request->lab_id[$index];
+                  $labs->hasil                     = $request->hasil_lab[$index];
+                  $labs->biaya                     = $request->price_lab[$index];
+                  $labs->doctor_id                 = $request->doctor_id_lab[$index];
+                  $labs->save();
+                }
             }
         });
 
@@ -99,25 +115,27 @@ class ExaminationOutpatientController extends Controller
         $actions = Action::select('id', 'action as text')->get();
         $doctors = Doctor::select('id', 'name as text')->get();
         $materials = Material::select('id', 'name as text')->get();
+        $labs = Laboratorium::all();
         
         $examination_outpatient  = ExaminationOutpatient::find($id);
 
 
-        return view('pages.examination_outpatient.edit', compact(['outpatients','actions','doctors','examination_outpatient','materials']));
+        return view('pages.examination_outpatient.edit', compact(['outpatients','actions','doctors','examination_outpatient','materials', 'labs']));
     }
 
     public function update(Request $request,$id)
     {
         DB::transaction(function() use ($request, $id){
 
-            $examination_outpatient                 = ExaminationOutpatient::find($id);
-            $examination_outpatient->outpatient_id  = $request->outpatient_id;
-            $examination_outpatient->check_date     = $request->check_date;
+            $examination_outpatient                        = ExaminationOutpatient::find($id);
+            $examination_outpatient->outpatient_id         = $request->outpatient_id;
+            $examination_outpatient->check_date            = $request->check_date;
             $examination_outpatient->registration_date     = $request->registration_date;
-            $examination_outpatient->amount_action     = $request->amount_action;
-            $examination_outpatient->amount_material   = $request->amount_material;
-            $examination_outpatient->amount   = $request->amount;
-            $examination_outpatient->doctor_name   = $request->doctor_name;
+            $examination_outpatient->amount_action         = $request->amount_action;
+            $examination_outpatient->amount_material       = $request->amount_material;
+            $examination_outpatient->amount_lab            = $request->amount_lab;
+            $examination_outpatient->amount                = $request->amount;
+            $examination_outpatient->doctor_name           = $request->doctor_name;
             $examination_outpatient->save();
 
             $truncate = ExaminationOutpatientData::where('examination_outpatient_id', $id)
@@ -150,6 +168,24 @@ class ExaminationOutpatientController extends Controller
                 $materials->total_material            = $request->total_material[$index];
                 $examination_outpatient->material()->save($materials);
               }
+
+            }
+
+            if (count($request->lab_id) > 0) {
+  
+                foreach($request->lab_id as $index => $value) { 
+                  if (empty($request->check_lab_id[$index])) {
+                    $labs                          = new ExaminationOutpatientLab;
+                  } else {
+                    $labs                          = ExaminationOutpatientLab::find($request->check_lab_id[$index]);
+                  }
+                  $labs->examination_outpatient_id = $id;
+                  $labs->lab_id                    = $request->lab_id[$index];
+                  $labs->hasil                     = $request->hasil_lab[$index];
+                  $labs->biaya                     = $request->price_lab[$index];
+                  $labs->doctor_id                 = $request->doctor_id_lab[$index];
+                  $labs->save();
+                }
 
             }
         });
@@ -264,6 +300,7 @@ class ExaminationOutpatientController extends Controller
     {
         $array = [['id' => '', 'text' => '']];
         $outpatient = Outpatient::select('id', 'no_registrasi as text')
+                    ->doesnthave('examination_outpatient')
                     ->get();
         
         return response()->json(array_merge($array, $outpatient->toArray()));
