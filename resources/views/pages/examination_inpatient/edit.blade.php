@@ -50,6 +50,15 @@
                           </div>
 
                           <div class="form-group">
+                              <label for="field-1" class="control-label">Ruangan <span class="text-danger">*</span></label>
+                              <select name="room_id" class="form-control select2" data-placeholder="-- Pilih Ruangan --" required="required">
+                                <option value="">-- Pilih Ruangan --</option>
+                                
+                              </select>
+                              <span class="help-block"></span>
+                          </div>
+
+                          <div class="form-group">
                               <label class="control-label">Nama<span class="text-danger">*</span></label>
                               <input type="text" name="pasien_id" value="{{ $examination_inpatient->inpatient->pasien->name }}" readonly="readonly" class="form-control" id="pasien_id" required="required">
                               <span class="help-block"></span>
@@ -57,10 +66,16 @@
 
                           <div class="form-group">
                               <label class="control-label">Total Biaya Tindakan<span class="text-danger">*</span></label>
-                              <input type="text" name="amount_lab" hidden="hidden">
                               <input type="text" name="amount_action" value="{{ $examination_inpatient->amount_action }}" readonly="readonly" class="form-control" id="total_action" required="required">
                               <span class="help-block"></span>
                           </div>
+
+                          <div class="form-group">
+                              <label class="control-label">Total Biaya Laboratorium<span class="text-danger">*</span></label>
+                              <input type="text" name="amount_lab" value="{{ $examination_inpatient->amount_lab }}" readonly="readonly" class="form-control" id="total_action" required="required">
+                              <span class="help-block"></span>
+                          </div>
+
                           <div class="form-group">
                               <label class="control-label">Total Pembayaran<span class="text-danger">*</span></label>
                               <input type="text" name="amount" value="{{ $examination_inpatient->amount }}" id="total_pembayaran" readonly="readonly" class="form-control" required="required">
@@ -71,6 +86,15 @@
                           <div class="form-group">
                               <label class="control-label">Tanggal Masuk<span class="text-danger">*</span></label>
                               <input type="text" name="registration_date" value="{{ $examination_inpatient->registration_date }}" class="form-control" readonly="readonly" id="check_date" required="required">
+                              <span class="help-block"></span>
+                          </div>
+
+                          <div class="form-group">
+                              <label class="control-label">Kelas<span class="text-danger">*</span></label>
+                              <select name="class_id" class="form-control select2" data-placeholder="-- Pilih Kelas --" required="required">
+                                <option value="">-- Pilih Kelas --</option>
+                                
+                              </select>
                               <span class="help-block"></span>
                           </div>
 
