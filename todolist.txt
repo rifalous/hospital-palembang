@@ -14,7 +14,8 @@
 - Menambahkan Laboratorium Pada Pemeriksaan Rawat Inap dan Rawat Jalan (Done)
 
 - Fix Laporan Pembayaran Rawat Inap Perhari & Per Periode
-- Masukkan Laboratorium ke Modul Master Data (CRUD) dan Tambahkan Kolom Harga
+- Fix Insert & Edit Pemeriksaan Rawat Inap
+- Masukkan Laboratorium ke Modul Master Data (CRUD) dan Tambahkan Kolom Harga (Done)
 - Fix Pemeriksaan Rawat Inap (Create) Get Data Berdasarkan No Registrasi. Ada field yang kurang di view create nya. Samakan dengan view Edit.
 - Fix Pemeriksaan Rawat Inap (Create) -> Tindakan (Get Harga), Obat/Bahan (Get Harga), Laboratorium (Get Harga)
 - Fix Pemeriksaan Rawat Inap (Edit), Get Data Berdasarkan No Registrasi Tapi Jangan Disabled Field Select Option dan DatePicker

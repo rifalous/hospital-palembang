@@ -1,4 +1,6 @@
 var row_length = parseInt($('[name="last_index"]').val());
+var row_length2 = parseInt($('[name="last_index_2"]').val());
+var row_length3 = parseInt($('[name="last_index_3"]').val());
 var arr_action = [];
 var arr_material = [];
 var arr_doctor = [];
@@ -22,6 +24,18 @@ $(document).ready(function(){
 
 	    if (init_length <= 1) {
 	        $('#details-outpatient-material > tbody').append('<tr class="text-center" id="empty-row1"><td colspan="5">Tidak Ada Data</td></tr>');
+	    }
+
+		$(this).parent().parent().remove();
+		updatePrice1();
+		updateTotalPrice();
+	});
+
+	$('#details-outpatient-lab').on('click', '.removeRow', function(){
+	    var init_length = $('#details-outpatient-lab > tbody > tr').length;
+
+	    if (init_length <= 1) {
+	        $('#details-outpatient-lab > tbody').append('<tr class="text-center" id="empty-row-lab"><td colspan="5">Tidak Ada Data</td></tr>');
 	    }
 
 		$(this).parent().parent().remove();
@@ -78,8 +92,40 @@ $(document).ready(function(){
 
 });
 
+function calculateAllOfData() {
+	let total = 0;
+	const amountMaterial = $('[name="amount_material"]').val();
+	const amountAction = $('[name="amount_action"]').val();
+	const amountLab = $('[name="amount_lab"]').val();
+	if (amountMaterial != undefined || !isNaN(amountMaterial)) {
+		total += parseInt(amountMaterial);
+	}
+	if (amountAction != undefined || !isNaN(amountAction)) {
+		total += parseInt(amountAction);
+	}
+	if (amountLab != undefined || !isNaN(amountLab)) {
+		total += parseInt(amountLab);
+	}
+	$('[name="amount"]').val(total);
+}
 
+function onCalculateAllAction() {
+	let priceTotal = 0;
+	$('[name^="total_action"]').each(function() {
+		priceTotal += parseInt($(this).val());
+	});
+	$('[name="amount_action"]').val(priceTotal);
+}
 
+function onCalculateAllLab() {
+	let priceTotal = 0;
+	$('[name^="price_lab"]').each(function() {
+		let value = isNaN($(this).val()) ? 0 : $(this).val();
+		priceTotal += parseInt(value);
+	});
+	$('[name="amount_lab"]').val(priceTotal);
+	calculateAllOfData();
+}
 
 function getAction()
 {
@@ -109,6 +155,18 @@ function getDoctor()
 {
 	var res = $.ajax({
 		url: SITE_URL + '/examination_outpatient/get_doctor',
+		type: 'get',
+		dataType: 'json',
+		async: false,
+	});
+
+	return res.responseJSON;
+}
+
+function getLab()
+{
+	var res = $.ajax({
+		url: SITE_URL + '/examination_inpatient/get_lab',
 		type: 'get',
 		dataType: 'json',
 		async: false,
@@ -287,32 +345,116 @@ function onAddRow1()
     });
 }
 
+function onAddRow2()
+{
+	$('[data-toggle="tooltip"]').tooltip('hide');
+
+	$('#empty-row-lab').remove();
+
+    row_length3 = row_length3 + 1;
+
+    var table = '<tr id="'+ row_length3 +'">' +
+									'<td style="width: 35%">'+
+										'<div class="form-group clearfix">' +
+												'<select name="lab_id['+ row_length3 +']" class="select2 form-control lab-id" required="required" data-placeholder="Pilih Lab">'+
+												'<option value=""></option></select>'+
+												'<span class="help-block"></span>' +
+											'</div>' +
+									'</td>' +
+									'<td>'+
+										'<div class="form-group">' +
+											'<div class="input-group">' +
+												'<input name="hasil_lab['+ row_length3 +']" type="text" class="form-control text-center" required="required" placeholder="Positif DBD">'+
+											'</div>' +
+											'<span class="help-block"></span>' +
+										'</div>' +
+									'</td>' +
+									'<td>'+
+										'<div class="form-group">' +
+											'<div class="input-group">' +
+												'<input name="price_lab['+ row_length3 +']" type="text" class="form-control text-center" required="required" placeholder="150000" onkeyup="onCalculateAllLab()">'+
+											'</div>' +
+											'<span class="help-block"></span>' +
+										'</div>' +
+									'</td>' +
+									'<td style="width: 20%">'+
+										'<div class="form-group clearfix">' +
+											'<select data-id="'+row_length3+'" name="doctor_id_lab['+ row_length3 +']" class="select2 form-control doctor-lab-id" required="required" data-placeholder="Pilih Dokter"></select>'+
+											'<span class="help-block"></span>' +
+										'</div>' +
+									'</td>' +
+									'<td style="width:50px" class="text-center"><button type="button" class="btn btn-danger tn-bordered waves-effect waves-light removeRow" data-toggle="tooltip" data-original-title="Hapus"><i class="mdi mdi-close"></i></button></td>' +
+                '</tr>';
+        
+	$('#details-outpatient-lab').append(table);
+
+	let arr_lab = getLab();
+
+	$('.lab-id').select2({
+		data: arr_lab
+	})
+	
+	let arr_doctor = getDoctor();
+
+	$('.doctor-lab-id').select2({
+		data: arr_doctor
+	});
+
+	$('#form-add-examination_inpatient').validate();
+
+	$('[data-toggle="tooltip"]').tooltip({html: true});
+}
+
+function onCalculateAllMedicine() {
+	let priceTotal = 0;
+	$('[name^="total_material"]').each(function() {
+		priceTotal += parseInt($(this).val());
+	});
+	$('[name="amount_material"]').val(priceTotal);
+}
+
 function onCalculate(valCostOutpatient, valManyAction, valSum) {
-	console.log(valCostOutpatient);
-	console.log(valManyAction);
+	// console.log(valCostOutpatient);
+	// console.log(valManyAction);
+	// var total = parseInt(valCostOutpatient) * parseInt(valManyAction);
+	// console.log(total);
+	// if (isNaN(total)) {
+	// 	$('[name="total_action['+valSum+']"]').val(0);
+	// } else {
+	// 	$('[name="total_action['+valSum+']"]').val(total);
+	// }
+	// updatePrice();
+	// updateTotalPrice();
 	var total = parseInt(valCostOutpatient) * parseInt(valManyAction);
-	console.log(total);
 	if (isNaN(total)) {
 		$('[name="total_action['+valSum+']"]').val(0);
 	} else {
 		$('[name="total_action['+valSum+']"]').val(total);
 	}
-	updatePrice();
-	updateTotalPrice();
+	onCalculateAllAction();
+	calculateAllOfData();
 }
 
 function onCalculate1(valPriceMaterial, valManyMaterial, valSum) {
-	console.log(valPriceMaterial);
-	console.log(valManyMaterial);
+	// console.log(valPriceMaterial);
+	// console.log(valManyMaterial);
+	// var total = parseInt(valPriceMaterial) * parseInt(valManyMaterial);
+	// console.log(total);
+	// if (isNaN(total)) {
+	// 	$('[name="total_material['+valSum+']"]').val(0);
+	// } else {
+	// 	$('[name="total_material['+valSum+']"]').val(total);
+	// }
+	// updatePrice1();
+	// updateTotalPrice();
 	var total = parseInt(valPriceMaterial) * parseInt(valManyMaterial);
-	console.log(total);
 	if (isNaN(total)) {
 		$('[name="total_material['+valSum+']"]').val(0);
 	} else {
 		$('[name="total_material['+valSum+']"]').val(total);
 	}
-	updatePrice1();
-	updateTotalPrice();
+	onCalculateAllMedicine();
+	calculateAllOfData();
 }
 
 

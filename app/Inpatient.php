@@ -32,7 +32,7 @@ class Inpatient extends Model
 
      public function examination_inpatient()
     {
-        return $this->hasMany('App\ExaminationInpatient');
+        return $this->hasOne('App\ExaminationInpatient');
     }
 
     public static function getCodeInpatient()

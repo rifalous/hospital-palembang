@@ -44,4 +44,9 @@ class ExaminationOutpatient extends Model
     {
         return $this->belongsTo('App\Action','action_id', 'id');
     }
+
+    public function labs(){
+    	return $this->hasMany(ExaminationOutpatientLab::class, 'examination_outpatient_id');
+    }
+
 }

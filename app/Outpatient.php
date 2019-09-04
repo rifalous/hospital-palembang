@@ -24,7 +24,7 @@ class Outpatient extends Model
 
     public function examination_outpatient()
     {
-        return $this->hasMany('App\ExaminationOutpatient');
+        return $this->hasOne('App\ExaminationOutpatient');
     }
 
     public static function getCodeOutpatient()
