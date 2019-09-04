@@ -128,7 +128,6 @@ function on_clear()
 	$('#form-add-edit').trigger('reset').validate().resetForm();
   	$('.form-group').removeClass('has-error');
   	$('.help-block').html('');
-
 }
 
 // Edit
@@ -146,7 +145,6 @@ function on_edit()
 		var id = $('input[name="rowcheck[]"]:checked').val();
 		window.location.replace(SITE_URL + '/registration_inpatient/'+id+'/edit');
   	}
-
 }
 
 // Delete
@@ -167,7 +165,6 @@ function on_delete(pasien_id)
 			$('#modal-delete-confirm').modal('show');
 		}
 	}
-
 }
 
 // View

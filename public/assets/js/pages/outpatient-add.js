@@ -187,15 +187,16 @@ function onAddRow()
 
     var table = '<tr id="'+ row_length +'">' +
                      '<td style="width: 35%">'+
-                     	'<div class="form-group clearfix">' +
-                        	'<select data-id="'+row_length+'" name="action_id['+ row_length +']" class="select2 form-control action-id" required="required" data-placeholder="Pilih Tindakan"></select>'+
-                        	'<span class="help-block"></span>' +
+					 '<div class="form-group clearfix">' +
+						'<select data-id="'+row_length+'" name="action_id['+ row_length +']" class="select2 form-control action-id" required="required" data-placeholder="Pilih Tindakan">'+
+						'<option value=""></option></select>'+
+						'<span class="help-block"></span>' +
                         '</div>' +
                     '</td>' +
                     '<td>'+
 						'<div class="form-group">' +
 	                		'<div class="input-group">' +
-							  '<input value="10000" name="cost_outpatient['+ row_length +']" readOnly="readOnly" type="text" class="form-control text-center"  required="required" placeholder="0" onkeyup="onCalculate(this.value, document.getElementsByName(\'many_action['+ row_length +']\')[0].value, '+row_length+')">'+
+							  '<input name="cost_outpatient['+ row_length +']" readOnly="readOnly" type="text" class="form-control text-center"  required="required" placeholder="0" onkeyup="onCalculate(this.value, document.getElementsByName(\'many_action['+ row_length +']\')[0].value, '+row_length+')">'+
 							'</div>' +
 							'<span class="help-block"></span>' +
 						'</div>' +

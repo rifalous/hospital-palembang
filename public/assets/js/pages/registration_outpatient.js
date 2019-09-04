@@ -33,8 +33,8 @@ $(document).ready(function(){
 	});
 
 	$('#modal-add-edit').on('hidden.bs.modal', function () {
-		  on_clear();
-		});
+		on_clear();
+	});
 
 	$('#select-all').click(function(even){
 		if(this.checked) {
