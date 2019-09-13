@@ -113,9 +113,7 @@
         </div>
         <div class="col-md-12 text-right">
             <hr>
-
-            <button disabled class="btn btn-primary btn-bordered waves-effect waves-light" type="submit">Print Detail Registrasi</button>
-
+            <a class="btn btn-primary btn-bordered waves-effect waves-light" href="{{route('registration_outpatient.print_data', $registration_outpatient->id)}}" target="_blank" >Print Detail Registrasi</a>
         </div>
     </form>
 </div>

@@ -9,8 +9,9 @@ use App\Pasien;
 use App\Doctor;
 use App\System;
 use DB;
-use DataTables;
+use PDF;
 use Excel;
+use DataTables;
 use Storage;
 
 class OutpatientController extends Controller
@@ -244,5 +245,21 @@ class OutpatientController extends Controller
             })
 
             ->make(true);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function pdf($id)
+    {
+        $registration_outpatient = Outpatient::with(['doctor', 'pasien'])->find($id);
+
+        $viewData = view('pages.outpatient.show-pdf', compact(['registration_outpatient']));
+        $nameFile = 'JLN-'.$registration_outpatient->no_registrasi.'-'.$registration_outpatient->pasien->details->identification_number.'.pdf';
+        $pdf = PDF::loadHtml($viewData)->setWarnings(false);
+        return $pdf->download($nameFile);
     }
 }

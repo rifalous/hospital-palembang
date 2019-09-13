@@ -23,7 +23,7 @@ $(document).ready(function(){
 		drawCallback: function(){
 			$('[data-toggle="tooltip"]').tooltip({
 				'container': 'body'
-			});
+		});
 		}
 	});
 	$('#search').keyup(function(event){
@@ -33,8 +33,8 @@ $(document).ready(function(){
 	});
 
 	$('#modal-add-edit').on('hidden.bs.modal', function () {
-		  on_clear();
-		});
+		on_clear();
+	});
 
 	$('#select-all').click(function(even){
 		if(this.checked) {

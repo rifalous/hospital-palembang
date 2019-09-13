@@ -39,8 +39,7 @@ class InpatientPeriodController extends Controller
                             ->with([
                                             'pasien',
                                             'patient_exits',
-                                            'ExaminationInpatient',
-                                            'inpatient',
+                                            'examination_inpatient'
                                 ])
                             ->whereDate('tgl_bayar', '>=', $request->start_date)
                             ->whereDate('tgl_bayar', '<=', $request->end_date)
@@ -50,6 +49,10 @@ class InpatientPeriodController extends Controller
         return DataTables::of($data)
 
             ->rawColumns(['option', 'details'])
+            
+            ->addColumn('inpatient.no_registrasi', function($data){
+                return $data->examination_inpatient->inpatient['no_registrasi'];
+            })
             
             ->addColumn('pasien_name', function($data){
                 return $data->pasien['name'];
@@ -73,7 +76,7 @@ class InpatientPeriodController extends Controller
     public function download(Request $request)  
     {
 
-                $hospitalisationperiode = InpatientPayment::select(
+                $inpatient_periode = InpatientPayment::select(
                                             'examination_inpatient_id',
                                             'pasien_id',
                                             'total_biaya',
@@ -85,8 +88,7 @@ class InpatientPeriodController extends Controller
                             ->with([
                                             'pasien',
                                             'patient_exits',
-                                            'ExaminationInpatient',
-                                            'inpatient',
+                                            'examination_inpatient'
                                 ])
                             ->whereDate('tgl_bayar','>=', $request->start_date)
                             ->whereDate('tgl_bayar','<=', $request->end_date)
@@ -95,7 +97,7 @@ class InpatientPeriodController extends Controller
 
         // $hospitalisationperiode = Payment::with(['pasien'])->get();
 
-        if (!$hospitalisationperiode->isEmpty()) {
+        if (!$inpatient_periode->isEmpty()) {
         $pdf = PDF::loadView('pdf.inpatient_periode', compact('inpatient_periode'));
         return $pdf->setPaper('a4', 'potrait')
            ->stream('Laporan Pembayaran Rawat Inap Periode.pdf');

@@ -19,8 +19,10 @@ $(document).ready(function(){
         scrollCollapse: true,
             scrollX: '100%',
         drawCallback: function(){
-        	$('[data-toggle="tooltip"]').tooltip();
-        }
+			$('[data-toggle="tooltip"]').tooltip({
+				'container': 'body'
+		});
+		}
 	});
 
 

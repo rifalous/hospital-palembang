@@ -111,7 +111,7 @@ class InpatientPaymentController extends Controller
         $inpatients = Inpatient::get();
         $payments = System::configMultiply('payment');
         $discounts = System::configMultiply('discount');
-        $payment = InpatientPayment::find($id);
+        $payment = InpatientPayment::with('examination_inpatient')->find($id);
 
         return view('pages.inpatient_payment.edit', compact(['rooms','payment','pasiens','inpatients','payments','discounts']));
     }
@@ -211,7 +211,12 @@ class InpatientPaymentController extends Controller
 
             ->make(true);
     }
-
-
     
+    public function getDetailData($id) {
+        $inpatients = Inpatient::where('no_registrasi',$id)
+            ->with(['examination_inpatient', 'pasien','room'])
+            ->first();
+        $inpatients->room->level->id;
+        return response()->json($inpatients);
+    }
 }

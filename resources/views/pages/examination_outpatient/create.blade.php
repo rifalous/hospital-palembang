@@ -39,6 +39,7 @@
                   <div class="row">
                       <div class="col-md-6">
                           <div class="form-group">
+                              <input type="text" name="amount_lab" hidden="hidden" value="0">
                               <label for="field-1" class="control-label">No Registrasi <span class="text-danger">*</span></label>
                               <select name="outpatient_id" id="outpatient" class="form-control select2 outpatient-id" data-placeholder="Pilih No Registrasi" required="required">
                               </select>
@@ -156,7 +157,42 @@
                       </table>
                     </div>
                   </div>
+
+                  <div class="row">
+                    <div class="col-md-6">
+                      <!-- <small class="text-muted">Daftar Unit Kompetensi</small> -->
+                    </div>
+                    <div class="col-md-6 text-right">
+                      <button class="btn btn-success btn-bordered waves-effect waves-light" data-toggle="tooltip" data-original-title="Tambah Baris" onclick="onAddRow2()" type="button"><i class="mdi mdi-plus"></i></button>
+                    </div>
+                  </div>
+
+                  <div class="row mt-20">
+                    <div class="col-md-12" style="padding-top: 10px">
+                      <table class="table table-bordered" id="details-outpatient-lab">
+                        <thead>
+                          <tr>
+                            <th class="text-center" rowspan="2" style="vertical-align: middle;">Laboratorium</th>
+                            <th class="text-center" colspan="3">Biaya Laboratorium</th>
+                            <th  rowspan="2" style="width: 50px"></th>
+                          </tr>
+                          <tr>
+                            <th class="text-center">Hasil</th>
+                            <th class="text-center">Biaya</th>
+                            <th class="text-center">Penanggung Jawab</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr id="empty-row-lab">
+                            <td colspan="8" class="text-center">Tidak ada data</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
                   <input type="text" name="last_index" value="0" hidden="hidden">
+                  <input type="text" name="last_index_2" hidden="hidden" value="0">
+                  <input type="text" name="last_index_3" hidden="hidden" value="0">
 
                   <hr>
               </div>

@@ -55,6 +55,7 @@
 
                           <div class="form-group">
                               <label class="control-label">Total Biaya Tindakan<span class="text-danger">*</span></label>
+                              <input type="text" name="amount_lab" hidden="hidden" value="{{$examination_outpatient->amount_lab}}">
                               <input type="text" name="amount_action" value="{{ $examination_outpatient->amount_action }}" readonly="readonly" class="form-control" id="total_action" required="required" value="0">
                               <span class="help-block"></span>
                           </div>
@@ -238,7 +239,7 @@
                               <td>
                                 <div class="form-group"> 
                                   <div class="input-group"> 
-                                    <input name="price_material[{{ $row_length }}]" type="text" class="form-control text-center" required="required" placeholder="0" onkeyup="onCalculate(this.value, document.getElementsByName('many_material[{{ $row_length }}]')[0].value,{{ $row_length }})" value="{{ $data_materials->price_material }}">
+                                    <input name="price_material[{{ $row_length }}]" type="text" class="form-control text-center" required="required" placeholder="0" onkeyup="onCalculate1(this.value, document.getElementsByName('many_material[{{ $row_length }}]')[0].value,{{ $row_length }})" value="{{ $data_materials->price_material }}">
                                   </div> 
                                   <span class="help-block"></span> 
                                 </div> 
@@ -247,7 +248,7 @@
                             <td>
                               <div class="form-group"> 
                                 <div class="input-group"> 
-                                  <input name="many_material[{{ $row_length }}]" type="text" class="form-control text-center" required="required" placeholder="0" onkeyup="onCalculate(this.value, document.getElementsByName('price_material[{{ $row_length }}]')[0].value,{{ $row_length }})" value="{{ $data_materials->many_material }}">
+                                  <input name="many_material[{{ $row_length }}]" type="text" class="form-control text-center" required="required" placeholder="0" onkeyup="onCalculate1(this.value, document.getElementsByName('price_material[{{ $row_length }}]')[0].value,{{ $row_length }})" value="{{ $data_materials->many_material }}">
                                 </div> 
                                 <span class="help-block"></span> 
                               </div> 
@@ -274,7 +275,91 @@
                       </table>
                     </div>
                   </div>
-                  <input type="text" name="last_index" value="0" hidden="hidden">
+                  <input type="text" name="last_index_2" value="0" hidden="hidden">
+
+                  <div class="row">
+                    <div class="col-md-6">
+                      <!-- <small class="text-muted">Daftar Unit Kompetensi</small> -->
+                    </div>
+                    <div class="col-md-6 text-right">
+                      <button class="btn btn-success btn-bordered waves-effect waves-light" data-toggle="tooltip" data-original-title="Tambah Baris" onclick="onAddRow2()" type="button"><i class="mdi mdi-plus"></i></button>
+                    </div>
+                  </div>
+                  <div class="row mt-20">
+                    <div class="col-md-12" style="padding-top: 10px">
+                      <table class="table table-bordered" id="details-outpatient-lab">
+                        <thead>
+                          <tr>
+                            <th class="text-center" rowspan="2" style="vertical-align: middle;">Laboratorium</th>
+                            <th class="text-center" colspan="3">Biaya Laboratorium</th>
+                            <th  rowspan="2" style="width: 50px"></th>
+                          </tr>
+                          <tr>
+                            <th class="text-center">Hasil</th>
+                            <th class="text-center">Biaya</th>
+                            <th class="text-center">Penanggung Jawab</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          @if(empty($examination_outpatient->labs))
+                            <tr id="empty-row-lab">
+                              <td colspan="8" class="text-center">Tidak ada data</td>
+                            </tr>
+                          @else
+
+                          @php($row_length = 1)
+
+                          @foreach ($examination_outpatient->labs as $lab)
+                            <tr>
+                              <td style="width: 35%">
+                                <div class="form-group clearfix">
+                                  <input type="text" name="check_lab_id[{{$row_length}}]" value="{{ $lab->id }}" hidden="hidden">
+                                  <select name="lab_id[{{$row_length}}]" class="select2 form-control lab-id" required="required" data-placeholder="Pilih Lab">
+                                    <!--  -->
+                                    @foreach ($labs as $detilLab)
+                                      <option value="{{ $detilLab['id'] }}" {{ $detilLab['id'] == $lab->lab_id ? 'selected=selected' : '' }}>{{ $detilLab['keterangan'] }}</option>
+                                    @endforeach
+                                  </select>
+                                  <span class="help-block"></span>
+                                </div>
+                              </td>
+                              <td>
+                                <div class="form-group">
+                                  <div class="input-group">
+                                    <input name="hasil_lab[{{$row_length}}]" type="text" class="form-control text-center" required="required" placeholder="Positif DBD" value="{{$lab->hasil}}">
+                                  </div>
+                                  <span class="help-block"></span>
+                                </div>
+                              </td>
+                              <td>
+                                <div class="form-group">
+                                  <div class="input-group">
+                                    <input name="price_lab[{{$row_length}}]" type="text" class="form-control text-center" required="required" placeholder="150000" onkeyup="onCalculateAllLab()" value="{{$lab->biaya}}">
+                                  </div>
+                                  <span class="help-block"></span>
+                                </div>
+                              </td>
+                              <td style="width: 20%">
+                                <div class="form-group clearfix">
+                                  <select data-id="{{$row_length}}" name="doctor_id_lab[{{$row_length}}]" class="select2 form-control doctor-lab-id" required="required" data-placeholder="Pilih Dokter">
+                                    <!--  -->
+                                    @foreach ($doctors as $doctor)
+                                      <option value="{{ $doctor['id'] }}" {{ $doctor['id'] == $lab->doctor_id ? 'selected=selected' : '' }}>{{ $doctor['text'] }}</option>
+                                    @endforeach
+                                  </select>
+                                  <span class="help-block"></span>
+                                </div>
+                              </td>
+                              <td style="width:50px" class="text-center"><button type="button" class="btn btn-danger tn-bordered waves-effect waves-light removeRow" data-toggle="tooltip" data-original-title="Hapus"><i class="mdi mdi-close"></i></button></td>
+                            </tr>
+                          @php($row_length++)
+                          @endforeach
+                          @endif
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                  <input type="text" name="last_index_3" value="{{ $row_length - 1 }}" hidden="hidden">
 
                   <hr>
               </div>

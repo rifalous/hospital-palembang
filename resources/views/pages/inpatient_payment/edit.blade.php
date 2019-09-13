@@ -39,10 +39,10 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="control-label">Nomor Registrasi <span class="text-danger">*</span></label>
-                                <select name="no_registrasi" class="select2" data-placeholder="Pilih Nomor Registrasi" required="required">
+                                <select name="no_registrasi" class="select2" data-placeholder="Pilih Nomor Registrasi" required="required" disabled>
                                     <option></option>
                                     @foreach ($inpatients as $inpatient)
-                                        <option value="{{ $inpatient->no_registrasi }}"{{ $inpatient['no_registrasi']  ==  $payment->no_registrasi ? 'selected=selected' : '' }}>{{ $inpatient['no_registrasi'] }} - {{ $inpatient->pasien['name'] }}</option>
+                                        <option value="{{ $inpatient->no_registrasi }}"{{ $inpatient['no_registrasi']  ==  $payment->examination_inpatient->inpatient->no_registrasi ? 'selected=selected' : '' }}>{{ $inpatient['no_registrasi'] }} - {{ $inpatient->pasien['name'] }}</option>
                                     @endforeach
                                 </select>
                                 <span class="help-block"></span>
@@ -52,12 +52,14 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="control-label">No RM <span class="text-danger">*</span></label>
-                                <select name="pasien_id" class="select2" data-placeholder="Pilih No Rekam Medis" data-allow-clear="true" required="required">
+                                <select name="pasien_id" class="select2" data-placeholder="Pilih No Rekam Medis" data-allow-clear="true" required="required" disabled>
                                     <option></option>
                                     @foreach ($pasiens as $pasien)
                                         <option value="{{ $pasien['id'] }}"{{ $pasien['id'] == $payment->pasien_id ? 'selected=selected' : '' }}>{{ $pasien['no_rm'] }} - {{ $pasien['name'] }}</option>
                                     @endforeach
                                 </select>
+                                <!-- <input type="text" name="pasien_id" class="form-control" rows="4" value="{{ $payment->examination_inpatient->inpatient->no_registrasi }}" required="required"></input>
+                                <span class="help-block"></span> -->
                             </div>
                             
                         </div>
@@ -68,7 +70,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label class="control-label">Ruangan <span class="text-danger">*</span></label>
-                                <select name="room_id" class="select2" data-placeholder="Pilih Ruangan" data-allow-clear="true" required="required">
+                                <select name="room_id" class="select2" data-placeholder="Pilih Ruangan" data-allow-clear="true" required="required" disabled>
                                     <option></option>
                                     @foreach ($rooms as $room)
                                         <option value="{{ $room['id'] }}"{{ $room['id'] == $payment->room_id ? 'selected=selected' : '' }}>{{ $room['name'] }} - {{ $room->level['class'] }}</option>
@@ -82,7 +84,7 @@
                         <div class="col-md-6"> 
                             <div class="form-group">
                                 <label class="control-label">Total Biaya<span class="text-danger">*</span></label>
-                                <input type="text" name="total_biaya" id="total_biaya" class="form-control" placeholder="eg: Rp. 1.000.000" rows="4" value="{{ $payment->total_biaya }}" required="required"></input>
+                                <input type="text" name="total_biaya" id="total_biaya" class="form-control" placeholder="eg: Rp. 1.000.000" rows="4" value="{{ $payment->total_biaya }}" required="required" disabled></input>
                                 <span class="help-block"></span>
                             </div>
                         </div>

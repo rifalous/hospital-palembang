@@ -65,6 +65,11 @@ Route::middleware('auth')->group(function(){
 	Route::get('/material/export', 'MaterialController@export')->name('material.export');
 	Route::resource('material', 'MaterialController');
 
+	// Master Laboratoria
+	Route::get('laboratoria/get_data', 'LaboratoriaController@getData');
+	Route::get('/laboratoria/export', 'LaboratoriaController@export')->name('laboratoria.export');
+	Route::resource('laboratoria', 'LaboratoriaController');
+
 	// Master Kelas
 	Route::get('level/get_data', 'LevelController@getData');
 	Route::get('/level/export', 'LevelController@export')->name('level.export');
@@ -82,12 +87,14 @@ Route::middleware('auth')->group(function(){
 
 	// Master Registrasi Rawat Inap
 	Route::get('registration_inpatient/get_data', 'InpatientController@getData');
+	Route::get('registration_inpatient/print_data/{id}', 'InpatientController@pdf')->name('registration_inpatient.print_data');
 	Route::get('/registration_inpatient/export', 'InpatientController@export')->name('registration_inpatient.export');
 	Route::delete('registration_inpatient/remove/{id}', 'InpatientController@remove')->name('registration_inpatient.remove');
 	Route::resource('registration_inpatient', 'InpatientController');
 
 	// Master Registrasi Rawat Jalan 
 	Route::get('registration_outpatient/get_data', 'OutpatientController@getData');
+	Route::get('registration_outpatient/print_data/{id}', 'OutpatientController@pdf')->name('registration_outpatient.print_data');
 	Route::get('/registration_outpatient/export', 'OutpatientController@export')->name('registration_outpatient.export');
 	Route::delete('registration_outpatient/remove/{id}', 'OutpatientController@remove')->name('registration_outpatient.remove');
 	Route::resource('registration_outpatient', 'OutpatientController');
@@ -96,6 +103,8 @@ Route::middleware('auth')->group(function(){
 	Route::get('examination_inpatient/get_data', 'ExaminationInpatientController@getData');
 	Route::get('examination_inpatient/get_action', 'ExaminationInpatientController@getAction');
 	Route::get('examination_inpatient/get_medicine', 'ExaminationInpatientController@getMedicine');
+	Route::get('examination_inpatient/get_medicine_time', 'ExaminationInpatientController@getMedicineTime');
+	Route::get('examination_inpatient/get_lab', 'ExaminationInpatientController@getLab');
 	Route::get('examination_inpatient/get_inpatient', 'ExaminationInpatientController@getInpatient');
 	Route::get('examination_inpatient/get_data', 'ExaminationInpatientController@getData');
 	Route::get('examination_inpatient/details-data/{id}', 'ExaminationInpatientController@getDetailsMaterial');
@@ -143,6 +152,7 @@ Route::middleware('auth')->group(function(){
 
 	// Master Pembayaran Rawat Inap
 	Route::get('inpatient_payment/get_data', 'InpatientPaymentController@getData');
+	Route::get('inpatient_payment/get_data/{id}', 'InpatientPaymentController@getDetailData');
 	Route::resource('inpatient_payment', 'InpatientPaymentController');
 
 	// Master Pembayaran Rawat Jalan
@@ -179,6 +189,7 @@ Route::middleware('auth')->group(function(){
 
 	// Master Pasien Keluar
 	Route::get('patient_exits/get_data', 'PatientExitsController@getData');
+	Route::get('patient_exits/get_data/{id}', 'PatientExitsController@getDataByRegistrationNumber');
 	Route::resource('patient_exits', 'PatientExitsController');
 
 	// Settings

@@ -8,6 +8,8 @@ use App\ExaminationOutpatient;
 use App\ExaminationInpatient;
 use App\ExaminationInpatientData;
 use App\ExaminationInpatientDetail;
+use App\Laboratorium;
+use App\ExaminationInpatientLab;
 use App\Inpatient;
 use App\Action;
 use App\Material;
@@ -15,6 +17,7 @@ use App\Doctor;
 use App\Room;
 use App\Level;
 use App\Outpatient;
+use App\System;
 use DataTables;
 use Storage;
 
@@ -28,13 +31,14 @@ class ExaminationInpatientController extends Controller
 
      public function create()
     {
-        $inpatient = Inpatient::get();
+        $inpatient = Inpatient::doesnthave('examination_inpatient')->get();
         $materials = Material::get(); 
         $actions   = Action::get();
         $rooms = Room::get(); //room Model
         $class = Level::all(); //Class Model
+        $labs = Laboratorium::all();
        
-        return view('pages.examination_inpatient.create', compact(['inpatient','materials','actions','rooms','class']));
+        return view('pages.examination_inpatient.create', compact(['inpatient','materials','actions','rooms','class','labs']));
 
     }
 
@@ -48,11 +52,16 @@ class ExaminationInpatientController extends Controller
     {
         DB::transaction(function() use ($request){
 
-            $examination_inpatient                  = new ExaminationInpatient;
-            $examination_inpatient->inpatient_id    = $request->inpatient_id;
-            $examination_inpatient->check_date      = $request->check_date;
-            $examination_inpatient->room_id         = $request->room_id;
-            $examination_inpatient->level_id        = $request->class_id;
+            $examination_inpatient                    = new ExaminationInpatient;
+            $examination_inpatient->inpatient_id      = $request->inpatient_id;
+            $examination_inpatient->check_date        = $request->check_date;
+            $examination_inpatient->room_id           = $request->room_id;
+            $examination_inpatient->level_id          = $request->class_id;
+            $examination_inpatient->registration_date = $request->tgl_masuk;
+            $examination_inpatient->amount_action     = $request->amount_action;
+            $examination_inpatient->amount_material   = $request->amount_material;
+            $examination_inpatient->amount_lab        = $request->amount_lab;
+            $examination_inpatient->amount            = $request->amount;
 
             $examination_inpatient->save();
 
@@ -70,23 +79,130 @@ class ExaminationInpatientController extends Controller
                 $actions->doctor_id                 = $request->doctor_id[$index];
                 $actions->save();
               }
-
             }
 
             if (count($request->material_id) > 0) {
 
               foreach($request->material_id as $index => $value) { 
                 $materials                            = new ExaminationInpatientDetail;
-                $materials->examination_inpatient_id = $examination_inpatient_id;
+                $materials->examination_inpatient_id  = $examination_inpatient_id;
                 $materials->material_id               = $request->material_id[$index];
                 $materials->price_material            = $request->price_material[$index];
                 $materials->many_material             = $request->many_material[$index];
                 $materials->total_material            = $request->total_material[$index];
+                $materials->tanggal                   = $request->tanggal[$index];
+                $materials->waktu                     = $request->waktu[$index];
+                $materials->giver                     = $request->medicine_giver[$index];
                 $materials->save();
               }
 
             }
 
+            if (count($request->lab_id) > 0) {
+  
+                foreach($request->lab_id as $index => $value) { 
+                  $labs                            = new ExaminationInpatientLab;
+                  $labs->examination_inpatient_id  = $examination_inpatient_id;
+                  $labs->lab_id                    = $request->lab_id[$index];
+                  $labs->hasil                     = $request->hasil_lab[$index];
+                  $labs->biaya                     = $request->price_lab[$index];
+                  $labs->doctor_id                 = $request->doctor_id_lab[$index];
+                  $labs->save();
+                }
+
+            }
+
+        });
+
+        $res = [
+                    'title' => 'Sukses',
+                    'type' => 'success',
+                    'message' => 'Data berhasil disimpan!'
+                ];
+
+        return redirect('examination_inpatient')
+                    ->with($res);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        DB::transaction(function() use ($request, $id){
+
+            $inpatient                    = ExaminationInpatient::find($id);
+            $inpatient->inpatient_id      = $request->inpatient_id;
+            $inpatient->registration_date = $request->registration_date;
+            $inpatient->amount_action     = $request->amount_action;
+            $inpatient->amount_material   = $request->amount_material;
+            $inpatient->amount_lab        = $request->amount_lab;
+            $inpatient->amount            = $request->amount;
+            $inpatient->check_date        = $request->check_date;
+            $inpatient->room_id           = $request->room_id;
+            $inpatient->level_id          = $request->class_id;
+            $inpatient->save();
+
+            if (count($request->action_id) > 0) {
+
+            foreach($request->action_id as $index => $value) { 
+                if (empty($request->action_detail_id[$index])) {
+                    $actions                        = new ExaminationInpatientData;
+                } else {
+                    $actions                            = ExaminationInpatientData::find($request->action_detail_id[$index]);
+                }
+                $actions->examination_inpatient_id  = $id;
+                $actions->action_id                 = $request->action_id[$index];
+                $actions->cost_inpatient            = $request->cost_inpatient[$index];
+                $actions->many_action               = $request->many_action[$index];
+                $actions->total_action              = $request->total_action[$index];
+                $actions->doctor_id                 = $request->doctor_id[$index];
+                $actions->save();
+            }
+            }
+  
+            if (count($request->material_id) > 0) {
+
+            foreach($request->material_id as $index => $value) {
+                if (empty($request->material_detail_id[$index])) {
+                    $materials                        = new ExaminationInpatientDetail;
+                } else {
+                    $materials                        = ExaminationInpatientDetail::find($request->material_detail_id[$index]);
+                }
+                $materials->examination_inpatient_id  = $id;
+                $materials->material_id               = $request->material_id[$index];
+                $materials->price_material            = $request->price_material[$index];
+                $materials->many_material             = $request->many_material[$index];
+                $materials->total_material            = $request->total_material[$index];
+                $materials->tanggal                   = $request->tanggal[$index];
+                $materials->waktu                     = $request->waktu[$index];
+                $materials->giver                     = $request->medicine_giver[$index];
+                $materials->save();
+            }
+
+            if (count($request->lab_id) > 0) {
+  
+                foreach($request->lab_id as $index => $value) {
+                  if (empty($request->check_lab_id[$index])) {
+                    $labs                          = new ExaminationInpatientLab;
+                  } else {
+                    $labs                          = ExaminationInpatientLab::find($request->check_lab_id[$index]);
+                  }
+                  $labs->examination_inpatient_id  = $id;
+                  $labs->lab_id                    = $request->lab_id[$index];
+                  $labs->hasil                     = $request->hasil_lab[$index];
+                  $labs->biaya                     = $request->price_lab[$index];
+                  $labs->doctor_id                 = $request->doctor_id_lab[$index];
+                  $labs->save();
+                }
+
+            }
+
+            }
         });
 
         $res = [
@@ -105,11 +221,13 @@ class ExaminationInpatientController extends Controller
         $actions = Action::select('id', 'action as text')->get();
         $doctors = Doctor::select('id', 'name as text')->get();
         $materials = Material::select('id', 'name as text')->get();
+        $medicine_time = System::config('medicine_time');
+        $labs = Laboratorium::all();
         
         $examination_inpatient  = ExaminationInpatient::find($id);
 
 
-        return view('pages.examination_inpatient.edit', compact(['inpatients','actions','doctors','examination_inpatient','materials']));
+        return view('pages.examination_inpatient.edit', compact(['inpatients','actions','doctors','examination_inpatient','materials','medicine_time', 'labs']));
     }
 
     public function destroy($id)
@@ -146,6 +264,16 @@ class ExaminationInpatientController extends Controller
     public function getMedicine(Request $request){
         $actions = Material::select('id', 'name as text')->get();
         return response()->json($actions);
+    }
+
+    public function getLab(Request $request){
+        $actions = Laboratorium::select('id', 'keterangan as text')->get();
+        return response()->json($actions);
+    }
+
+    public function getMedicineTime(Request $request){
+        $medicine_time = System::config('medicine_time');
+        return response()->json($medicine_time);
     }
 
     public function getdata(){

@@ -17,8 +17,6 @@ class ExaminationInpatientTable extends Migration
         Schema::create('examination_inpatient', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('inpatient_id');
-            $table->string('pasien_id');
-            $table->string('doctor_name');
             $table->string('room_id');
             $table->string('level_id');
             $table->double('amount_action', 25,2);

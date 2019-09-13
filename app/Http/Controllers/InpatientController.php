@@ -11,6 +11,7 @@ use App\System;
 use DB;
 use DataTables;
 use Excel;
+use PDF;
 use Storage;
 
 class InpatientController extends Controller
@@ -103,6 +104,22 @@ class InpatientController extends Controller
         $registration_inpatient = Inpatient::find($id);
 
         return view('pages.inpatient.show', compact(['registration_inpatient','rooms','pasiens','doctors','entry_procedures','person_in_charges']));
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function pdf($id)
+    {
+        $registration_inpatient = Inpatient::with(['room', 'doctor', 'pasien','examination_inpatient'])->find($id);
+
+        $viewData = view('pages.inpatient.show-pdf', compact(['registration_inpatient']));
+        $nameFile = 'INAP-'.$registration_inpatient->no_registrasi.'-'.$registration_inpatient->pasien->details->identification_number.'.pdf';
+        $pdf = PDF::loadHtml($viewData)->setWarnings(false);
+        return $pdf->download($nameFile);
     }
 
     /**
