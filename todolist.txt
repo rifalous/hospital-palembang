@@ -12,18 +12,49 @@
 - Pembayaran Rawat Inap (Create, Edit) Get Data No RM, Ruangan, Total Biaya, Alamat Berdasarkan Nomor Registrasi (Done)
 - Menambahkan Tanggal, Pagi Siang Sore Malam, Pemberi Obat Pada Pemeriksaan Rawat Inap (Done)
 - Menambahkan Laboratorium Pada Pemeriksaan Rawat Inap dan Rawat Jalan (Done)
-
-- Fix Laporan Pembayaran Rawat Inap Perhari & Per Periode
-- Fix Insert & Edit Pemeriksaan Rawat Inap
 - Masukkan Laboratorium ke Modul Master Data (CRUD) dan Tambahkan Kolom Harga (Done)
-- Fix Pemeriksaan Rawat Inap (Create) Get Data Berdasarkan No Registrasi. Ada field yang kurang di view create nya. Samakan dengan view Edit.
-- Fix Pemeriksaan Rawat Inap (Create) -> Tindakan (Get Harga), Obat/Bahan (Get Harga), Laboratorium (Get Harga)
-- Fix Pemeriksaan Rawat Inap (Edit), Get Data Berdasarkan No Registrasi Tapi Jangan Disabled Field Select Option dan DatePicker
-- Fix Pemeriksaan Rawat Inap (Edit) -> Tindakan (Get Harga), Obat/Bahan (Get Harga), Laboratorium (Get Harga)
-- Fix Top Bar User Photo Profil dengan Photo User yang sedang login
-- Fix Get Data Obat, Tindakan, Laboratorium Pada Index View Detail Rawat Inap
-- Tambahkan Get Data Laboratorium Pada Index View Detail Rawat Jalan 
-- Print Data Pasien
-- Ganti Package PHP Excel dengan PHP Spreadsheet
-- Pembuatan Modul SEP
-- Pembuatan Rest API Ketersediaan Kamar/Ruangan
+
+
+Todo List Pertanggal 05/09/2019 - 12/09/2019
+1. Fix Create & Edit Pemeriksaan Rawat Inap (Done)
+	- Fix Pemeriksaan Rawat Inap (Create) Get Data Tgl Masuk, Ruangan, Kelas, Nama, Dokter Berdasarkan No Registrasi. (Done)
+	- Fix Pemeriksaan Rawat Inap (Create) -> Tindakan (Get Harga), Obat/Bahan (Get Harga), Laboratorium (Get Harga) (Done)
+	- Fix Pemeriksaan Rawat Inap (Edit), Get Data Berdasarkan No Registrasi Tapi Jangan Disabled Field Select Option dan DatePicker (Done)
+	- Fix Pemeriksaan Rawat Inap (Edit) -> Tindakan (Get Harga), Obat/Bahan (Get Harga), Laboratorium (Get Harga) (Done)
+	- Pastikan Fungsi Insert dan Edit Dapat Dijalankan, Khusus Untuk Edit Pastikan Tindakan, Obat, Laboratorium Option Select Sesuai Dengan Data Yang Disimpan (Done)
+2. Fix Get Data Obat, Tindakan, Laboratorium Pada Index View Detail Rawat Inap (Done)
+3. Tambahkan Get Data Laboratorium Pada Index View Detail Rawat Jalan (Done)
+4. Fix Bug Rawat Jalan, Get Data Alamat Pada Pembayaran Rawat Jalan (Done)
+5. Fix Laporan Pembayaran Rawat Inap Perhari & Per Periode (Error Try to Get Property of Non Object) (Done)
+6. Fix Search field dan Hapus Kalau Ada 2 Search Field Pada Modul Rawat Inap dan Rawat Jalan (Done)
+7. Fix Top Bar User Photo Profil dengan Photo User yang sedang login (Done)
+8. Print Data Pasien (Done)
+9. Pembuatan Rest API Ketersediaan Kamar/Ruangan
+
+Tambahan : 
+Pemeriksaan Rawat Inap (Create) :
+- Total Biaya Lab Belum Terhitung di Pemeriksaan Rawat Inap (Done)
+- Get Data by No Registrasi Data yang di Get Tidak sama dengan Data di Index Registrasi Rawat Inap. (Contoh : Memilih Pasien dengan No Regist 002 Tapi Data yang ke Get adalah Data Pasien dengan No Regist 001) (Cek di Create dan Edit) (Done)
+
+Pemeriksaan Rawat Inap (Edit) :
+- Field No Regist harusnya berupa Select Option dan Ketika di Ganti Harus Get Data berdasarkan No Regist yang dipilih
+- Tanggal Pemeriksaan tidak didisable/readonly (Bisa diganti tgl nya) (Done)
+- Coba Hapus Beberapa Tindakan/Obat/Lab kemudian save. Harusnya Tindakan/Obat/Lab yang sudah dihapus tadi tidak muncul kembali. (Done)
+
+Todo List Pertanggal 12/09/2019 - 19/09/2019
+1. Fix Bug Option Selected Pada "Bahan/Obat" dan "Tindakan" Pemeriksaan Rawat Inap dan Pemeriksaan Rawat Jalan Edit (Done)
+2. Pemeriksaan Rawat Inap dan Pemeriksaan Rawat Jalan Edit Bug "Creating default object from empty value" (Done)
+3. Pembuatan Modul Baru Pemeriksaan Laboratorium (CRUD)
+	- No Registrasi Rawat Inap (Select Option) (Get Dari Registrasi Rawat Inap)
+	- Nama Pasien (Text Disabled) (Get Berdasarkan No Registrasi Rawat Inap)
+	- Jenis Kelamin (Text Disabled) (Get Berdasarkan No Registrasi Rawat Inap)
+	- Ruangan (Text Disabled) (Get Berdasarkan No Registrasi Rawat Inap)
+	- Nama Test Lab (Multiple Select Dropdown) (Get Dari Master Data Lab)
+	- Total Harga (Text Disabled) (Count Total Harga dari Multiple Select Dropdown)
+	- Tanggal Masuk Lab (DatePicker) (Input)
+	- Catatan (TextArea) (Input)
+	- Nama Penanggung Jawab Lab (Text) (Input)
+4. Pasien Keluar Get No RM, Tgl Masuk, Jam Masuk, Ruangan, Diagnosis, Total Biaya Berdasarkan No Registrasi (Done)
+5. Fix Bug Pembayaran Rawat Jalan No Registrasi Select Option (Edit) (Done)
+6. Pembuatan Rest API Ketersediaan Kamar/Ruangan Dengan Menghitung Sisa Kamar Kosong
+7. TBA
