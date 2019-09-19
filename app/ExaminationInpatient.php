@@ -42,4 +42,9 @@ class ExaminationInpatient extends Model
         return $this->belongsTo('App\Action','action_id', 'id');
     }
 
+    public function pasien()
+    {
+        return $this->belongsTo('App\Pasien','pasien_id', 'id');
+    }
+
 }

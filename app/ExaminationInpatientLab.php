@@ -18,4 +18,8 @@ class ExaminationInpatientLab extends Model
     {
         return $this->belongsTo('App\Laboratorium','lab_id', 'id');
     }
+    public function ExaminationInpatient()
+    {
+    	return $this->belogsToMany(ExaminationInpatient::class, 'examination_inpatient_id');
+    }
 }

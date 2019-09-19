@@ -34,4 +34,13 @@ class Payment extends Model
         return $this->belongsTo('App\Outpatient', 'outpatient_id');
         
     }
+
+    public function doctor()
+    {
+        return $this->belongsTo('App\Doctor','doctor_id', 'id');
+    }
+
+    public function examination_outpatient(){
+        return $this->belongsTo('App\ExaminationOutpatient', 'outpatient_id');
+    }
 }

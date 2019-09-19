@@ -54,6 +54,16 @@ class Pasien extends Model
         
     }
 
+    public function doctor()
+    {
+        return $this->belongsTo('App\Doctor','doctor_id', 'id');
+    }
+
+    public function room()
+    {
+        return $this->belongsTo('App\Room', 'room_id', 'id');
+    }
+
 
    
 }

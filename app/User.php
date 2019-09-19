@@ -51,7 +51,7 @@ class User extends Authenticatable
         return $this->belongsTo('App\Department');    
     }
 
-    public function getPhotoProfileAttribute()
+    public function getGravatarAttribute()
     {
         return !empty($this->photo) && file_exists($this->photo) ? url($this->photo) : \Gravatar::src($this->email);
 

@@ -18,4 +18,8 @@ class Room extends Model
     	return $this->hasOne('App\Inpatient', 'room_id');
     	
     }
+    public function details()
+    {
+        return $this->hasOne('App\PasienData');
+    }
 }
