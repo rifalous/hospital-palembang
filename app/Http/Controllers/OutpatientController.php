@@ -61,6 +61,7 @@ class OutpatientController extends Controller
             $outpatient->no_registrasi     = $request->no_registrasi;
             $outpatient->pasien_id         = $request->pasien_id;
             $outpatient->tgl_periksa       = $request->tgl_periksa;
+            $outpatient->address           = $request->address;
             $outpatient->poliklinik        = $request->poliklinik;
             $outpatient->doctor_id         = $request->doctor_id;
             $outpatient->disease           = $request->disease;
@@ -127,6 +128,7 @@ class OutpatientController extends Controller
             $outpatient->no_registrasi     = $request->no_registrasi;
             $outpatient->pasien_id         = $request->pasien_id;
             $outpatient->tgl_periksa       = $request->tgl_periksa;
+            $outpatient->address           = $request->address;
             $outpatient->poliklinik        = $request->poliklinik;
             $outpatient->doctor_id         = $request->doctor_id;
             $outpatient->disease           = $request->disease;

@@ -227,5 +227,19 @@ class PatientExitsController extends Controller
         return response()->json($data);
     }
 
+    public function getInpatientId($id) {
+        $inpatient = Inpatient::with(['pasien','doctor','room','examination_inpatient'])->find($id);
+        return response()->json($inpatient);
+    }
+
+    public function getInpatient(Request $request)
+    {
+        $array = [['id' => '', 'text' => '']];
+        $inpatient = Inpatient::select('id', 'no_registrasi as text')
+                    ->doesnthave('examination_inpatient')
+                    ->get();
+        return response()->json(array_merge($array, $inpatient->toArray()));
+    }
+
     
 }

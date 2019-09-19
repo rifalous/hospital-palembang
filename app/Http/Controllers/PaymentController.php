@@ -45,8 +45,9 @@ class PaymentController extends Controller
         // $inpatients = Inpatient::get();
         $payments = System::configMultiply('payment');
         $discounts = System::configMultiply('discount');
+        $examination_outpatients = ExaminationOutPatient::all();
 
-        return view('pages.payment.create', compact(['rooms','pasiens','inpatients','payments','discounts']));
+        return view('pages.payment.create', compact(['examination_outpatients','pasiens','payments','discounts']));
     }
     /**
      * Store a newly created resource in storage.
@@ -112,8 +113,9 @@ class PaymentController extends Controller
         $payments = System::configMultiply('payment');
         $discounts = System::configMultiply('discount');
         $payment = Payment::find($id);
+        $all = Payment::all();
 
-        return view('pages.payment.edit', compact(['rooms','payment','pasiens','outpatients','payments','discounts']));
+        return view('pages.payment.edit', compact(['all','rooms','payment','pasiens','outpatients','payments','discounts']));
     }
 
     /**
@@ -231,7 +233,8 @@ class PaymentController extends Controller
     public function getOutpatient(Request $request)
     {
         $array = [['id' => '', 'text' => '']];
-        $outpatient = Outpatient::select('id', 'no_registrasi as text')
+        $outpatient = Payment::select('payments.id', 'outpatients.no_registrasi as text')
+                    ->join('outpatients','payments.outpatient_id','=','outpatients.id')
                     ->get();
         
         return response()->json(array_merge($array, $outpatient->toArray()));
@@ -240,7 +243,7 @@ class PaymentController extends Controller
     }
 
     public function getOutpatientId($outpatient_id) {
-        $examination_outpatient = ExaminationOutpatient::with(['outpatient','pasien','doctor'])->findOrFail($outpatient_id);
+        $examination_outpatient = Payment::with(['outpatient'])->findOrFail($outpatient_id);
         return response()->json($examination_outpatient);
     }
 

@@ -39,7 +39,8 @@ class InpatientDayController extends Controller
                             ->with([
                                             'pasien',
                                             'patient_exits',
-                                            'examination_inpatient'
+                                            'ExaminationInpatient',
+                                            'inpatient'
                                 ])
                             ->whereDate('tgl_bayar', $request->tgl_bayar)
                             ->orderBy('pasien_id')
@@ -48,10 +49,6 @@ class InpatientDayController extends Controller
         return DataTables::of($data)
 
             ->rawColumns(['option', 'details'])
-            
-            ->addColumn('inpatient.no_registrasi', function($data){
-                return $data->examination_inpatient->inpatient['no_registrasi'];
-            })
             
             ->addColumn('pasien_name', function($data){
                 return $data->pasien['name'];
@@ -87,7 +84,8 @@ class InpatientDayController extends Controller
                             ->with([
                                             'pasien',
                                             'patient_exits',
-                                            'examination_inpatient'
+                                            'ExaminationInpatient',
+                                            'inpatient'
                                 ])
                             ->whereDate('tgl_bayar', $request->tgl_bayar)
                             

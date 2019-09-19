@@ -14,6 +14,7 @@ use Indonesia;
 use App\System;
 
 use DB;
+use PDF;
 use Excel;
 
 class PasienController extends Controller
@@ -44,6 +45,23 @@ class PasienController extends Controller
 
 
         return view('pages.pasien.create',compact(['villages','provinces','cities','districts','religions','educations','works', 'blood_groups', 'genders', 'status','getRegistration']));
+    }
+
+        /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function pdf($id)
+    {
+        $pasien = Pasien::find($id);
+        $pasien 		 = Pasien::find($id);
+
+        $viewData = view('pages.pasien.show-pdf', compact(['pasien','villages','provinces','cities','districts','religions','educations','works','blood_groups','genders','status']));
+        $nameFile = 'Psien-'.$pasien->no_rm.'-'.$pasien->details->identification_number.'.pdf';
+        $pdf = PDF::loadHtml($viewData)->setWarnings(false);
+        return $pdf->download($nameFile);
     }
 
     public function upload(Request $request)

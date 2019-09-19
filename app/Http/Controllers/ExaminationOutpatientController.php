@@ -142,6 +142,8 @@ class ExaminationOutpatientController extends Controller
                           ->delete();
             $truncate = ExaminationOutpatientDetail::where('examination_outpatient_id', $id)
                           ->delete();
+            $truncate = ExaminationOutpatientLab::where('examination_outpatient_id', $id)
+                          ->delete();
 
             if (count($request->action_id) > 0) {
 
@@ -174,17 +176,14 @@ class ExaminationOutpatientController extends Controller
             if (count($request->lab_id) > 0) {
   
                 foreach($request->lab_id as $index => $value) { 
-                  if (empty($request->check_lab_id[$index])) {
-                    $labs                          = new ExaminationOutpatientLab;
-                  } else {
-                    $labs                          = ExaminationOutpatientLab::find($request->check_lab_id[$index]);
-                  }
+                  $labs                          = new ExaminationOutpatientLab;
                   $labs->examination_outpatient_id = $id;
                   $labs->lab_id                    = $request->lab_id[$index];
                   $labs->hasil                     = $request->hasil_lab[$index];
                   $labs->biaya                     = $request->price_lab[$index];
                   $labs->doctor_id                 = $request->doctor_id_lab[$index];
                   $labs->save();
+                  $examination_outpatient->labs()->save($labs);
                 }
 
             }
@@ -273,6 +272,10 @@ class ExaminationOutpatientController extends Controller
             return url('examination_outpatient/details-data1/'.$examination_outpatient->id);
         })
 
+        ->addColumn('details_url2', function($examination_outpatient) {
+            return url('examination_outpatient/details-data2/'.$examination_outpatient->id);
+        })
+
         ->toJson();
     }
     // getMaterial
@@ -280,7 +283,7 @@ class ExaminationOutpatientController extends Controller
     {
         $details = ExaminationOutpatient::find($id)
                 ->details()
-                ->with(['action','doctor','material'])
+                ->with(['action','doctor'])
                 ->get();
         // dd($details);
         return Datatables::of($details)->make(true);
@@ -290,10 +293,20 @@ class ExaminationOutpatientController extends Controller
     {
         $materials = ExaminationOutpatient::find($id)
                 ->material()
-                ->with(['action','doctor','material'])
+                ->with(['doctor','material'])
                 ->get();
         // dd($details);
         return Datatables::of($materials)->make(true);
+    }
+
+    // Get Labolatorium
+    public function getDetailsLabolatorium($id)
+    {
+        $labolatoriums = ExaminationOutpatient::find($id)
+                ->labs()
+                ->with(['doctor','lab'])
+                ->get();
+        return Datatables::of($labolatoriums)->make(true);
     }
 
     public function getOutpatient(Request $request)
@@ -367,5 +380,10 @@ class ExaminationOutpatientController extends Controller
     public function getActionId($id) {
         $action = Action::find($id);
         return response()->json($action);
+    }
+
+    public function getLabId($id) {
+        $labo = Laboratorium::find($id);
+        return response()->json($labo);
     }
 }

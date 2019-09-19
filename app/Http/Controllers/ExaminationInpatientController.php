@@ -57,7 +57,7 @@ class ExaminationInpatientController extends Controller
             $examination_inpatient->check_date        = $request->check_date;
             $examination_inpatient->room_id           = $request->room_id;
             $examination_inpatient->level_id          = $request->class_id;
-            $examination_inpatient->registration_date = $request->tgl_masuk;
+            $examination_inpatient->registration_date = $request->registration_date;
             $examination_inpatient->amount_action     = $request->amount_action;
             $examination_inpatient->amount_material   = $request->amount_material;
             $examination_inpatient->amount_lab        = $request->amount_lab;
@@ -136,7 +136,7 @@ class ExaminationInpatientController extends Controller
         DB::transaction(function() use ($request, $id){
 
             $inpatient                    = ExaminationInpatient::find($id);
-            $inpatient->inpatient_id      = $request->inpatient_id;
+            $inpatient->inpatient_id      = $request->inpatient_id2;
             $inpatient->registration_date = $request->registration_date;
             $inpatient->amount_action     = $request->amount_action;
             $inpatient->amount_material   = $request->amount_material;
@@ -147,62 +147,56 @@ class ExaminationInpatientController extends Controller
             $inpatient->level_id          = $request->class_id;
             $inpatient->save();
 
-            if (count($request->action_id) > 0) {
+            $truncate = ExaminationInpatientData::where('examination_inpatient_id', $id)
+            ->delete();
+            $truncate = ExaminationInpatientDetail::where('examination_inpatient_id', $id)
+                        ->delete();
+            $truncate = ExaminationInpatientLab::where('examination_inpatient_id', $id)
+                        ->delete();
 
-            foreach($request->action_id as $index => $value) { 
-                if (empty($request->action_detail_id[$index])) {
-                    $actions                        = new ExaminationInpatientData;
-                } else {
-                    $actions                            = ExaminationInpatientData::find($request->action_detail_id[$index]);
+            if (count($request->action_id) > 0) {
+                foreach($request->action_id as $index => $value) { 
+                    $actions                            = new ExaminationInpatientData;
+                    $actions->examination_inpatient_id  = $id;                    
+                    $actions->action_id                 = $request->action_id[$index];
+                    $actions->cost_inpatient            = $request->cost_inpatient[$index];
+                    $actions->many_action               = $request->many_action[$index];
+                    $actions->total_action              = $request->total_action[$index];
+                    $actions->doctor_id                 = $request->doctor_id[$index];
+                    $inpatient->material()->save($actions);
                 }
-                $actions->examination_inpatient_id  = $id;
-                $actions->action_id                 = $request->action_id[$index];
-                $actions->cost_inpatient            = $request->cost_inpatient[$index];
-                $actions->many_action               = $request->many_action[$index];
-                $actions->total_action              = $request->total_action[$index];
-                $actions->doctor_id                 = $request->doctor_id[$index];
-                $actions->save();
-            }
             }
   
             if (count($request->material_id) > 0) {
 
-            foreach($request->material_id as $index => $value) {
-                if (empty($request->material_detail_id[$index])) {
-                    $materials                        = new ExaminationInpatientDetail;
-                } else {
-                    $materials                        = ExaminationInpatientDetail::find($request->material_detail_id[$index]);
+                foreach($request->material_id as $index => $value) {
+                    $materials                            = new ExaminationInpatientDetail;
+                    $materials->examination_inpatient_id  = $id;
+                    $materials->material_id               = $request->material_id[$index];
+                    $materials->price_material            = $request->price_material[$index];
+                    $materials->many_material             = $request->many_material[$index];
+                    $materials->total_material            = $request->total_material[$index];
+                    $materials->tanggal                   = $request->tanggal[$index];
+                    $materials->waktu                     = $request->waktu[$index];
+                    $materials->giver                     = $request->medicine_giver[$index];
+                    $inpatient->details()->save($materials);
                 }
-                $materials->examination_inpatient_id  = $id;
-                $materials->material_id               = $request->material_id[$index];
-                $materials->price_material            = $request->price_material[$index];
-                $materials->many_material             = $request->many_material[$index];
-                $materials->total_material            = $request->total_material[$index];
-                $materials->tanggal                   = $request->tanggal[$index];
-                $materials->waktu                     = $request->waktu[$index];
-                $materials->giver                     = $request->medicine_giver[$index];
-                $materials->save();
             }
 
             if (count($request->lab_id) > 0) {
   
                 foreach($request->lab_id as $index => $value) {
-                  if (empty($request->check_lab_id[$index])) {
-                    $labs                          = new ExaminationInpatientLab;
-                  } else {
-                    $labs                          = ExaminationInpatientLab::find($request->check_lab_id[$index]);
-                  }
+                  $labs                          = new ExaminationInpatientLab;
                   $labs->examination_inpatient_id  = $id;
                   $labs->lab_id                    = $request->lab_id[$index];
                   $labs->hasil                     = $request->hasil_lab[$index];
                   $labs->biaya                     = $request->price_lab[$index];
                   $labs->doctor_id                 = $request->doctor_id_lab[$index];
-                  $labs->save();
+                  $inpatient->labs()->save($labs);
                 }
 
             }
 
-            }
         });
 
         $res = [
@@ -222,12 +216,14 @@ class ExaminationInpatientController extends Controller
         $doctors = Doctor::select('id', 'name as text')->get();
         $materials = Material::select('id', 'name as text')->get();
         $medicine_time = System::config('medicine_time');
+        $rooms = Room::get(); //room Model
+        $class = Level::get(); //Class Model
         $labs = Laboratorium::all();
         
         $examination_inpatient  = ExaminationInpatient::find($id);
 
 
-        return view('pages.examination_inpatient.edit', compact(['inpatients','actions','doctors','examination_inpatient','materials','medicine_time', 'labs']));
+        return view('pages.examination_inpatient.edit', compact(['inpatients','actions','doctors','examination_inpatient','materials','medicine_time', 'labs','rooms','class']));
     }
 
     public function destroy($id)
@@ -248,11 +244,25 @@ class ExaminationInpatientController extends Controller
         return redirect('examination_inpatient')->with($res);
     }
 
+    // public function getInpatient(Request $request)
+    // {
+    //     $inpatient = Inpatient::with('room','doctor')->get();
+        
+    //     return response()->json($inpatient->first());
+    // }
+
     public function getInpatient(Request $request)
     {
-        $inpatient = Inpatient::with('room','doctor')->get();
-        
-        return response()->json($inpatient->first());
+        $array = [['id' => '', 'text' => '']];
+        $inpatient = Inpatient::select('id', 'no_registrasi as text')
+                    ->doesnthave('examination_inpatient')
+                    ->get();
+        return response()->json(array_merge($array, $inpatient->toArray()));
+    }
+
+    public function getInpatientId($id) {
+        $inpatient = Inpatient::with(['pasien','doctor','room'])->find($id);
+        return response()->json($inpatient);
     }
 
     public function getAction(Request $request){
@@ -317,6 +327,14 @@ class ExaminationInpatientController extends Controller
             return url('examination_inpatient/details-data/'.$examination_inpatient->id);
         })
 
+        ->addColumn('details_url1', function($examination_inpatient) {
+            return url('examination_inpatient/details-data1/'.$examination_inpatient->id);
+        })
+
+        ->addColumn('details_url2', function($examination_inpatient) {
+            return url('examination_inpatient/details-data2/'.$examination_inpatient->id);
+        })
+
         ->toJson();
     }
 
@@ -333,20 +351,37 @@ class ExaminationInpatientController extends Controller
     // Get Action
     public function getDetailsMaterial($id)
     {
-        $details = ExaminationInpatient::find($id)
-                ->details()
-                ->with(['action','doctor'])
-                ->get();
         $materials = ExaminationInpatient::find($id)
                 ->material()
-                ->with(['material'])
+                ->with(['doctor','material'])
                 ->get();
-        $details[0]->examination_inpatient_id = $materials[0]->examination_inpatient_id;
-        $details[0]->material_id = $materials[0]->material_id;
-        $details[0]->price_material = $materials[0]->price_material;
-        $details[0]->many_material = $materials[0]->many_material;
-        $details[0]->total_material = $materials[0]->total_material;
-        return Datatables::of($details)->make(true);
+        // dd($details);
+        return Datatables::of($materials)->make(true);
+    }
+
+    // Get Labolatorium
+    public function getDetailsLabolatorium($id)
+    {
+        $labolatoriums = ExaminationInpatient::find($id)
+                ->labs()
+                ->with(['doctor','lab'])
+                ->get();
+        return Datatables::of($labolatoriums)->make(true);
+    }
+
+    public function getActionId($id) {
+        $action = Action::find($id);
+        return response()->json($action);
+    }
+
+    public function getMaterialId($id) {
+        $material = Material::find($id);
+        return response()->json($material);
+    }
+
+    public function getLabId($id) {
+        $labo = Laboratorium::find($id);
+        return response()->json($labo);
     }
 
 }
