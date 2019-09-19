@@ -40,11 +40,7 @@
                             <div class="form-group">
                                 <div class="form-group">
                                   <label for="field-1" class="control-label">No Registrasi<span class="text-danger">*</span></label>
-                                  <select name="outpatient_id"  class="form-control select2 outpatient-id" data-placeholder="Pilih No Registrasi" readonly="readonly" required="required">
-                                    <option></option>
-                                    @foreach ($outpatients as $outpatient)
-                                        <option value="{{ $outpatient->no_registrasi }}"{{ $outpatient['no_registrasi']  ==  $payment->outpatient->no_registrasi ? 'selected=selected' : '' }}>{{ $outpatient['no_registrasi'] }} </option>
-                                    @endforeach
+                                  <select name="outpatient_id"  class="form-control select2 outpatient-id" data-placeholder="{{ $payment->outpatient->no_registrasi}}" readonly="readonly" required="required">
                                   </select>
                                   <span class="help-block"></span>
                                 </div>
@@ -137,7 +133,6 @@
         </div>
     </form>
 </div>
-
 @endsection
 
 @push('js')

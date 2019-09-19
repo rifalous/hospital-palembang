@@ -158,10 +158,11 @@
                             
                             <li class="dropdown user-box">
                                 <a href="#" class="dropdown-toggle waves-effect user-link" data-toggle="dropdown" aria-expanded="true">
-                                    <!--<img src="{{ Gravatar::src(auth()->user()->photo, 200) }}" alt="user-img" class="img-circle user-img">-->
-                                    <img src="{{ Gravatar::src(auth()->user()->photo, 200) }}" alt="user-img" class="img-circle user-img">
+                                    <!-- <img src="{{ Gravatar::src(auth()->user()->photo, 200) }}" alt="user-img" class="img-circle user-img"> -->
+                                    <img src="{{ Auth::user()->gravatar }}" alt="user-img" class="img-circle user-img">
                                 </a>
-
+                                    
+                                    
                                 <ul class="dropdown-menu dropdown-menu-right arrow-dropdown-menu arrow-menu-right user-list notify-list">
                                     <li>
                                     @if(Auth::check())

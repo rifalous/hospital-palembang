@@ -33,9 +33,9 @@
 				<div class="row m-b-30">
 	              <div class="col-md-8">
 	                <div class="pull-left">
-	                  <a class="btn btn-primary btn-bordered waves-effect waves-light" href="{{ url('examination_inpatient/create') }}">Tambah</a>
-	                  <button class="btn btn-primary btn-bordered waves-effect waves-light" onclick="on_edit()">Ubah</button>
-	                  <button class="btn btn-primary btn-bordered waves-effect waves-light" onclick="on_delete()">Hapus</button>
+	                  <a href="{{ url('examination_inpatient/create') }}" class="btn btn-primary btn-bordered waves-effect waves-light"><i class="mdi mdi-plus"></i> Tambah </a>
+	                  <!--<button class="btn btn-primary btn-bordered waves-effect waves-light" onclick="on_edit()">Ubah</button>
+	                  <button class="btn btn-primary btn-bordered waves-effect waves-light" onclick="on_delete()">Hapus</button>-->
 	                  </div>
 	              </div>
 	              <div class="col-md-4">
@@ -51,20 +51,18 @@
 	              </div>
 	            </div>
 
-				<div class="table-responsive">
-			        <table id="table-examination-inpatient" class="table table-bordered">
-			        	 <thead>
-                        <tr>
-                            <th style="width: 50px"></th>
-                            <th>Nama Pasien/No Registrasi</th>
-                            <th>Tanggal Periksa</th>
-                            <th>Dokter</th>
-                            <th>Diagnosa</th>
-                            <th style="width: 100px">Opsi</th>
-                        </tr>
-                    </thead>
-			        </table>
-				</div>
+			    <table id="table-examination-inpatient" class="table table-bordered">
+			        <thead>
+						<tr>
+							<th style="width: 50px"></th>
+							<th>Nama Pasien/No Registrasi</th>
+							<th>Tanggal Periksa</th>
+							<th>Dokter</th>
+							<th>Diagnosa</th>
+							<th style="width: 100px">Opsi</th>
+						</tr>
+                	</thead>
+			    </table>
 			</div>
 		</div>
 	</div>	
@@ -89,6 +87,9 @@
 	  </div>
 	</div>
 </div>
+<style>
+.dataTables_filter, .dataTables_info { display: none; }
+</style>
 @endsection
 
 @push('js')

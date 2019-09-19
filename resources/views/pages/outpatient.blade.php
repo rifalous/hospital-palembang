@@ -32,7 +32,7 @@
               <div class="col-md-8">
                 <div class="pull-left">
                   
-                  <a class="btn btn-primary btn-bordered waves-effect waves-light" href="{{ url('registration_outpatient/create') }}">Tambah</a>
+                  <a class="btn btn-primary btn-bordered waves-effect waves-light" href="{{ url('registration_outpatient/create') }}"><i class="mdi mdi-plus"></i> Tambah </a>
                   
                   <!--
                   <button class="btn btn-primary btn-bordered waves-effect waves-light" onclick="on_show()">Lihat Detail</button>
@@ -72,6 +72,7 @@
                     <th>Nama Pasien</th>
                     <th>Jenis Kelamin </th>
                     <th>Usia </th>
+                    <th>Alamat </th>
                     <th>Dokter</th>
                     <th>Tanggal Periksa</th>
                     <th>Poliklinik</th>
@@ -104,6 +105,10 @@
       </div>
     </div>
 </div>
+
+<style>
+.dataTables_filter, .dataTables_info { display: none; }
+</style>
 
 
 

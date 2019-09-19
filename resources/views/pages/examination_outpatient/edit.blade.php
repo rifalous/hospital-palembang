@@ -55,8 +55,12 @@
 
                           <div class="form-group">
                               <label class="control-label">Total Biaya Tindakan<span class="text-danger">*</span></label>
-                              <input type="text" name="amount_lab" hidden="hidden" value="{{$examination_outpatient->amount_lab}}">
                               <input type="text" name="amount_action" value="{{ $examination_outpatient->amount_action }}" readonly="readonly" class="form-control" id="total_action" required="required" value="0">
+                              <span class="help-block"></span>
+                          </div>
+                          <div class="form-group">
+                              <label class="control-label">Total Biaya Lab<span class="text-danger">*</span></label>
+                              <input type="text" name="amount_lab" value="{{$examination_outpatient->amount_lab}}" readonly="readonly" class="form-control" id="total_lab" required="required" value="0">                              
                               <span class="help-block"></span>
                           </div>
                           <div class="form-group">
@@ -111,7 +115,7 @@
 
                           </tr>
                           <tr>
-                            <th class="text-center">Biaya</th>
+                            <th  class="text-center">Biaya</th>
                             <th class="text-center">Banyak</th>
                             <th class="text-center">Total</th>
                             <th class="text-center">Dokter</th>
@@ -132,7 +136,7 @@
                                 <div class="form-group clearfix"> 
                                   <select name="action_id[{{ $row_length }}]" class="select2 form-control action-id" required="required" data-placeholder="Pilih Tindakan">
                                     @foreach ($actions as $action)
-                                    <option value="{{ $action['id'] }}" {{ $action['id'] == $data_details->action->action ? 'selected=selected' : '' }}>{{ $action['text'] }}</option>
+                                    <option value="{{ $action['id'] }}" {{ $action['id'] == $data_details->action_id ? 'selected=selected' : '' }}>{{ $action['text'] }}</option>
                                     @endforeach
                                   </select>
                                   <span class="help-block"></span> 
@@ -141,7 +145,7 @@
                               <td>
                                 <div class="form-group"> 
                                   <div class="input-group"> 
-                                    <input name="cost_outpatient[{{ $row_length }}]" type="text" class="form-control text-center" required="required" placeholder="0" onkeyup="onCalculate(this.value, document.getElementsByName('many_action[{{ $row_length }}]')[0].value,{{ $row_length }})" value="{{ $data_details->cost_outpatient }}">
+                                    <input  readonly="readonly" name="cost_outpatient[{{ $row_length }}]" type="text" class="form-control text-center" required="required" placeholder="0" onkeyup="onCalculate(this.value, document.getElementsByName('many_action[{{ $row_length }}]')[0].value,{{ $row_length }})" value="{{ $data_details->cost_outpatient }}">
                                   </div> 
                                   <span class="help-block"></span> 
                                 </div> 
@@ -228,9 +232,9 @@
                             <tr id="{{ $row_length }}"> 
                               <td style="width: 35%">
                                 <div class="form-group clearfix"> 
-                                  <select name="material_id[{{ $row_length }}]" class="select2 form-control action-id" required="required" data-placeholder="Pilih Tindakan">
+                                  <select name="material_id[{{ $row_length }}]" class="select2 form-control material-id" required="required" data-placeholder="Pilih Tindakan">
                                     @foreach ($materials as $material)
-                                    <option value="{{ $material['id'] }}" {{ $material['id'] == $data_materials->material->name ? 'selected=selected' : '' }}>{{ $material['text'] }}</option>
+                                    <option value="{{ $material['id'] }}" {{ $material['id'] == $data_materials->material_id ? 'selected=selected' : '' }}>{{ $material['text'] }}</option>
                                     @endforeach
                                   </select>
                                   <span class="help-block"></span> 
@@ -239,7 +243,7 @@
                               <td>
                                 <div class="form-group"> 
                                   <div class="input-group"> 
-                                    <input name="price_material[{{ $row_length }}]" type="text" class="form-control text-center" required="required" placeholder="0" onkeyup="onCalculate1(this.value, document.getElementsByName('many_material[{{ $row_length }}]')[0].value,{{ $row_length }})" value="{{ $data_materials->price_material }}">
+                                    <input readonly="readonly" name="price_material[{{ $row_length }}]" type="text" class="form-control text-center" required="required" placeholder="0" onkeyup="onCalculate1(this.value, document.getElementsByName('many_material[{{ $row_length }}]')[0].value,{{ $row_length }})" value="{{ $data_materials->price_material }}">
                                   </div> 
                                   <span class="help-block"></span> 
                                 </div> 
@@ -334,7 +338,7 @@
                               <td>
                                 <div class="form-group">
                                   <div class="input-group">
-                                    <input name="price_lab[{{$row_length}}]" type="text" class="form-control text-center" required="required" placeholder="150000" onkeyup="onCalculateAllLab()" value="{{$lab->biaya}}">
+                                    <input readonly="readonly" name="price_lab[{{$row_length}}]" type="text" class="form-control text-center" required="required" placeholder="150000" onkeyup="onCalculateAllLab()" value="{{$lab->biaya}}">
                                   </div>
                                   <span class="help-block"></span>
                                 </div>

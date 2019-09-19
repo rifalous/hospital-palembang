@@ -44,7 +44,7 @@
                               <input type="text" name="amount" hidden="hidden" >
                               <input type="text" name="amount_material" hidden="hidden">
                               <input type="text" name="amount_lab" hidden="hidden">
-                              <select name="inpatient_id" class="form-control select2" data-placeholder="Pilih No Registrasi" required="required">
+                              <select name="inpatient_id" onchange="getInpatient()" class="form-control select2" data-placeholder="Pilih No Registrasi" required="required">
                               <option value="">-- Pilih No Registrasi --</option>
                               @foreach ($inpatient as $inpatient)
                                 <option value="{{ $inpatient->id }}">{{ $inpatient->no_registrasi }} - {{ $inpatient->pasien->name }} </option>
@@ -57,6 +57,9 @@
                               <label for="field-1" class="control-label">Ruangan <span class="text-danger">*</span></label>
                               <select name="room_id" class="form-control select2" data-placeholder="-- Pilih Ruangan --" required="required">
                                 <option value="">-- Pilih Ruangan --</option>
+                                @foreach ($rooms  as $rooms)
+                                  <option value="{{ $rooms->id }}">{{ $rooms->name }}</option>
+                                @endforeach 
                               </select>
                               <span class="help-block"></span>
                             </div>
@@ -75,7 +78,7 @@
 
                             <div class="form-group">
                                 <label class="control-label">Total Biaya Laboratorium<span class="text-danger">*</span></label>
-                                <input type="text" name="amount_lab" value="" readonly="readonly" class="form-control" id="total_action" required="required">
+                                <input type="text" name="amount_lab" value="" readonly="readonly" class="form-control" id="amount_lab" required="required">
                                 <span class="help-block"></span>
                             </div>
 
@@ -98,7 +101,7 @@
                             <select name="class_id" class="form-control select2" data-placeholder="-- Pilih Kelas --" required="required">
                               <option value="">-- Pilih Kelas --</option>
                               @foreach ($class  as $class)
-                                <option value="{{ $class->id }}">{{ $class->code }} | {{ $class->class }}</option>
+                                <option value="{{ $class->id }}">{{ $class->class }}</option>
                               @endforeach 
                             </select>
                             <span class="help-block"></span>
@@ -120,14 +123,15 @@
                               <span class="help-block"></span>
                           </div>
                       </div>
-	                </div>
+	                </div>                
 
-	                    <div class="col-md-6">
-	                      <!-- <small class="text-muted">Daftar Unit Kompetensi</small> -->
-	                    </div>
-	                    <div class="col-md-6 text-right">
-	                      <button class="btn btn-success btn-bordered waves-effect waves-light" data-toggle="tooltip" data-original-title="Tambah Baris" onclick="onAddRow()" type="button"><i class="mdi mdi-plus"></i></button>
-	                    </div>
+	                  <div class="row">
+                      <div class="col-md-6">
+                      </div>
+                      <div class="col-md-6 text-right">
+                        <button class="btn btn-success btn-bordered waves-effect waves-light" data-toggle="tooltip" data-original-title="Tambah Baris" onclick="onAddRow()" type="button"><i class="mdi mdi-plus"></i></button>
+                      </div>
+                    </div>
 
 	                <div class="row mt-20">
                     <div class="col-md-12" style="padding-top: 10px">
@@ -152,10 +156,11 @@
                         </tbody>
                       </table>
                     </div>
+                  </div>
+                  <hr>
 
                     <div class="row">
                       <div class="col-md-6">
-                        <!-- <small class="text-muted">Daftar Unit Kompetensi</small> -->
                       </div>
                       <div class="col-md-6 text-right">
                         <button class="btn btn-success btn-bordered waves-effect waves-light" data-toggle="tooltip" data-original-title="Tambah Baris" onclick="onAddRow1()" type="button"><i class="mdi mdi-plus"></i></button>
@@ -170,8 +175,6 @@
                             <th class="text-center" rowspan="2" style="vertical-align: middle;">Bahan/Obat</th>
                             <th class="text-center" colspan="6">Biaya Bahan/Obat</th>
                             <th  rowspan="2" style="width: 50px"></th>
-
-
                           </tr>
                           <tr>
                             <th class="text-center">Tanggal</th>
@@ -190,6 +193,7 @@
                       </table>
                     </div>
                   </div>
+                  <hr>
 
                   <div class="row">
                     <div class="col-md-6">
@@ -226,8 +230,6 @@
                   <input type="text" name="last_index" hidden="hidden" value="0">
                   <input type="text" name="last_index_2" hidden="hidden" value="0">
                   <input type="text" name="last_index_3" hidden="hidden" value="0">
-
-                  <hr>
 	            </div>
 	            <div class="modal-footer">
 	                <button class="btn btn-default btn-bordered waves-effect waves-light" type="reset">Reset</button>

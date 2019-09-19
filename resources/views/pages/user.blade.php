@@ -85,7 +85,7 @@
                     <div class="clearfix"></div>
                     <div class="member-card">
                         <div class="thumb-xl member-thumb m-b-10 center-block">
-                            <img src="{{ $user->photo_profile }}" class="img-circle img-thumbnail" alt="profile-image">
+                            <img src="{{ $user->photo }}" class="img-circle img-thumbnail" alt="profile-image">
                         </div>
 
                         <div class="">

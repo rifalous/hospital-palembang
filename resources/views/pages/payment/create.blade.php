@@ -40,6 +40,10 @@
                                 <div class="form-group">
                                   <label for="field-1" class="control-label">No Registrasi<span class="text-danger">*</span></label>
                                   <select name="outpatient_id" class="form-control select2 outpatient-id" data-placeholder="Pilih No Registrasi" required="required">
+                                    <option value="" select="selected">Pilih No Registrasi</option>
+                                    @foreach ($examination_outpatients as $exa)
+                                        <option value="{{ $exa->outpatient_id }}">{{ $exa->outpatient->no_registrasi }} </option>
+                                    @endforeach
                                   </select>
                                   <span class="help-block"></span>
                                 </div>

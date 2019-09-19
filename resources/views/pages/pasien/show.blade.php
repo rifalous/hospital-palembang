@@ -232,8 +232,7 @@
         <div class="clearfix"></div>
         <div class="col-md-12 text-right">
             <hr>
-
-            <button class="btn btn-primary btn-bordered waves-effect waves-light" type="submit" disabled>Print Detail Pasien</button>
+            <a href="{{route('pasien.print_data', $pasien->id)}}" target="_blank" class="btn btn-primary btn-bordered waves-effect waves-light">Print Detail Pasien</a>
         </div>  
     </form>
 </div> 

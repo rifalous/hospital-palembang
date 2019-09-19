@@ -32,7 +32,7 @@
               <div class="col-md-8">
                 <div class="pull-left">
                   
-                  <a class="btn btn-primary btn-bordered waves-effect waves-light" href="{{ url('inpatient_payment/create') }}">Tambah</a>
+                  <a class="btn btn-primary btn-bordered waves-effect waves-light" href="{{ url('inpatient_payment/create') }}"><i class="mdi mdi-plus"></i> Tambah </a>
                   
                   
                   <button class="btn btn-primary btn-bordered waves-effect waves-light" onclick="on_edit()">Ubah</button>
@@ -104,7 +104,9 @@
       </div>
     </div>
 </div>
-
+<style>
+.dataTables_filter, .dataTables_info { display: none; }
+</style>
 
 
 @endsection

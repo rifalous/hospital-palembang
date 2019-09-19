@@ -108,6 +108,15 @@ Tambah Registrasi Rawat Jalan
                             </div>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label">Alamat<span class="text-danger">*</span></label>
+                                <textarea name="address" class="form-control" placeholder="eg: Jl. Pahlawan No 80 Block C-01" rows="5" required="required" maxlength="125"></textarea>
+                                <span class="help-block"></span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

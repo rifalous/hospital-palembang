@@ -26,16 +26,29 @@
             </div>
 		</div>
 	</div>
-
-	<div class="row">
-        <div class="col-sm-4">
-             <a href="{{ route('examination_outpatient.create') }}" class="btn btn-inverse btn-bordered waves-effect waves-light m-b-20"><i class="mdi mdi-plus"></i> Tambah Pemeriksaan Rawat Jalan</a>
-        </div><!-- end col -->
-    </div>
-
 	<div class="row">
         <div class="col-md-12">
             <div class="card-box">
+				<div class="row m-b-30">
+                    <div class="col-md-8">
+                        <div class="pull-left">
+                        <a href="{{ route('examination_outpatient.create') }}" class="btn btn-primary btn-bordered waves-effect waves-light"><i class="mdi mdi-plus"></i> Tambah </a>
+                        <!--<button class="btn btn-primary btn-bordered waves-effect waves-light" onclick="on_edit()">Ubah</button>
+                        <button class="btn btn-primary btn-bordered waves-effect waves-light" onclick="on_delete()">Hapus</button>-->
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="pull-right">
+                            <div class="input-group">
+                                <input class="form-control input-sm" placeholder="Pencarian..." type="text" id="search">
+                                <span class="input-group-btn">
+                                <button class="btn btn-primary btn-sm" type="button" onclick="on_search()" data-toggle="tooltip" data-original-title="Search"><i class="mdi mdi-magnify"></i></button>
+                                <button class="btn btn-primary btn-sm" type="button" onclick="on_clear_search()" data-toggle="tooltip" data-original-title="Clear"><i class="mdi mdi-close"></i></button>
+                                </span>
+                            </div>
+                        </div>    
+                    </div>
+                </div>
                 <table class="table table-bordered" id="table-examination-outpatient">
                     <thead>
                         <tr>
@@ -72,6 +85,10 @@
 	  </div>
 	</div>
 </div>
+
+<style>
+.dataTables_filter, .dataTables_info { display: none; }
+</style>
 @endsection
 
 @push('js')
