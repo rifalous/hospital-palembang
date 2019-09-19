@@ -10,6 +10,7 @@ $(document).ready(function(){
 				{ data: 'pasien_name', name: 'pasien_name' },
 				{ data: 'pasien_gender', name: 'pasien_gender' },
 				{ data: 'pasien_age', name: 'pasien_age' },
+				{ data: 'address', name: 'address'},
 				{ data: 'doctor_name', name: 'doctor_name'},
 				{ data: 'tgl_periksa', name: 'tgl_periksa'},
 				{ data: 'poliklinik', name: 'poliklinik'},

@@ -4,6 +4,7 @@ var row_length3 = parseInt($('[name="last_index_3"]').val());
 var arr_action = [];
 var arr_material = [];
 var arr_doctor = [];
+var arr_labo = [];
 var arr_outpatient = [];
 
 $(document).ready(function(){
@@ -36,10 +37,10 @@ $(document).ready(function(){
 
 	    if (init_length <= 1) {
 	        $('#details-outpatient-lab > tbody').append('<tr class="text-center" id="empty-row-lab"><td colspan="5">Tidak Ada Data</td></tr>');
-	    }
+		}
 
 		$(this).parent().parent().remove();
-		updatePrice1();
+		updatePrice2();
 		updateTotalPrice();
 	});
 
@@ -196,7 +197,7 @@ function onAddRow()
                     '<td>'+
 						'<div class="form-group">' +
 	                		'<div class="input-group">' +
-							  '<input name="cost_outpatient['+ row_length +']" readOnly="readOnly" type="text" class="form-control text-center"  required="required" placeholder="0" onkeyup="onCalculate(this.value, document.getElementsByName(\'many_action['+ row_length +']\')[0].value, '+row_length+')">'+
+							  '<input readonly="readonly" name="cost_outpatient['+ row_length +']" readOnly="readOnly" type="text" class="form-control text-center"  required="required" placeholder="0" onkeyup="onCalculate(this.value, document.getElementsByName(\'many_action['+ row_length +']\')[0].value, '+row_length+')">'+
 							'</div>' +
 							'<span class="help-block"></span>' +
 						'</div>' +
@@ -283,7 +284,7 @@ function onAddRow1()
                     '<td>'+
 						'<div class="form-group">' +
 	                		'<div class="input-group">' +
-							  '<input name="price_material['+ row_length +']"  type="text" class="form-control text-center" required="required" readOnly="readOnly" placeholder="0" onkeyup="onCalculate1(this.value, document.getElementsByName(\'many_material['+ row_length +']\')[0].value, '+row_length+')">'+
+							  '<input readonly="readonly" name="price_material['+ row_length +']"  type="text" class="form-control text-center" required="required" readOnly="readOnly" placeholder="0" onkeyup="onCalculate1(this.value, document.getElementsByName(\'many_material['+ row_length +']\')[0].value, '+row_length+')">'+
 							'</div>' +
 							'<span class="help-block"></span>' +
 						'</div>' +
@@ -373,7 +374,7 @@ function onAddRow2()
 									'<td>'+
 										'<div class="form-group">' +
 											'<div class="input-group">' +
-												'<input name="price_lab['+ row_length3 +']" type="text" class="form-control text-center" required="required" placeholder="150000" onkeyup="onCalculateAllLab()">'+
+												'<input name="price_lab['+ row_length3 +']" type="text" class="form-control text-center" readonly="readonly" required="required" placeholder="150000" onkeyup="onCalculateAllLab()">'+
 											'</div>' +
 											'<span class="help-block"></span>' +
 										'</div>' +
@@ -401,9 +402,30 @@ function onAddRow2()
 		data: arr_doctor
 	});
 
+	$('.lab-id').select2({
+    	data: arr_labo
+    }).on('change', function(){
+		var rowid = row_length3;
+		var labola = getLabDetail($(this).val());
+		$('[name="price_lab['+rowid+']"]').val(labola.harga);
+		onCalculateAllLab();
+		calculateAllOfData();
+	});
+
 	$('#form-add-examination_inpatient').validate();
 
 	$('[data-toggle="tooltip"]').tooltip({html: true});
+}
+
+function getLabDetail(id) {
+	var res = $.ajax({
+		url: SITE_URL+'/examination_outpatient/get-lab-id/'+id,
+		type: 'get',
+		dataType: 'json',
+		async: false
+	});
+
+	return res.responseJSON;
 }
 
 function onCalculateAllMedicine() {
@@ -537,6 +559,12 @@ function updatePrice(val)
 	$("#total_action").trigger('change');
 }
 
+function updatePrice2(val)
+{
+	$("#total_lab").val(val);
+	$("#total_lab").trigger('change');
+}
+
 
 $("#total_material").change(function(){
 	var hasil = 0;
@@ -552,6 +580,20 @@ $("#total_material").change(function(){
 	$(this).val(hasil);
 });
 
+$("#total_lab").change(function(){
+	var hasil = 0;
+	for (var i = 1; i<=row_length; i++) {
+		var total_biaya_lab = document.getElementById('total_lab['+i+']');
+		if(total_biaya_lab){
+			var total_biaya_lab_value = parseInt(total_biaya_lab.value);
+		} else {
+			var total_biaya_lab_value = 0;
+		}
+		hasil = parseInt(hasil + total_biaya_lab_value);
+	}
+	$(this).val(hasil);
+});
+
 function updatePrice1(val)
 {
 	$("#total_material").val(val);
@@ -562,7 +604,9 @@ function updateTotalPrice(hasil)
 {
 	var total_tindakan = parseInt(document.getElementById('total_action').value || 0);
 	var total_material = parseInt(document.getElementById('total_material').value || 0);
-	var hasil = parseInt(total_tindakan + total_material);
+	var total_lab = parseInt(document.getElementById('total_lab').value || 0);
+
+	var hasil = parseInt(total_tindakan + total_material + total_lab);
 	//console.log("Hasilnya : " + hasil);
 	$("#total_pembayaran").val(hasil);
 	return;

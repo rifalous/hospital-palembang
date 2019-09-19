@@ -6,7 +6,7 @@ $(document).ready(function(){
         ajax: SITE_URL + '/payment/get_data',
         headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
         columns: [
-            { data: 'option', name: 'option', orderable: false, searchable: false, class: 'text-center' },
+            { data: 'option', name: 'option' , orderable: false, searchable: false, class: 'text-center' },
             { data: 'outpatient.no_registrasi', name: 'outpatient.no_registrasi' },
             { data: 'pasien_id', name: 'pasien_id' },
             { data: 'tgl_bayar', name: 'tgl_bayar' },
@@ -83,7 +83,7 @@ $(document).ready(function(){
 function on_search()
 {
 	var src = $('#search').val();
-  	tbProgram.search(src).draw();
+	tbPayment.search(src).draw();
 }
 
 // clear search

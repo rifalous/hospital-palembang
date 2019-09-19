@@ -3,6 +3,8 @@ var row_length2 = parseInt($('[name="last_index_2"]').val());
 var row_length3 = parseInt($('[name="last_index_3"]').val());
 var arr_action = [];
 var arr_material = [];
+var arr_labo = [];
+var arr_Inpatient = [];
 
 $(document).ready(function(){
 	onCalculateAllAction();
@@ -52,25 +54,6 @@ $(document).ready(function(){
 		calculateAllOfData();
 	});
 
-	$('[name="inpatient_id"]').change(function(){
-		$.ajax({
-			url: SITE_URL + '/examination_inpatient/get_inpatient',
-			type: 'get',
-			dataType: 'json',
-			data: {
-				no_registrasi: $(this).val(),
-				id: $('[name="id"]').val()
-			},
-			success: function(data) {
-				$('[name="tgl_masuk"]').val(data.tgl_masuk);
-				$('[name="room_id"]').val(data.room.id).change();
-				$('[name="class_id"]').val(data.room.level_id).change();
-				$('[name="doctor_name"]').val(data.doctor.name).change();
-
-			}
-		});
-	});
-
 	$('#form-add-examination_inpatient').validate({
 		rules: {
         code: {
@@ -114,9 +97,46 @@ $(document).ready(function(){
 				  this.checked = false;                        
 				});
 			}
-  	});
+	  });
+	  
+
 
 });
+
+function getInpatient()
+{
+	var res = $.ajax({
+		url: SITE_URL + '/examination_inpatient/get_inpatient',
+		type: 'get',
+		dataType: 'json',
+		async: false,
+	});
+
+	return res.responseJSON;
+}
+
+arr_Inpatient = getInpatient();
+$('[name="inpatient_id"]').select2({
+    data: arr_Inpatient
+}).on('change', function(){
+	var inpatient = getInpatientDetail($(this).val());
+	$('[name="registration_date"]').val(inpatient.tgl_masuk);
+	$('[name="room_id"]').val(inpatient.room.id).change();
+	$('[name="class_id"]').val(inpatient.room.level_id).change();
+	$('[name="doctor_name"]').val(inpatient.doctor.name);
+	$('[name="pasien_id"]').val(inpatient.name);
+});
+
+function getInpatientDetail(id) {
+	var res = $.ajax({
+		url: SITE_URL+'/examination_inpatient/get-inpatient-id/'+id,
+		type: 'get',
+		dataType: 'json',
+		async: false
+	});
+
+	return res.responseJSON;
+}
 
 function getAction()
 {
@@ -228,7 +248,7 @@ function onAddRow()
                     '<td>'+
 						'<div class="form-group">' +
 	                		'<div class="input-group">' +
-							  '<input name="cost_inpatient['+ row_length +']" type="text" class="form-control text-center number" required="required" placeholder="0" onkeyup="onCalculate(this.value, document.getElementsByName(\'many_action['+ row_length +']\')[0].value, '+row_length+')">'+
+							  '<input name="cost_inpatient['+ row_length +']" type="text" class="form-control text-center number" readOnly="readOnly" required="required" placeholder="0" onkeyup="onCalculate(this.value, document.getElementsByName(\'many_action['+ row_length +']\')[0].value, '+row_length+')">'+
 							'</div>' +
 							'<span class="help-block"></span>' +
 						'</div>' +
@@ -269,6 +289,14 @@ function onAddRow()
 	arr_action = getAction();
     $('.action-id').select2({
     	data: arr_action
+    });
+
+	$('.action-id').select2({
+    	data: arr_action
+    }).on('change', function(){
+		var rowid = row_length;
+		var action = getActionDetail($(this).val());
+    	$('[name="cost_inpatient['+rowid+']"]').val(action.total);
     });
 
     $('.number').keypress(function(e){
@@ -337,7 +365,7 @@ function onAddRow1()
 									'<td>'+
 										'<div class="form-group">' +
 											'<div class="input-group">' +
-												'<input name="price_material['+ row_length2 +']" type="text" class="form-control text-center" required="required" placeholder="3000" onkeyup="onCalculate1(this.value, document.getElementsByName(\'many_material['+ row_length2 +']\')[0].value, '+row_length2+')">'+
+												'<input name="price_material['+ row_length2 +']" type="text" readOnly="readOnly" class="form-control text-center" required="required" placeholder="0" onkeyup="onCalculate1(this.value, document.getElementsByName(\'many_material['+ row_length2 +']\')[0].value, '+row_length2+')">'+
 											'</div>' +
 											'<span class="help-block"></span>' +
 										'</div>' +
@@ -345,7 +373,7 @@ function onAddRow1()
 									'<td>'+
 										'<div class="form-group">' +
 	                		'<div class="input-group">' +
-							  				'<input name="many_material['+ row_length2 +']" type="text" class="form-control text-center" required="required" placeholder="10" onkeyup="onCalculate1(this.value, document.getElementsByName(\'price_material['+ row_length2 +']\')[0].value, '+row_length2+')">'+
+							  				'<input name="many_material['+ row_length2 +']" type="text" class="form-control text-center" required="required" placeholder="0" onkeyup="onCalculate1(this.value, document.getElementsByName(\'price_material['+ row_length2 +']\')[0].value, '+row_length2+')">'+
 											'</div>' +
 											'<span class="help-block"></span>' +
 										'</div>' +
@@ -384,11 +412,19 @@ function onAddRow1()
     })
 
 
-		$('.select2').select2();
+	$('.select2').select2();
 		
-		$('.date').datepicker({  
-			format: 'yyyy-mm-dd'
-		});  
+	$('.date').datepicker({  
+		format: 'yyyy-mm-dd'
+	})
+
+    $('.material-id').select2({
+		data: arr_material
+    }).on('change', function(){
+    	var rowid = row_length2;
+		var material = getMAterialDetail($(this).val());
+    	$('[name="price_material['+rowid+']"]').val(material.selling_price);
+    });
 
     $('.number').keypress(function(e){
     	if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
@@ -436,7 +472,7 @@ function onAddRow2()
 									'<td>'+
 										'<div class="form-group">' +
 											'<div class="input-group">' +
-												'<input name="price_lab['+ row_length3 +']" type="text" class="form-control text-center" required="required" placeholder="150000" onkeyup="onCalculateAllLab()">'+
+												'<input name="price_lab['+ row_length3 +']" type="text" readOnly="readOnly" class="form-control text-center" required="required" placeholder="0" onfocusin="onCalculateAllLab()">'+
 											'</div>' +
 											'<span class="help-block"></span>' +
 										'</div>' +
@@ -462,7 +498,17 @@ function onAddRow2()
 
     $('.doctor-lab-id').select2({
     	data: arr_doctor
-    });
+	});
+	
+	$('.lab-id').select2({
+    	data: arr_labo
+    }).on('change', function(){
+		var rowid = row_length3;
+		var labola = getLabDetail($(this).val());
+		$('[name="price_lab['+rowid+']"]').val(labola.harga);
+		onCalculateAllLab();
+		calculateAllOfData();
+	});
 
     $('#form-add-examination_inpatient').validate();
 
@@ -489,4 +535,37 @@ function onCalculate1(valPriceMaterial, valManyMaterial, valSum) {
 	}
 	onCalculateAllMedicine();
 	calculateAllOfData();
+}
+
+function getActionDetail(id) {
+	var res = $.ajax({
+		url: SITE_URL+'/examination_inpatient/get-action-id/'+id,
+		type: 'get',
+		dataType: 'json',
+		async: false
+	});
+
+	return res.responseJSON;
+}
+
+function getMAterialDetail(id) {
+	var res = $.ajax({
+		url: SITE_URL+'/examination_inpatient/get-material-id/'+id,
+		type: 'get',
+		dataType: 'json',
+		async: false
+	});
+
+	return res.responseJSON;
+}
+
+function getLabDetail(id) {
+	var res = $.ajax({
+		url: SITE_URL+'/examination_inpatient/get-lab-id/'+id,
+		type: 'get',
+		dataType: 'json',
+		async: false
+	});
+
+	return res.responseJSON;
 }

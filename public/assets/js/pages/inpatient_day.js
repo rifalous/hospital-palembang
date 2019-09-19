@@ -10,8 +10,8 @@ $(document).ready(function(){
 		},
         headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
         columns: [
-            { data: 'inpatient.no_registrasi', name: 'inpatient.no_registrasi' },
-            { data: 'pasien_id', name: 'pasien_id' },
+            { data: 'pasien.no_rm', name: 'pasien.no_rm' },
+            { data: 'pasien.name', name: 'pasien.name' },
             { data: 'tgl_bayar', name: 'tgl_bayar' },
             { data: 'total_biaya', name: 'total_biaya'},
             { data: 'sisa_tagihan', name: 'sisa_tagihan'},

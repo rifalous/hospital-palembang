@@ -30,6 +30,7 @@ $(document).ready(function(){
         var row = tOutpatient.row(tr);
         var tableId = 'posts-' + row.data().id;
         var tableId1 = 'posts1-' + row.data().id;
+        var tableId2 = 'posts2-' + row.data().id;
 
         if (row.child.isShown()) {
             // This row is already open - close it
@@ -40,6 +41,7 @@ $(document).ready(function(){
             row.child(template(row.data())).show();
             initTable(tableId, row.data());
             initTable1(tableId1, row.data());
+            initTable2(tableId2, row.data());
             tr.addClass('shown');
             tr.next().find('td').addClass('no-padding bg-gray');
         }
@@ -89,6 +91,27 @@ $(document).ready(function(){
         });
     }
 
+    function initTable2(tableId2, data) {
+        $('#' + tableId2).DataTable({
+            /*processing: true,
+            serverSide: true,*/
+            ajax: data.details_url2,
+            columns: [
+              
+                { data: 'lab.keterangan', name: 'lab.keterangan'},
+                { data: 'hasil', name: 'hasil'},
+                { data: 'biaya', name: 'biaya'},
+                { data: 'doctor.name', name: 'doctor.name'},
+                   
+               
+            ],
+            ordering: false,
+            searching: false,
+            paging: true,
+            info: false
+        });
+    }
+
      function template(d) {
 
         console.log(d);
@@ -122,6 +145,19 @@ $(document).ready(function(){
 
             </table>
 
+            <table class="table details-table2" id="posts2-${d.id}">
+                    <thead>
+                    <tr>
+                        <th>Laboratorium</th>
+                        <th>Hasil</th>
+                        <th>Biaya</th>
+                        <th>Penanggung Jawab</th>
+                        
+                    </tr>
+
+
+            </table>
+
         `;
     }
 
@@ -136,4 +172,18 @@ function on_delete(examination_outpatient_id)
 {
     $('#modal-delete-confirm').modal('show');
     $('#btn-confirm').data('value', examination_outpatient_id);
+}
+
+function on_search()
+{
+	var src = $('#search').val();
+    tOutpatient.search(src).draw();
+}
+
+// clear search
+
+function on_clear_search()
+{
+	$('#search').val('');
+	on_search();
 }

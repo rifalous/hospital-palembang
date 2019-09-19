@@ -1,7 +1,7 @@
 var tbProgram;
 $(document).ready(function(){
 	tbProgram = $('#table-patient-exits').DataTable({
-        order: [2, 'asc'],
+        // order: [2, 'asc'],
         ajax: SITE_URL + '/patient_exits/get_data',
         headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
         columns: [
