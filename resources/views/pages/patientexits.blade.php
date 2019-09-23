@@ -33,13 +33,6 @@
                 <div class="pull-left">
                   
                   <a class="btn btn-primary btn-bordered waves-effect waves-light" href="{{ url('patient_exits/create') }}"><i class="mdi mdi-plus"></i> Tambah </a>
-                  
-                  
-                  <button class="btn btn-primary btn-bordered waves-effect waves-light" onclick="on_edit()">Ubah</button>
-                  
-                  
-                  <button class="btn btn-primary btn-bordered waves-effect waves-light" onclick="on_delete()">Hapus</button>
-                 
                   </div>
               </div>
               <div class="col-md-4">
@@ -58,13 +51,7 @@
               <table id="table-patient-exits" class="table table-bordered table-responsive">
                 <thead>
                   <tr>
-                    <th class="text-center" >
-                      <div class="checkbox">
-                          <input id="select-all" type="checkbox">
-                          <label for="select-all"></label>
-                      </div>
-                    </th>
-                    
+                    <th style="width: 50px"></th>
                     <th>No Registrasi</th>
                     <th>Nama Pasien</th>
                     <th>Usia </th>
@@ -79,6 +66,7 @@
                     <th>Cara Keluar</th>
                     <th>Keadaan Keluar</th>
                     <th>Total Biaya</th>
+							      <th style="width: 100px">Opsi</th>
                     
                   </tr>
                 </thead>

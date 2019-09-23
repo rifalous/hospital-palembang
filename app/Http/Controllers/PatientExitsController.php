@@ -9,6 +9,7 @@ use App\Room;
 use App\Level;
 use App\Pasien;
 use App\System;
+use App\ExaminationInpatient;
 use DB;
 use DataTables;
 use Storage;
@@ -157,17 +158,23 @@ class PatientExitsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request,$id)
+
+    public function destroy($id)
     {
-        //true
-        $vocation = PatientExits::whereIn('id', $request->id)->delete();
-        $res = [  
-                'title' => 'Berhasil',
-                'type' => 'success',
-                'message' => count($request->id). ' Data berhasil dihapus!'
+        DB::transaction(function() use ($id){
+
+            $vocation = PatientExits::find($id);
+            $vocation->delete();
+
+        });
+
+        $res = [
+                    'title' => 'Sukses',
+                    'type' => 'success',
+                    'message' => 'Data berhasil dihapus!'
                 ];
 
-        return response()->json($res);
+        return redirect('patient_exits')->with($res);
     }
 
     public function getData(){
@@ -176,15 +183,17 @@ class PatientExitsController extends Controller
 
         return DataTables::of($data)
 
-            ->rawColumns(['option', 'details'])
+            ->rawColumns(['option'])
 
-            ->addColumn('option', function($data) {
-
-                return '<div class="checkbox">
-                            <input type="checkbox" name="rowcheck[]" value="'.$data->id.'">
-                            <label></label>
-                        </div>';
-
+            ->addColumn('option', function($data){
+                return '
+                    <a href="'.route('patient_exits.edit', $data->id).'" class="btn btn-success btn-xs" data-toggle="tooltip" title="Ubah"><i class="mdi mdi-pencil"></i></a>
+                    <button class="btn btn-danger btn-xs" data-toggle="tooltip" title="Hapus" onclick="on_delete('.$data->id.')"><i class="mdi mdi-close"></i></button>
+                    <form action="'.route('patient_exits.destroy', $data->id).'" method="POST" id="form-delete-'.$data->id .'" style="display:none">
+                        '.csrf_field().'
+                        <input type="hidden" name="_method" value="DELETE">
+                    </form>
+                ';
             })
             
 
@@ -210,6 +219,18 @@ class PatientExitsController extends Controller
 
             ->addColumn('room_class', function($data){
                 return $data->room->level->class;
+            })
+
+            ->addColumn('details_url', function($data) {
+                return url('patient_exits/details-data/'.$data->id);
+            })
+    
+            ->addColumn('details_url1', function($data) {
+                return url('patient_exits/details-data1/'.$data->id);
+            })
+    
+            ->addColumn('details_url2', function($data) {
+                return url('patient_exits/details-data2/'.$data->id);
             })
 
             ->make(true);
@@ -239,6 +260,37 @@ class PatientExitsController extends Controller
                     ->doesnthave('examination_inpatient')
                     ->get();
         return response()->json(array_merge($array, $inpatient->toArray()));
+    }
+
+    // getMaterial
+    public function getDetailsData($id)
+    {
+        $details = ExaminationInpatient::find($id)
+                ->details()
+                ->with(['action','doctor'])
+                ->get();
+        return Datatables::of($details)->make(true);
+    }
+    
+    // Get Action
+    public function getDetailsMaterial($id)
+    {
+        $materials = ExaminationInpatient::find($id)
+                ->material()
+                ->with(['doctor','material'])
+                ->get();
+        // dd($details);
+        return Datatables::of($materials)->make(true);
+    }
+
+    // Get Labolatorium
+    public function getDetailsLabolatorium($id)
+    {
+        $labolatoriums = ExaminationInpatient::find($id)
+                ->labs()
+                ->with(['doctor','lab'])
+                ->get();
+        return Datatables::of($labolatoriums)->make(true);
     }
 
     

@@ -207,7 +207,20 @@ Route::middleware('auth')->group(function(){
 	// Route::get('patient_exits/get_data/{id}', 'PatientExitsController@getDataByRegistrationNumber');
 	Route::get('patient_exits/get_inpatient', 'PatientExitsController@getInpatient');
 	Route::get('patient_exits/get-inpatient-id/{id}', 'PatientExitsController@getInpatientId');
+	Route::get('patient_exits/details-data/{id}', 'PatientExitsController@getDetailsMaterial');
+	Route::get('patient_exits/details-data1/{id}', 'PatientExitsController@getDetailsData');
+	Route::get('patient_exits/details-data2/{id}', 'PatientExitsController@getDetailsLabolatorium');
 	Route::resource('patient_exits', 'PatientExitsController');
+
+	//Master Lab Check Up
+	Route::get('lab_checkup/get_data', 'LabCheckupController@getData');
+	Route::get('lab_checkup/get_inpatient', 'LabCheckupController@getInpatient');
+	Route::get('lab_checkup/get-inpatient-id/{id}', 'LabCheckupController@getInpatientId');
+	Route::get('lab_checkup/get_labo', 'LabCheckupController@getLabo');	
+	Route::get('lab_checkup/get-labo-id/{id}', 'LabCheckupController@getLaboId');
+	Route::get('lab_checkup/details-data/{id}', 'LabCheckupController@getDetailLab');	
+	Route::resource('lab_checkup', 'LabCheckupController');
+
 
 	// Settings
 	Route::prefix('settings')->group(function(){

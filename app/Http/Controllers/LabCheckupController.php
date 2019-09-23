@@ -3,50 +3,100 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Inpatient;
-use App\Room;
-use App\Pasien;
-use App\Doctor;
-use App\System;
 use DB;
+use App\ExaminationOutpatient;
+use App\ExaminationInpatient;
+use App\Laboratorium;
+use App\Inpatient;
+use App\Action;
+use App\Material;
+use App\Doctor;
+use App\Room;
+use App\Level;
+use App\Outpatient;
+use App\System;
+use App\LabCheckup;
+use App\ExaminationLabCheckup;
 use DataTables;
-use Excel;
-use PDF;
 use Storage;
 
 class LabCheckupController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index(Request $request)
+    public function index()
     {
-        if ($request->wantsJson()) {
-
-            $inpatients= Inpatient::with(['room','pasien','doctor'])->get();
-
-            return response()->json($inpatients);
-        }
-        return view('pages.lab_checkup');
+        return view('pages.lab_checkup.index');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function getdata(){
+       
+        $lab_checkup = LabCheckup::with('inpatient')->get();
+
+        return DataTables::of($lab_checkup)
+
+        ->rawColumns(['options'])
+
+        ->addColumn('options', function($lab_checkup){
+            return '
+                <a href="'.route('lab_checkup.edit', $lab_checkup->id).'" class="btn btn-success btn-xs" data-toggle="tooltip" title="Ubah"><i class="mdi mdi-pencil"></i></a>
+                <button class="btn btn-danger btn-xs" data-toggle="tooltip" title="Hapus" onclick="on_delete('.$lab_checkup->id.')"><i class="mdi mdi-close"></i></button>
+                <form action="'.route('lab_checkup.destroy', $lab_checkup->id).'" method="POST" id="form-delete-'.$lab_checkup->id .'" style="display:none">
+                    '.csrf_field().'
+                    <input type="hidden" name="_method" value="DELETE">
+                </form>
+            ';
+        })
+        ->addColumn('pasien_name', function($lab_checkup){
+                return $lab_checkup->inpatient->pasien->name.' | '.$lab_checkup->inpatient->no_registrasi;
+        })
+
+        // ->addColumn('lab_keterangan', function($lab_checkup){
+        //     return $lab_checkup->lab->keterangan;
+        // })
+
+        ->addColumn('total_biaya', function($lab_checkup){
+            return $lab_checkup->total_ammount;
+        })
+
+        ->addColumn('tanggal_registrasi', function($lab_checkup){
+            return $lab_checkup->registration_date;
+        })
+
+        ->addColumn('catatan', function($lab_checkup){
+            return $lab_checkup->notes;
+        })
+
+        ->addColumn('details_url', function($lab_checkup) {
+            return url('lab_checkup/details-data/'.$lab_checkup->id);
+        })
+
+        ->toJson();
+    }
+
+    public function destroy($id)
+    {
+        DB::transaction(function() use ($id){
+
+            $lab_checkup = LabCheckup::find($id);
+            $lab_checkup->delete();
+
+        });
+
+        $res = [
+                    'title' => 'Sukses',
+                    'type' => 'success',
+                    'message' => 'Data berhasil dihapus!'
+                ];
+
+        return redirect('lab_checkup')->with($res);
+    }
+
     public function create()
     {
-        $rooms                  = Room::get();
-        $pasiens                = Pasien::get();
-        $doctors                = Doctor::get();
-        $entry_procedures       = System::config('entry_procedure');
-        $person_in_charges      = System::config('person_in_charge');
-        $getCodeInpatient       = Inpatient::getCodeInpatient();
+        $inpatient = Inpatient::all();
+        $labs = Laboratorium::all();
+        $rooms = Room::get(); //room Model
+        return view('pages.lab_checkup.create', compact(['inpatient','labs','rooms']));
 
-        return view('pages.lab_checkup.create', compact(['rooms','pasiens','doctors','person_in_charges','entry_procedures','getCodeInpatient']));
     }
 
     /**
@@ -59,23 +109,25 @@ class LabCheckupController extends Controller
     {
         DB::transaction(function() use ($request){
 
-            $inpatient                    = new Inpatient;
-            $inpatient->no_registrasi     = $request->no_registrasi;
-            $inpatient->pasien_id         = $request->pasien_id;
-            $inpatient->tgl_masuk         = $request->tgl_masuk;
-            $inpatient->time              = $request->time;
-            $inpatient->entry_procedure   = $request->entry_procedure;
-            $inpatient->room_id           = $request->room_id;
-            $inpatient->doctor_id         = $request->doctor_id;
-            $inpatient->disease           = $request->disease;
-            $inpatient->person_in_charge  = $request->person_in_charge;
-            $inpatient->name              = $request->name;
-            $inpatient->address           = $request->address;
-            $inpatient->phone             = $request->phone;
-            $inpatient->complaint         = $request->complaint;
-            $inpatient->save();
-            
+            $lab_checkup                    = new LabCheckup;
+            $lab_checkup->inpatient_id      = $request->inpatient_id;
+            $lab_checkup->total_ammount     = $request->total_amount;
+            $lab_checkup->registration_date = $request->registration_date;
+            $lab_checkup->notes             = $request->notes;
+            $lab_checkup->person_in_charge  = $request->person_in_charge;
+            $lab_checkup->save();
 
+            $lab_checkup_id                  = $lab_checkup->id;
+
+            if (count($request->lab_test) > 0) {
+
+                foreach($request->lab_test as $index => $value) { 
+                    $actions                            = new ExaminationLabCheckup;
+                    $actions->examination_checkup_id  = $lab_checkup_id;
+                    $actions->lab_id                 = $request->lab_test[$index];
+                    $actions->save();
+                }
+            }
         });
 
         $res = [
@@ -84,90 +136,45 @@ class LabCheckupController extends Controller
                     'message' => 'Data berhasil disimpan!'
                 ];
 
-        return redirect('lab_checkup')
-                    ->with($res);
+        return redirect('lab_checkup')->with($res);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        $rooms = Room::get();
-        $pasiens = Pasien::get();
-        $doctors = Doctor::get();
-        $entry_procedures       = System::config('entry_procedure');
-        $person_in_charges      = System::config('person_in_charge');
-        $registration_inpatient = Inpatient::find($id);
-
-        return view('pages.lab_checkup.show', compact(['registration_inpatient','rooms','pasiens','doctors','entry_procedures','person_in_charges']));
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function pdf($id)
-    {
-        $registration_inpatient = Inpatient::with(['room', 'doctor', 'pasien','examination_inpatient'])->find($id);
-
-        $viewData = view('pages.lab_checkup.show-pdf', compact(['registration_inpatient']));
-        $nameFile = 'INAP-'.$registration_inpatient->no_registrasi.'-'.$registration_inpatient->pasien->details->identification_number.'.pdf';
-        $pdf = PDF::loadHtml($viewData)->setWarnings(false);
-        return $pdf->download($nameFile);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
-        $rooms = Room::get();
-        $pasiens = Pasien::get();
-        $doctors = Doctor::get();
-        $entry_procedures       = System::config('entry_procedure');
-        $person_in_charges      = System::config('person_in_charge');
-        $registration_inpatient = Inpatient::find($id);
+        $inpatient = Inpatient::select('id', 'no_registrasi as text')->get();
+        $rooms = Room::get(); //room Model
+        $labs = Laboratorium::all();
+        
+        $lab_checkup  = LabCheckup::find($id);
 
-        return view('pages.lab_checkup.edit', compact(['registration_inpatient','rooms','pasiens','doctors','entry_procedures','person_in_charges']));
+
+        return view('pages.lab_checkup.edit', compact(['inpatients', 'labs','lab_checkup','rooms']));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         DB::transaction(function() use ($request, $id){
 
-            $inpatient                    = Inpatient::find($id);
-            $inpatient->no_registrasi     = $request->no_registrasi;
-            $inpatient->pasien_id         = $request->pasien_id;
-            $inpatient->tgl_masuk         = $request->tgl_masuk;
-            $inpatient->time              = $request->time;
-            $inpatient->entry_procedure   = $request->entry_procedure;
-            $inpatient->room_id           = $request->room_id;
-            $inpatient->doctor_id         = $request->doctor_id;
-            $inpatient->disease           = $request->disease;
-            $inpatient->person_in_charge  = $request->person_in_charge;
-            $inpatient->name              = $request->name;
-            $inpatient->address           = $request->address;
-            $inpatient->phone             = $request->phone;
-            $inpatient->complaint         = $request->complaint;
-            $inpatient->save();
-            
+            $lab_checkup                    = LabCheckup::find($id);
+            $lab_checkup->inpatient_id      = $request->inpatient_id;
+            $lab_checkup->total_ammount     = $request->total_amount;
+            $lab_checkup->registration_date = $request->registration_date;
+            $lab_checkup->notes             = $request->notes;
+            $lab_checkup->person_in_charge  = $request->person_in_charge;
+            $lab_checkup->save();
 
+            $truncate = ExaminationLabCheckup::where('examination_checkup_id', $id)
+            ->delete();
+
+            if (count($request->lab_test) > 0) {
+
+                foreach($request->lab_test as $index => $value) { 
+                    $data_detail                            = new ExaminationLabCheckup;
+                    $data_detail->examination_checkup_id    = $id;                    
+                    $data_detail->lab_id                    = $request->lab_test[$index];
+                    $lab_checkup->labo()->save($data_detail);
+                }
+            }
         });
 
         $res = [
@@ -180,114 +187,37 @@ class LabCheckupController extends Controller
                     ->with($res);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Request $request,$id)
+    public function getInpatient(Request $request)
     {
-        
-           //true
-            $vocation = Inpatient::whereIn('id', $request->id)
-                                ->delete();
-        
-                $res = [
-                    'title' => 'Berhasil',
-                    'type' => 'success',
-                    'message' => count($request->id). 'Data berhasil dihapus!'
-                ];
-
-        return response()->json($res);
-        
+        $array = [['id' => '', 'text' => '']];
+        $inpatient = Inpatient::get();
+        return response()->json(array_merge($array, $inpatient->toArray()));
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function remove(Request $request,$id)
-    {
-        
-        //true
-        $vocation = Inpatient::where('id', $request->id)->delete();
-    
-        $res = [
-            'title' => 'Berhasil',
-            'type' => 'success',
-            'message' => count($request->id). 'Data berhasil dihapus!'
-        ];
-
-        return response()->json($res);
-        
+    public function getInpatientId($id) {
+        $inpatient = Inpatient::with(['pasien','room','detail'])->find($id);
+        return response()->json($inpatient);
     }
 
-    public function export() 
-    {
-        $inpatients = Inpatient::select('no_registrasi','tgl_masuk','time','pasiens.name','pasiens.allergy')
-                    ->join('pasiens', 'inpatients.pasien_id', '=', 'pasiens.id')
-                    ->get();
-       return Excel::create('Data Registrasi Rawat Inap', function($excel) use ($inpatients){
-             $excel->sheet('Data Registrasi Rawat Inap', function($sheet) use ($inpatients){
-                 $sheet->fromArray($inpatients);
-             });
+    public function getLabo(Request $request)
+    {   
+        $labo = Laboratorium::select('id', 'keterangan as text')->get();
 
-        })->download('csv');
-
+        return response()->json($labo);
     }
 
-    public function getData(){
-        
-        $data = Inpatient::with(['room','pasien','doctor'])->get();
+    public function getLaboId($id) {
+        $labo = Laboratorium::find($id);
+        return response()->json($labo);
+    }
 
-        return DataTables::of($data)
-
-            ->rawColumns(['option', 'actions'])
-
-            ->addColumn('option', function($data) {
-
-                return '<div class="checkbox">
-                            <input type="checkbox" name="rowcheck[]" value="'.$data->id.'">
-                            <label></label>
-                        </div>';
-
-            })
-            
-            ->addColumn('pasien_name', function($data){
-                return $data->pasien->name;
-            })
-
-            ->addColumn('pasien_gender', function($data){
-                return $data->pasien->details->gender;
-            })
-
-            ->addColumn('pasien_age', function($data){
-                return $data->pasien->details->age;
-            })
-
-            ->addColumn('doctor_name', function($data){
-                return $data->doctor->name;
-            })
-
-            ->addColumn('room_name', function($data){
-                return $data->room->name;
-            })
-
-            ->addColumn('room_class', function($data){
-                return $data->room->level->class;
-            })
-
-            ->addColumn('actions', function($data){
-                return '
-                    <a href="'.route('lab_checkup.show', $data->id).'" class="btn btn-warning btn-xs" data-toggle="tooltip" title="Lihat Detail"><i class="mdi mdi-magnify"></i></a>
-                    <a href="'.route('lab_checkup.edit', $data->id).'" class="btn btn-success btn-xs" data-toggle="tooltip" title="Ubah"><i class="mdi mdi-pencil"></i></a>
-                    <button class="btn btn-danger btn-xs" data-toggle="tooltip" title="Hapus" onclick="on_delete('.$data->id.')"><i class="mdi mdi-close"></i></button>
-                ';
-            })
-
-            ->make(true);
+    // Get Action
+    public function getDetailLab($id){
+        $labolatorium = LabCheckup::find($id)
+                ->labo()
+                ->with(['lab'])
+                ->get();
+        // dd($details);
+        return Datatables::of($labolatorium)->make(true);
     }
 }

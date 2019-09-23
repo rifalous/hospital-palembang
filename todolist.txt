@@ -44,7 +44,7 @@ Pemeriksaan Rawat Inap (Edit) :
 Todo List Pertanggal 12/09/2019 - 19/09/2019
 1. Fix Bug Option Selected Pada "Bahan/Obat" dan "Tindakan" Pemeriksaan Rawat Inap dan Pemeriksaan Rawat Jalan Edit (Done)
 2. Pemeriksaan Rawat Inap dan Pemeriksaan Rawat Jalan Edit Bug "Creating default object from empty value" (Done)
-3. Pembuatan Modul Baru Pemeriksaan Laboratorium (CRUD)
+3. Pembuatan Modul Baru Pemeriksaan Laboratorium (CRUD) (Done)
 	- No Registrasi Rawat Inap (Select Option) (Get Dari Registrasi Rawat Inap)
 	- Nama Pasien (Text Disabled) (Get Berdasarkan No Registrasi Rawat Inap)
 	- Jenis Kelamin (Text Disabled) (Get Berdasarkan No Registrasi Rawat Inap)
@@ -56,5 +56,5 @@ Todo List Pertanggal 12/09/2019 - 19/09/2019
 	- Nama Penanggung Jawab Lab (Text) (Input)
 4. Pasien Keluar Get No RM, Tgl Masuk, Jam Masuk, Ruangan, Diagnosis, Total Biaya Berdasarkan No Registrasi (Done)
 5. Fix Bug Pembayaran Rawat Jalan No Registrasi Select Option (Edit) (Done)
-6. Pembuatan Rest API Ketersediaan Kamar/Ruangan Dengan Menghitung Sisa Kamar Kosong
-7. TBA
+6. Pembuatan Rest API Ketersediaan Kamar/Ruangan Dengan Menghitung Sisa Kamar Kosong(Cancle)
+7. TBA(Cancle)

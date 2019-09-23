@@ -25,6 +25,11 @@ class Inpatient extends Model
         return $this->belongsTo('App\Pasien','pasien_id', 'id');
     }
 
+    public function detail()
+    {
+        return $this->belongsTo('App\PasienData','pasien_id', 'id');
+    }
+
     public function examination()
     {
         return $this->hasMany('App\ExaminationPatient');
